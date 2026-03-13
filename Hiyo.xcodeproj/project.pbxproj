@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		EE62F70C2F64722000E0DA35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE62F6E82F64721E00E0DA35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE62F6EF2F64721E00E0DA35;
+			remoteInfo = Hiyo;
+		};
+		EE62F7162F64722000E0DA35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE62F6E82F64721E00E0DA35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE62F6EF2F64721E00E0DA35;
+			remoteInfo = Hiyo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE62F6F02F64721E00E0DA35 /* Hiyo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hiyo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HiyoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HiyoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EE62F71D2F64722000E0DA35 /* Exceptions for "Hiyo" folder in "Hiyo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EE62F6EF2F64721E00E0DA35 /* Hiyo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EE62F6F22F64721E00E0DA35 /* Hiyo */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE62F71D2F64722000E0DA35 /* Exceptions for "Hiyo" folder in "Hiyo" target */,
+			);
+			path = Hiyo;
+			sourceTree = "<group>";
+		};
+		EE62F70E2F64722000E0DA35 /* HiyoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HiyoTests;
+			sourceTree = "<group>";
+		};
+		EE62F7182F64722000E0DA35 /* HiyoUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HiyoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE62F6ED2F64721E00E0DA35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7082F64722000E0DA35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7122F64722000E0DA35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE62F6E72F64721E00E0DA35 = {
+			isa = PBXGroup;
+			children = (
+				EE62F6F22F64721E00E0DA35 /* Hiyo */,
+				EE62F70E2F64722000E0DA35 /* HiyoTests */,
+				EE62F7182F64722000E0DA35 /* HiyoUITests */,
+				EE62F6F12F64721E00E0DA35 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE62F6F12F64721E00E0DA35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE62F6F02F64721E00E0DA35 /* Hiyo.app */,
+				EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */,
+				EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE62F6EF2F64721E00E0DA35 /* Hiyo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE62F71E2F64722000E0DA35 /* Build configuration list for PBXNativeTarget "Hiyo" */;
+			buildPhases = (
+				EE62F6EC2F64721E00E0DA35 /* Sources */,
+				EE62F6ED2F64721E00E0DA35 /* Frameworks */,
+				EE62F6EE2F64721E00E0DA35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EE62F6F22F64721E00E0DA35 /* Hiyo */,
+			);
+			name = Hiyo;
+			packageProductDependencies = (
+			);
+			productName = Hiyo;
+			productReference = EE62F6F02F64721E00E0DA35 /* Hiyo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE62F70A2F64722000E0DA35 /* HiyoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE62F7232F64722000E0DA35 /* Build configuration list for PBXNativeTarget "HiyoTests" */;
+			buildPhases = (
+				EE62F7072F64722000E0DA35 /* Sources */,
+				EE62F7082F64722000E0DA35 /* Frameworks */,
+				EE62F7092F64722000E0DA35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE62F70D2F64722000E0DA35 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE62F70E2F64722000E0DA35 /* HiyoTests */,
+			);
+			name = HiyoTests;
+			packageProductDependencies = (
+			);
+			productName = HiyoTests;
+			productReference = EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EE62F7142F64722000E0DA35 /* HiyoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE62F7262F64722000E0DA35 /* Build configuration list for PBXNativeTarget "HiyoUITests" */;
+			buildPhases = (
+				EE62F7112F64722000E0DA35 /* Sources */,
+				EE62F7122F64722000E0DA35 /* Frameworks */,
+				EE62F7132F64722000E0DA35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE62F7172F64722000E0DA35 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE62F7182F64722000E0DA35 /* HiyoUITests */,
+			);
+			name = HiyoUITests;
+			packageProductDependencies = (
+			);
+			productName = HiyoUITests;
+			productReference = EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE62F6E82F64721E00E0DA35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					EE62F6EF2F64721E00E0DA35 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					EE62F70A2F64722000E0DA35 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = EE62F6EF2F64721E00E0DA35;
+					};
+					EE62F7142F64722000E0DA35 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = EE62F6EF2F64721E00E0DA35;
+					};
+				};
+			};
+			buildConfigurationList = EE62F6EB2F64721E00E0DA35 /* Build configuration list for PBXProject "Hiyo" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE62F6E72F64721E00E0DA35;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EE62F6F12F64721E00E0DA35 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE62F6EF2F64721E00E0DA35 /* Hiyo */,
+				EE62F70A2F64722000E0DA35 /* HiyoTests */,
+				EE62F7142F64722000E0DA35 /* HiyoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE62F6EE2F64721E00E0DA35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7092F64722000E0DA35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7132F64722000E0DA35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE62F6EC2F64721E00E0DA35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7072F64722000E0DA35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE62F7112F64722000E0DA35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE62F70D2F64722000E0DA35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE62F6EF2F64721E00E0DA35 /* Hiyo */;
+			targetProxy = EE62F70C2F64722000E0DA35 /* PBXContainerItemProxy */;
+		};
+		EE62F7172F64722000E0DA35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE62F6EF2F64721E00E0DA35 /* Hiyo */;
+			targetProxy = EE62F7162F64722000E0DA35 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EE62F71F2F64722000E0DA35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Hiyo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.Hiyo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE62F7202F64722000E0DA35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Hiyo/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.Hiyo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EE62F7212F64722000E0DA35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EE62F7222F64722000E0DA35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE62F7242F64722000E0DA35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.HiyoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hiyo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hiyo";
+			};
+			name = Debug;
+		};
+		EE62F7252F64722000E0DA35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.HiyoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hiyo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hiyo";
+			};
+			name = Release;
+		};
+		EE62F7272F64722000E0DA35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.HiyoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hiyo;
+			};
+			name = Debug;
+		};
+		EE62F7282F64722000E0DA35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.HiyoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hiyo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE62F6EB2F64721E00E0DA35 /* Build configuration list for PBXProject "Hiyo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE62F7212F64722000E0DA35 /* Debug */,
+				EE62F7222F64722000E0DA35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE62F71E2F64722000E0DA35 /* Build configuration list for PBXNativeTarget "Hiyo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE62F71F2F64722000E0DA35 /* Debug */,
+				EE62F7202F64722000E0DA35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE62F7232F64722000E0DA35 /* Build configuration list for PBXNativeTarget "HiyoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE62F7242F64722000E0DA35 /* Debug */,
+				EE62F7252F64722000E0DA35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE62F7262F64722000E0DA35 /* Build configuration list for PBXNativeTarget "HiyoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE62F7272F64722000E0DA35 /* Debug */,
+				EE62F7282F64722000E0DA35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE62F6E82F64721E00E0DA35 /* Project object */;
+}
