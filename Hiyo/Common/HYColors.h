@@ -9,6 +9,19 @@
 #define PrimaryPurple      [UIColor colorWithRed:0.77 green:0.31 blue:0.886 alpha:1.0]
 #define PrimaryViolet     [UIColor colorWithRed:0.482 green:0.373 blue:1.0 alpha:1.0]
 
+// Light Theme Colors
+#define LightBg1          [UIColor colorWithRed:0.973 green:0.965 blue:1.0 alpha:1.0]   // #F8F6FF
+#define LightBg2          [UIColor colorWithRed:0.941 green:0.929 blue:1.0 alpha:1.0]   // #F0EDFF
+#define LightCard         [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]        // #FFFFFF
+#define LightCard2        [UIColor colorWithRed:0.980 green:0.973 blue:1.0 alpha:1.0]   // #FAF8FF
+#define PinkGradStart     [UIColor colorWithRed:1.0 green:0.42 blue:0.62 alpha:1.0]     // #FF6B9E
+#define PinkGradEnd       [UIColor colorWithRed:1.0 green:0.25 blue:0.506 alpha:1.0]    // #FF4081
+#define PurpleGradStart   [UIColor colorWithRed:0.608 green:0.498 blue:1.0 alpha:1.0]   // #9B7FFF
+#define PurpleGradEnd     [UIColor colorWithRed:0.769 green:0.31 blue:0.89 alpha:1.0]    // #C44FE3
+#define OnlineGreenLight  [UIColor colorWithRed:0.298 green:0.686 blue:0.314 alpha:1.0]  // #4CAF50
+#define VipGold           [UIColor colorWithRed:1.0 green:0.843 blue:0.0 alpha:1.0]      // #FFD700
+#define CardGlowPurple    [UIColor colorWithRed:0.769 green:0.31 blue:0.89 alpha:0.15]   // purple shadow 15%
+
 // Background Colors
 #define DarkBackground     [UIColor colorWithRed:0.039 green:0.039 blue:0.078 alpha:1.0]
 #define DarkCard          [UIColor colorWithRed:0.11 green:0.11 blue:0.18 alpha:1.0]

@@ -2,28 +2,13 @@
 #import "HYAPIClient.h"
 #import "HYUser.h"
 #import "ChatDetailViewController.h"
+#import "HYColors.h"
 #import <Masonry/Masonry.h>
 #import <ZLSwipeableView.h>
 #import <SDWebImage/SDWebImage.h>
 #import <AVFoundation/AVFoundation.h>
 
 static NSInteger const kPrefetchImageCount = 6;
-
-// Color definitions (matching Android theme)
-#define PrimaryPink [UIColor colorWithRed:1.0 green:0.42 blue:0.616 alpha:1.0]
-#define PrimaryPurple [UIColor colorWithRed:0.77 green:0.31 blue:0.886 alpha:1.0]
-#define PrimaryViolet [UIColor colorWithRed:0.482 green:0.373 blue:1.0 alpha:1.0]
-#define DarkBackground [UIColor colorWithRed:0.039 green:0.039 blue:0.078 alpha:1.0]
-#define DarkCard [UIColor colorWithRed:0.11 green:0.11 blue:0.18 alpha:1.0]
-#define TextPrimary [UIColor whiteColor]
-#define TextSecondary [UIColor colorWithRed:0.702 green:0.702 blue:0.8 alpha:1.0]
-#define GlassPurple [UIColor colorWithRed:0.15 green:0.31 blue:0.886 alpha:0.15]
-#define BorderPurple [UIColor colorWithRed:0.77 green:0.31 blue:0.886 alpha:0.4]
-#define BorderLight [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.15]
-#define BorderGlow [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]
-#define OnlineGreen [UIColor colorWithRed:0.298 green:0.686 blue:0.314 alpha:1.0]
-#define DislikeRed [UIColor colorWithRed:0.898 green:0.224 blue:0.208 alpha:1.0]
-#define LikeGreen [UIColor colorWithRed:0.298 green:0.686 blue:0.314 alpha:1.0]
 
 #pragma mark - HYUserCardView
 
@@ -32,14 +17,21 @@ static NSInteger const kPrefetchImageCount = 6;
 @property (nonatomic, strong, nullable) HYUser *user;
 @property (nonatomic, assign) BOOL isTopCard;
 
-// UI elements
+// Avatar
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
+// Info section (white background below avatar)
+@property (nonatomic, strong) UIView *infoSection;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *onlineLabel;
-@property (nonatomic, strong) UIView *onlineDot;
-@property (nonatomic, strong) UILabel *addressLabel;
-@property (nonatomic, strong) UILabel *bioLabel;
+@property (nonatomic, strong) UIView *ageBadge;
+@property (nonatomic, strong) UILabel *ageLabel;
+@property (nonatomic, strong) UILabel *genderDistanceLabel;
+@property (nonatomic, strong) UIView *vipBadge;
+@property (nonatomic, strong) UILabel *vipLabel;
+@property (nonatomic, strong) UILabel *bioLabel1;
+@property (nonatomic, strong) UILabel *bioLabel2;
+@property (nonatomic, strong) UIView *tagsContainer;
+@property (nonatomic, strong) NSMutableArray<UIView *> *tagViews;
 @property (nonatomic, strong) UILabel *likeLabel;
 @property (nonatomic, strong) UILabel *nopeLabel;
 @property (nonatomic, strong) UIButton *voiceButton;
@@ -56,84 +48,119 @@ static NSInteger const kPrefetchImageCount = 6;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.tagViews = [NSMutableArray array];
         [self setupViews];
     }
     return self;
 }
 
 - (void)setupViews {
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.cornerRadius = 8;
-    self.clipsToBounds = YES;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    // Card: white with 24pt corner radius + purple glow shadow
+    self.backgroundColor = LightCard;
+    self.layer.cornerRadius = 24;
+    self.clipsToBounds = NO;
+    self.layer.shadowColor = PurpleGradEnd.CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 4);
-    self.layer.shadowRadius = 8;
+    self.layer.shadowRadius = 12;
     self.layer.shadowOpacity = 0.15;
-    self.layer.masksToBounds = NO;
 
-    // Avatar
+    // Avatar (top area ~65% of card)
     self.avatarImageView = [[UIImageView alloc] init];
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImageView.clipsToBounds = YES;
-    self.avatarImageView.backgroundColor = [UIColor systemGray5Color];
+    self.avatarImageView.backgroundColor = [UIColor colorWithRed:0.906 green:0.875 blue:1.0 alpha:1.0];
     [self addSubview:self.avatarImageView];
 
-    // Gradient overlay
+    // Gradient overlay on avatar bottom ~35%
     self.gradientLayer = [CAGradientLayer layer];
     self.gradientLayer.colors = @[
         (id)[UIColor clearColor].CGColor,
-        (id)[PrimaryPurple colorWithAlphaComponent:0.15].CGColor,
-        (id)[PrimaryViolet colorWithAlphaComponent:0.35].CGColor,
-        (id)[UIColor colorWithWhite:0 alpha:0.7].CGColor
+        (id)[UIColor clearColor].CGColor,
+        (id)[UIColor colorWithWhite:0 alpha:0.15].CGColor,
+        (id)[UIColor colorWithWhite:0 alpha:0.6].CGColor,
+        (id)[UIColor colorWithWhite:0 alpha:0.85].CGColor
     ];
-    self.gradientLayer.locations = @[@0.0, @0.45, @0.7, @1.0];
+    self.gradientLayer.locations = @[@0.0, @0.55, @0.70, @0.88, @1.0];
     [self.layer addSublayer:self.gradientLayer];
 
-    // Online indicator
-    self.onlineDot = [[UIView alloc] init];
-    self.onlineDot.backgroundColor = OnlineGreen;
-    self.onlineDot.layer.cornerRadius = 4;
-    [self addSubview:self.onlineDot];
+    // Info section (white background below avatar)
+    self.infoSection = [[UIView alloc] init];
+    self.infoSection.backgroundColor = LightCard;
+    [self addSubview:self.infoSection];
 
-    self.onlineLabel = [[UILabel alloc] init];
-    self.onlineLabel.text = @"当前在线";
-    self.onlineLabel.font = [UIFont systemFontOfSize:11];
-    self.onlineLabel.textColor = OnlineGreen;
-    [self addSubview:self.onlineLabel];
-
-    // Name + Age
+    // Name (on gradient overlay)
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.font = [UIFont systemFontOfSize:26 weight:UIFontWeightBold];
-    self.nameLabel.textColor = TextPrimary;
+    self.nameLabel.textColor = [UIColor whiteColor];
+    self.nameLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.nameLabel.layer.shadowOffset = CGSizeMake(0, 1);
+    self.nameLabel.layer.shadowOpacity = 0.5;
+    self.nameLabel.layer.shadowRadius = 2;
     [self addSubview:self.nameLabel];
 
-    // Address
-    self.addressLabel = [[UILabel alloc] init];
-    self.addressLabel.font = [UIFont systemFontOfSize:14];
-    self.addressLabel.textColor = [TextPrimary colorWithAlphaComponent:0.8];
-    [self addSubview:self.addressLabel];
+    // Age badge (on gradient overlay)
+    self.ageBadge = [[UIView alloc] init];
+    self.ageBadge.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
+    self.ageBadge.layer.cornerRadius = 6;
+    self.ageBadge.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
+    self.ageBadge.layer.borderWidth = 1;
+    [self addSubview:self.ageBadge];
 
-    // Bio
-    self.bioLabel = [[UILabel alloc] init];
-    self.bioLabel.font = [UIFont systemFontOfSize:14];
-    self.bioLabel.textColor = [TextPrimary colorWithAlphaComponent:0.9];
-    self.bioLabel.numberOfLines = 2;
-    [self addSubview:self.bioLabel];
+    self.ageLabel = [[UILabel alloc] init];
+    self.ageLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightBold];
+    self.ageLabel.textColor = [UIColor whiteColor];
+    [self.ageBadge addSubview:self.ageLabel];
 
-    // LIKE label
+    // Gender + distance (on gradient overlay)
+    self.genderDistanceLabel = [[UILabel alloc] init];
+    self.genderDistanceLabel.font = [UIFont systemFontOfSize:12];
+    self.genderDistanceLabel.textColor = [UIColor colorWithWhite:1 alpha:0.9];
+    [self addSubview:self.genderDistanceLabel];
+
+    // VIP badge (on gradient overlay)
+    self.vipBadge = [[UIView alloc] init];
+    self.vipBadge.backgroundColor = VipGold;
+    self.vipBadge.layer.cornerRadius = 9;
+    self.vipBadge.alpha = 0;
+    [self addSubview:self.vipBadge];
+
+    self.vipLabel = [[UILabel alloc] init];
+    self.vipLabel.text = @"⭐ VIP";
+    self.vipLabel.font = [UIFont systemFontOfSize:9 weight:UIFontWeightBold];
+    self.vipLabel.textColor = [UIColor colorWithRed:0.545 green:0.412 blue:0.078 alpha:1.0];
+    [self.vipBadge addSubview:self.vipLabel];
+
+    // Bio labels (in info section - dark text on white)
+    self.bioLabel1 = [[UILabel alloc] init];
+    self.bioLabel1.font = [UIFont systemFontOfSize:13];
+    self.bioLabel1.textColor = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
+    self.bioLabel1.numberOfLines = 2;
+    [self.infoSection addSubview:self.bioLabel1];
+
+    self.bioLabel2 = [[UILabel alloc] init];
+    self.bioLabel2.font = [UIFont systemFontOfSize:13];
+    self.bioLabel2.textColor = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1.0];
+    self.bioLabel2.numberOfLines = 1;
+    [self.infoSection addSubview:self.bioLabel2];
+
+    // Interest tags (in info section - dark text)
+    self.tagsContainer = [[UIView alloc] init];
+    [self.infoSection addSubview:self.tagsContainer];
+
+    // LIKE overlay
     self.likeLabel = [[UILabel alloc] init];
     self.likeLabel.text = @"LIKE";
     self.likeLabel.font = [UIFont systemFontOfSize:42 weight:UIFontWeightBold];
-    self.likeLabel.textColor = LikeGreen;
+    self.likeLabel.textColor = OnlineGreenLight;
     self.likeLabel.alpha = 0;
-    self.likeLabel.layer.borderColor = LikeGreen.CGColor;
+    self.likeLabel.layer.borderColor = OnlineGreenLight.CGColor;
     self.likeLabel.layer.borderWidth = 3;
     self.likeLabel.layer.cornerRadius = 8;
     self.likeLabel.textAlignment = NSTextAlignmentCenter;
     [self.likeLabel sizeToFit];
     [self addSubview:self.likeLabel];
 
-    // NOPE label
+    // NOPE overlay
     self.nopeLabel = [[UILabel alloc] init];
     self.nopeLabel.text = @"NOPE";
     self.nopeLabel.font = [UIFont systemFontOfSize:42 weight:UIFontWeightBold];
@@ -157,52 +184,83 @@ static NSInteger const kPrefetchImageCount = 6;
     self.voiceButton.layer.borderWidth = 1.5;
     [self.voiceButton addTarget:self action:@selector(voiceButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.voiceButton];
-
-    [self setupConstraints];
-}
-
-- (void)setupConstraints {
-    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-
-    [self.onlineDot mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(20);
-        make.bottom.equalTo(self.nameLabel.mas_top).offset(-8);
-        make.width.height.equalTo(@8);
-    }];
-
-    [self.onlineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.onlineDot.mas_right).offset(6);
-        make.centerY.equalTo(self.onlineDot);
-    }];
-
-    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(20);
-        make.bottom.equalTo(self.bioLabel.mas_top).offset(-8);
-    }];
-
-    [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(20);
-        make.bottom.equalTo(self.nameLabel.mas_top).offset(-4);
-    }];
-
-    [self.bioLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(20);
-        make.right.equalTo(self).offset(-20);
-        make.bottom.equalTo(self).offset(-20);
-    }];
-
-    [self.voiceButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-20);
-        make.bottom.equalTo(self).offset(-20);
-        make.width.height.equalTo(@48);
-    }];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.gradientLayer.frame = self.bounds;
+    self.gradientLayer.frame = self.avatarImageView.frame;
+}
+
+- (void)setupConstraintsWithCardSize:(CGSize)cardSize {
+    CGFloat avatarH = cardSize.height * 0.85;
+    CGFloat padding = 20;
+    CGFloat infoH = cardSize.height - avatarH;
+
+    [self.avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.height.equalTo(@(avatarH));
+    }];
+
+    [self.infoSection mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.avatarImageView.mas_bottom);
+        make.left.right.bottom.equalTo(self);
+    }];
+
+    [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(padding);
+        make.top.equalTo(self.avatarImageView).offset(avatarH - 80);
+    }];
+
+    [self.ageBadge mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_right).offset(10);
+        make.centerY.equalTo(self.nameLabel);
+        make.height.equalTo(@22);
+    }];
+
+    [self.ageLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.ageBadge).insets(UIEdgeInsetsMake(0, 10, 0, 10));
+    }];
+
+    [self.vipBadge mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.ageBadge.mas_right).offset(8);
+        make.centerY.equalTo(self.ageBadge);
+        make.height.equalTo(@18);
+    }];
+
+    [self.vipLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.vipBadge).insets(UIEdgeInsetsMake(0, 6, 0, 6));
+    }];
+
+    [self.genderDistanceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(padding);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(4);
+    }];
+
+    [self.voiceButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-padding);
+        make.bottom.equalTo(self.avatarImageView).offset(-padding);
+        make.width.height.equalTo(@48);
+    }];
+
+    // Info section layout
+    [self.bioLabel1 mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.infoSection).offset(padding);
+        make.right.equalTo(self.infoSection).offset(-padding);
+        make.top.equalTo(self.infoSection).offset(14);
+    }];
+
+    [self.bioLabel2 mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.infoSection).offset(padding);
+        make.right.equalTo(self.infoSection).offset(-padding);
+        make.top.equalTo(self.bioLabel1.mas_bottom).offset(2);
+    }];
+
+    [self.tagsContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.infoSection).offset(padding);
+        make.right.lessThanOrEqualTo(self.infoSection).offset(-padding);
+        make.top.equalTo(self.bioLabel2.mas_bottom).offset(10);
+        make.height.equalTo(@22);
+    }];
 }
 
 - (void)updateWithUser:(HYUser *)user isTopCard:(BOOL)isTopCard {
@@ -213,40 +271,89 @@ static NSInteger const kPrefetchImageCount = 6;
 
     if (!user) return;
 
+    // Avatar
     NSString *avatarUrl = user.avatar.length > 0 ? user.avatar : nil;
     if (avatarUrl) {
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:avatarUrl]
                                 placeholderImage:[UIImage systemImageNamed:@"person.circle.fill"]];
     } else {
         self.avatarImageView.image = [UIImage systemImageNamed:@"person.circle.fill"];
-        self.avatarImageView.tintColor = [UIColor systemGray3Color];
+        self.avatarImageView.tintColor = [UIColor colorWithRed:0.6 green:0.55 blue:0.75 alpha:1.0];
+        self.avatarImageView.contentMode = UIViewContentModeCenter;
     }
 
-    // Name + Age
+    // Name
+    self.nameLabel.text = user.name ?: @"未知";
+    [self.nameLabel sizeToFit];
+
+    // Age badge
     if (user.age > 0) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@, %ld", user.name, (long)user.age];
+        self.ageLabel.text = [NSString stringWithFormat:@"%ld", (long)user.age];
+        self.ageBadge.hidden = NO;
     } else {
-        self.nameLabel.text = user.name.length > 0 ? user.name : @"未知";
+        self.ageBadge.hidden = YES;
+    }
+    [self.ageBadge sizeToFit];
+    [self.ageLabel sizeToFit];
+
+    // VIP badge
+    self.vipBadge.alpha = user.isVip ? 1.0 : 0.0;
+
+    // Gender + distance
+    NSMutableString *gd = [NSMutableString string];
+    if (user.sex == 1) {
+        [gd appendString:@"♀  "];
+    } else if (user.sex == 2) {
+        [gd appendString:@"♂  "];
+    }
+    if (user.distance.length > 0) {
+        [gd appendFormat:@"%@km", user.distance];
+    }
+    self.genderDistanceLabel.text = gd;
+    [self.genderDistanceLabel sizeToFit];
+
+    // Bio (dark text on white)
+    NSString *bio = user.bio ?: @"";
+    if (bio.length > 0) {
+        NSArray *lines = [bio componentsSeparatedByString:@"\n"];
+        self.bioLabel1.text = lines.count > 0 ? lines[0] : bio;
+        self.bioLabel1.hidden = NO;
+        self.bioLabel2.text = lines.count > 1 ? lines[1] : nil;
+        self.bioLabel2.hidden = (lines.count <= 1);
+    } else {
+        self.bioLabel1.text = nil;
+        self.bioLabel1.hidden = YES;
+        self.bioLabel2.text = nil;
+        self.bioLabel2.hidden = YES;
     }
 
-    // Online indicator
-    self.onlineDot.hidden = !user.isOnline;
-    self.onlineLabel.hidden = !user.isOnline;
+    // Interest tags
+    for (UIView *v in self.tagViews) [v removeFromSuperview];
+    [self.tagViews removeAllObjects];
 
-    // Address
-    if (user.currentAddress.length > 0) {
-        self.addressLabel.text = user.currentAddress;
-        self.addressLabel.hidden = NO;
-    } else {
-        self.addressLabel.hidden = YES;
-    }
+    if (user.interests.count > 0) {
+        self.tagsContainer.hidden = NO;
+        NSInteger tagCount = MIN(user.interests.count, 4);
+        UIView *prev = nil;
+        for (NSInteger i = 0; i < tagCount; i++) {
+            NSString *tag = user.interests[i];
+            UIView *tagView = [self makeTagView:tag index:i];
+            [self.tagsContainer addSubview:tagView];
+            [self.tagViews addObject:tagView];
 
-    // Bio
-    if (user.bio.length > 0) {
-        self.bioLabel.text = [NSString stringWithFormat:@"\"\" %@", user.bio];
-        self.bioLabel.hidden = NO;
+            [tagView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                if (prev) {
+                    make.left.equalTo(prev.mas_right).offset(8);
+                } else {
+                    make.left.equalTo(self.tagsContainer);
+                }
+                make.centerY.equalTo(self.tagsContainer);
+                make.height.equalTo(@22);
+            }];
+            prev = tagView;
+        }
     } else {
-        self.bioLabel.hidden = YES;
+        self.tagsContainer.hidden = YES;
     }
 
     // Reset swipe overlays
@@ -260,6 +367,34 @@ static NSInteger const kPrefetchImageCount = 6;
     self.audioPlayer = nil;
 }
 
+- (UIView *)makeTagView:(NSString *)tag index:(NSInteger)index {
+    UIColor *bgColor;
+    UIColor *textColor;
+    if (index % 2 == 0) {
+        bgColor = [UIColor colorWithRed:1.0 green:0.42 blue:0.62 alpha:0.15];
+        textColor = PinkGradStart;
+    } else {
+        bgColor = [UIColor colorWithRed:0.608 green:0.498 blue:1.0 alpha:0.15];
+        textColor = PurpleGradStart;
+    }
+
+    UIView *tagView = [[UIView alloc] init];
+    tagView.backgroundColor = bgColor;
+    tagView.layer.cornerRadius = 11;
+
+    UILabel *tagLabel = [[UILabel alloc] init];
+    tagLabel.text = tag;
+    tagLabel.font = [UIFont systemFontOfSize:10 weight:UIFontWeightSemibold];
+    tagLabel.textColor = textColor;
+    [tagView addSubview:tagLabel];
+
+    [tagLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(tagView).insets(UIEdgeInsetsMake(0, 12, 0, 12));
+    }];
+
+    return tagView;
+}
+
 - (void)updateSwipeOverlay:(CGFloat)offsetX swipeThreshold:(CGFloat)threshold {
     if (!self.isTopCard) return;
 
@@ -267,19 +402,18 @@ static NSInteger const kPrefetchImageCount = 6;
 
     if (offsetX > 50) {
         self.likeLabel.alpha = progress;
-        self.likeLabel.transform = CGAffineTransformMakeRotation(-0.26); // -15deg
+        self.likeLabel.transform = CGAffineTransformMakeRotation(-0.26);
     } else {
         self.likeLabel.alpha = 0;
     }
 
     if (offsetX < -50) {
         self.nopeLabel.alpha = progress;
-        self.nopeLabel.transform = CGAffineTransformMakeRotation(0.26); // +15deg
+        self.nopeLabel.transform = CGAffineTransformMakeRotation(0.26);
     } else {
         self.nopeLabel.alpha = 0;
     }
 
-    // Position labels
     self.likeLabel.frame = CGRectMake(24, 24, 120, 56);
     self.nopeLabel.frame = CGRectMake(self.bounds.size.width - 144, 24, 120, 56);
 }
@@ -334,11 +468,13 @@ static NSInteger const kPrefetchImageCount = 6;
 
 @interface MeetViewController () <ZLSwipeableViewDelegate, ZLSwipeableViewDataSource>
 
-@property (nonatomic, strong) UIButton *filterButton;
+@property (nonatomic, strong) UIButton *vipButton;
 @property (nonatomic, strong) ZLSwipeableView *swipeableView;
 @property (nonatomic, strong) UIView *actionBar;
 @property (nonatomic, strong) UIButton *undoButton;
 @property (nonatomic, strong) UIButton *dislikeButton;
+@property (nonatomic, strong) UIView *likeContainer;
+@property (nonatomic, strong) UIImageView *likeHeartView;
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIButton *favoriteButton;
 @property (nonatomic, strong) NSMutableArray<HYUser *> *matchUsers;
@@ -351,12 +487,12 @@ static NSInteger const kPrefetchImageCount = 6;
 
 @property (nonatomic, strong) UIView *loginRequiredView;
 @property (nonatomic, strong) UIView *emptyView;
-
 @property (nonatomic, strong) UIView *matchOverlay;
 @property (nonatomic, strong) UIImageView *matchAvatarImageView;
 @property (nonatomic, strong) UILabel *matchTitleLabel;
 @property (nonatomic, strong) UILabel *matchSubtitleLabel;
 @property (nonatomic, strong) SDWebImagePrefetcher *imagePrefetcher;
+@property (nonatomic, strong) UILabel *hintLabel;
 
 @end
 
@@ -365,13 +501,11 @@ static NSInteger const kPrefetchImageCount = 6;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"遇见";
-    self.view.backgroundColor = DarkBackground;
     self.matchUsers = [NSMutableArray array];
     self.currentIndex = 0;
     self.currentOffset = 0;
     self.isLoadingMore = NO;
 
-    // Initialize image prefetcher
     self.imagePrefetcher = [SDWebImagePrefetcher new];
     self.imagePrefetcher.maxConcurrentPrefetchCount = 4;
 
@@ -399,230 +533,203 @@ static NSInteger const kPrefetchImageCount = 6;
     self.loginRequiredView.hidden = NO;
     self.swipeableView.hidden = YES;
     self.actionBar.hidden = YES;
+    self.hintLabel.hidden = YES;
 }
 
 - (void)hideLoginRequired {
     self.loginRequiredView.hidden = YES;
     self.swipeableView.hidden = NO;
     self.actionBar.hidden = NO;
+    self.hintLabel.hidden = NO;
 }
 
 #pragma mark - UI Setup
 
 - (void)setupUI {
-    self.view.backgroundColor = DarkBackground;
+    [self setupBackground];
+    [self setupNavigationBar];
+    [self setupSwipeableView];
+    [self setupActionBar];
+    [self setupHintLabel];
+    [self setupLoadingIndicator];
+    [self setupLoginRequiredView];
+    [self setupEmptyView];
+    [self setupMatchOverlay];
+}
 
-    // Configure navigation bar appearance
+- (void)setupBackground {
+    self.view.backgroundColor = LightBg1;
+}
+
+- (void)setupNavigationBar {
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.608 green:0.498 blue:1.0 alpha:1.0];
+    self.navigationController.navigationBar.titleTextAttributes = @{
+        NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+        NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
+    };
     if (@available(iOS 15.0, *)) {
         UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
-        [appearance configureWithTransparentBackground];
-        appearance.backgroundColor = [DarkBackground colorWithAlphaComponent:0.8];
-        appearance.titleTextAttributes = @{NSForegroundColorAttributeName: TextPrimary};
-        appearance.largeTitleTextAttributes = @{NSForegroundColorAttributeName: TextPrimary};
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+        appearance.titleTextAttributes = @{
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+            NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
+        };
+        appearance.shadowColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
         self.navigationController.navigationBar.standardAppearance = appearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+        self.navigationController.navigationBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+        UIView *navBorder = [[UIView alloc] init];
+        navBorder.backgroundColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
+        navBorder.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.navigationController.navigationBar addSubview:navBorder];
+        [navBorder mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.navigationController.navigationBar);
+            make.height.equalTo(@1);
+        }];
     }
-    self.navigationController.navigationBar.tintColor = PrimaryPurple;
 
-    // Hiyo logo as navigation title view
-    UIView *titleContainer = [[UIView alloc] init];
-    UIImageView *hiyoHeart = [[UIImageView alloc] init];
-    hiyoHeart.image = [UIImage systemImageNamed:@"heart.fill"];
-    hiyoHeart.tintColor = PrimaryPink;
-    hiyoHeart.contentMode = UIViewContentModeScaleAspectFit;
-    [titleContainer addSubview:hiyoHeart];
+    // VIP crown button wrapper with gradient circle background
+    UIView *vipWrapper = [[UIView alloc] init];
+    vipWrapper.layer.cornerRadius = 14;
+    vipWrapper.clipsToBounds = YES;
 
-    UILabel *hiyoLabel = [[UILabel alloc] init];
-    hiyoLabel.text = @"Hiyo";
-    hiyoLabel.font = [UIFont systemFontOfSize:22 weight:UIFontWeightBold];
-    hiyoLabel.textColor = TextPrimary;
-    [titleContainer addSubview:hiyoLabel];
+    CAGradientLayer *vipGrad = [CAGradientLayer layer];
+    vipGrad.colors = @[(id)PurpleGradStart.CGColor, (id)PurpleGradEnd.CGColor];
+    vipGrad.startPoint = CGPointMake(0, 0);
+    vipGrad.endPoint = CGPointMake(1, 1);
+    vipGrad.frame = CGRectMake(0, 0, 28, 28);
+    vipGrad.cornerRadius = 14;
+    [vipWrapper.layer insertSublayer:vipGrad atIndex:0];
 
-    [hiyoHeart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(titleContainer);
-        make.centerY.equalTo(titleContainer);
-        make.width.height.equalTo(@22);
+    // Solid inner circle
+    CALayer *innerCircle = [CALayer layer];
+    innerCircle.backgroundColor = PurpleGradStart.CGColor;
+    innerCircle.cornerRadius = 8;
+    innerCircle.frame = CGRectMake(6, 6, 16, 16);
+    [vipWrapper.layer addSublayer:innerCircle];
+
+    self.vipButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.vipButton.frame = CGRectMake(0, 0, 28, 28);
+    [self.vipButton setImage:[UIImage imageNamed:@"crown_fill"] forState:UIControlStateNormal];
+    self.vipButton.tintColor = [UIColor whiteColor];
+    self.vipButton.backgroundColor = [UIColor clearColor];
+    [self.vipButton addTarget:self action:@selector(vipButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [vipWrapper addSubview:self.vipButton];
+
+    [vipWrapper mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@28);
     }];
 
-    [hiyoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(hiyoHeart.mas_right).offset(6);
-        make.right.equalTo(titleContainer);
-        make.centerY.equalTo(titleContainer);
-    }];
+    UIBarButtonItem *vipBarButton = [[UIBarButtonItem alloc] initWithCustomView:vipWrapper];
+    self.navigationItem.rightBarButtonItem = vipBarButton;
+}
 
-    [titleContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@30);
-    }];
-
-    self.navigationItem.titleView = titleContainer;
-
-    // Filter button as right bar button item
-    self.filterButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    UIImage *starImg = [UIImage systemImageNamed:@"star.fill"];
-    [self.filterButton setImage:starImg forState:UIControlStateNormal];
-    self.filterButton.tintColor = PrimaryPurple;
-    self.filterButton.backgroundColor = GlassPurple;
-    self.filterButton.layer.cornerRadius = 18;
-    self.filterButton.layer.borderColor = BorderPurple.CGColor;
-    self.filterButton.layer.borderWidth = 1;
-    [self.filterButton addTarget:self action:@selector(filterButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-
-    UIBarButtonItem *filterBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.filterButton];
-    self.navigationItem.rightBarButtonItem = filterBarButton;
-
-    // Swipeable View
+- (void)setupSwipeableView {
     self.swipeableView = [[ZLSwipeableView alloc] init];
     self.swipeableView.dataSource = self;
     self.swipeableView.delegate = self;
+    self.swipeableView.layer.maskedCorners = YES;
+    self.swipeableView.layer.cornerRadius = 8.0f;
     self.swipeableView.numberOfActiveViews = 2;
     self.swipeableView.allowedDirection = ZLSwipeableViewDirectionHorizontal;
     self.swipeableView.minTranslationInPercent = 0.25;
     self.swipeableView.minVelocityInPointPerSecond = 500;
     [self.view addSubview:self.swipeableView];
 
-    // Action Bar
+    [self.swipeableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(0);
+        make.left.equalTo(self.view).offset(8);
+        make.right.equalTo(self.view).offset(-8);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-160);
+    }];
+}
+
+- (void)setupActionBar {
     self.actionBar = [[UIView alloc] init];
     [self.view addSubview:self.actionBar];
 
-    // Container for evenly spaced buttons
     UIStackView *buttonStack = [[UIStackView alloc] init];
     buttonStack.axis = UILayoutConstraintAxisHorizontal;
     buttonStack.distribution = UIStackViewDistributionEqualSpacing;
     buttonStack.alignment = UIStackViewAlignmentCenter;
     [self.actionBar addSubview:buttonStack];
 
-    // Undo button (small)
+    // Undo (leftmost, small)
     self.undoButton = [self makeActionButton:@"arrow.counterclockwise"
-                                      size:52
-                              backgroundColor:GlassPurple
-                                    tintColor:PrimaryPurple
-                                   borderColor:BorderPurple];
+                                        size:56
+                                backgroundColor:[UIColor whiteColor]
+                                      tintColor:PurpleGradStart
+                                     borderColor:PurpleGradStart.CGColor
+                                     borderWidth:1.5];
+    self.undoButton.alpha = 0.4;
     [self.undoButton addTarget:self action:@selector(undoTapped) forControlEvents:UIControlEventTouchUpInside];
     [buttonStack addArrangedSubview:self.undoButton];
 
-    // Dislike button (medium)
+    // Dislike (X, medium)
     self.dislikeButton = [self makeActionButton:@"xmark"
-                                         size:64
-                                 backgroundColor:DarkCard
-                                       tintColor:DislikeRed
-                                      borderColor:BorderLight];
+                                         size:56
+                                 backgroundColor:[UIColor whiteColor]
+                                       tintColor:[UIColor colorWithRed:1.0 green:0.42 blue:0.42 alpha:1.0]
+                                      borderColor:[UIColor colorWithRed:1.0 green:0.42 blue:0.42 alpha:1.0].CGColor
+                                     borderWidth:2];
     [self.dislikeButton addTarget:self action:@selector(dislikeTapped) forControlEvents:UIControlEventTouchUpInside];
     [buttonStack addArrangedSubview:self.dislikeButton];
 
-    // Like button (large, gradient) - custom container approach
-    UIView *likeContainer = [[UIView alloc] init];
-    likeContainer.layer.cornerRadius = 38;
-    likeContainer.layer.borderColor = BorderGlow.CGColor;
-    likeContainer.layer.borderWidth = 1;
-    likeContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-    likeContainer.layer.shadowOffset = CGSizeMake(0, 3);
-    likeContainer.layer.shadowRadius = 6;
-    likeContainer.layer.shadowOpacity = 0.2;
+    // Like (large gradient heart)
+    self.likeContainer = [[UIView alloc] init];
+    self.likeContainer.layer.cornerRadius = 28;
+    self.likeContainer.layer.shadowColor = PinkGradStart.CGColor;
+    self.likeContainer.layer.shadowOffset = CGSizeMake(0, 0);
+    self.likeContainer.layer.shadowRadius = 12;
+    self.likeContainer.layer.shadowOpacity = 0.5;
 
-    // Gradient background inside container
     CAGradientLayer *likeGradient = [CAGradientLayer layer];
-    likeGradient.colors = @[(id)PrimaryPink.CGColor, (id)PrimaryPurple.CGColor, (id)PrimaryViolet.CGColor];
+    likeGradient.colors = @[(id)PinkGradStart.CGColor, (id)PinkGradEnd.CGColor, (id)PrimaryViolet.CGColor];
     likeGradient.startPoint = CGPointMake(0, 0.5);
     likeGradient.endPoint = CGPointMake(1, 0.5);
-    likeGradient.frame = CGRectMake(0, 0, 76, 76);
-    likeGradient.cornerRadius = 38;
-    [likeContainer.layer insertSublayer:likeGradient atIndex:0];
+    likeGradient.frame = CGRectMake(0, 0, 56, 56);
+    likeGradient.cornerRadius = 28;
+    [self.likeContainer.layer insertSublayer:likeGradient atIndex:0];
 
-    // Heart icon image view (on top of gradient)
-    UIImageView *likeHeartImageView = [[UIImageView alloc] init];
-    likeHeartImageView.image = [UIImage systemImageNamed:@"heart.fill"];
-    likeHeartImageView.tintColor = [UIColor whiteColor];
-    likeHeartImageView.contentMode = UIViewContentModeScaleAspectFit;
-    likeHeartImageView.userInteractionEnabled = NO;
-    [likeContainer addSubview:likeHeartImageView];
+    self.likeHeartView = [[UIImageView alloc] init];
+    self.likeHeartView.image = [UIImage imageNamed:@"heart"];
+    self.likeHeartView.tintColor = [UIColor whiteColor];
+    self.likeHeartView.contentMode = UIViewContentModeScaleAspectFit;
+    self.likeHeartView.userInteractionEnabled = NO;
+    [self.likeContainer addSubview:self.likeHeartView];
 
-    // Transparent button for tap handling (on top of everything)
     self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.likeButton.frame = CGRectMake(0, 0, 76, 76);
+    self.likeButton.frame = CGRectMake(0, 0, 56, 56);
     [self.likeButton addTarget:self action:@selector(likeTapped) forControlEvents:UIControlEventTouchUpInside];
-    [likeContainer addSubview:self.likeButton];
+    [self.likeContainer addSubview:self.likeButton];
 
-    [likeContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@76);
+    [self.likeContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@56);
     }];
 
-    [likeHeartImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(likeContainer);
+    [self.likeHeartView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.likeContainer);
         make.width.height.equalTo(@36);
     }];
 
-    [buttonStack addArrangedSubview:likeContainer];
-    [self startHeartBobAnimation:likeHeartImageView];
+    [buttonStack addArrangedSubview:self.likeContainer];
+    [self startHeartBobAnimation:self.likeHeartView];
 
-    // Favorite button (small)
+    // Favorite (rightmost, small)
     self.favoriteButton = [self makeActionButton:@"star.fill"
-                                         size:52
-                                 backgroundColor:GlassPurple
+                                         size:56
+                                 backgroundColor:[UIColor whiteColor]
                                        tintColor:PrimaryViolet
-                                      borderColor:BorderPurple];
+                                      borderColor:PrimaryViolet.CGColor
+                                      borderWidth:1.5];
     [self.favoriteButton addTarget:self action:@selector(favoriteTapped) forControlEvents:UIControlEventTouchUpInside];
     [buttonStack addArrangedSubview:self.favoriteButton];
 
-    // Loading indicator
-    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.loadingIndicator.color = PrimaryPink;
-    self.loadingIndicator.hidesWhenStopped = YES;
-    [self.view addSubview:self.loadingIndicator];
-
-    // Login required view
-    [self setupLoginRequiredView];
-
-    // Empty view
-    [self setupEmptyView];
-
-    // Match overlay
-    [self setupMatchOverlay];
-
     // Constraints
-    [self setupConstraints];
-}
-
-- (UIButton *)makeActionButton:(NSString *)imageName size:(CGFloat)size backgroundColor:(UIColor *)bgColor tintColor:(UIColor *)tintColor borderColor:(UIColor *)borderColor {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    UIImage *img = [UIImage systemImageNamed:imageName];
-    [button setImage:img forState:UIControlStateNormal];
-    button.tintColor = tintColor;
-    button.layer.cornerRadius = size / 2.0;
-    button.layer.borderColor = borderColor.CGColor;
-    button.layer.borderWidth = 1;
-    button.layer.shadowColor = [UIColor blackColor].CGColor;
-    button.layer.shadowOffset = CGSizeMake(0, 3);
-    button.layer.shadowRadius = 6;
-    button.layer.shadowOpacity = 0.2;
-
-    if (bgColor) {
-        button.backgroundColor = bgColor;
-    } else {
-        // Gradient background for like button
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.colors = @[(id)PrimaryPink.CGColor, (id)PrimaryPurple.CGColor, (id)PrimaryViolet.CGColor];
-        gradient.startPoint = CGPointMake(0, 0.5);
-        gradient.endPoint = CGPointMake(1, 0.5);
-        gradient.frame = CGRectMake(0, 0, size, size);
-        gradient.cornerRadius = size / 2.0;
-        [button.layer insertSublayer:gradient atIndex:0];
-    }
-
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@(size));
-    }];
-
-    return button;
-}
-
-- (void)setupConstraints {
-    [self.swipeableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(8);
-        make.left.equalTo(self.view).offset(12);
-        make.right.equalTo(self.view).offset(-12);
-        make.bottom.equalTo(self.actionBar.mas_top).offset(-12);
-    }];
-
     [self.actionBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(24);
         make.right.equalTo(self.view).offset(-24);
@@ -630,10 +737,69 @@ static NSInteger const kPrefetchImageCount = 6;
         make.height.equalTo(@80);
     }];
 
-    UIStackView *buttonStack = self.actionBar.subviews.firstObject;
     [buttonStack mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.actionBar);
     }];
+}
+
+- (UIButton *)makeActionButton:(NSString *)imageName
+                          size:(CGFloat)size
+                 backgroundColor:(UIColor *)bgColor
+                      tintColor:(UIColor *)tintColor
+                     borderColor:(CGColorRef)borderColor
+                     borderWidth:(CGFloat)borderWidth {
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIImage *img = [UIImage imageNamed:imageName];
+    if (!img) img = [UIImage systemImageNamed:imageName];
+    [button setImage:img forState:UIControlStateNormal];
+    button.tintColor = tintColor;
+    button.backgroundColor = bgColor;
+    button.layer.cornerRadius = size / 2.0;
+    button.layer.borderColor = borderColor;
+    button.layer.borderWidth = borderWidth;
+    button.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(0, 3);
+    button.layer.shadowRadius = 6;
+    button.layer.shadowOpacity = 0.15;
+
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@(size));
+    }];
+
+    // Center image inside button using contentEdgeInsets
+    CGFloat imgW = 0, imgH = 0;
+    if (img) {
+        imgW = img.size.width;
+        imgH = img.size.height;
+    }
+    CGFloat horiz = (size - imgW) / 2.0;
+    CGFloat vert = (size - imgH) / 2.0;
+    button.contentEdgeInsets = UIEdgeInsetsMake(vert, horiz, vert, horiz);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+
+    return button;
+}
+
+- (void)setupHintLabel {
+    self.hintLabel = [[UILabel alloc] init];
+    self.hintLabel.text = @"— 遇见 · 遇见心动 —";
+    self.hintLabel.font = [UIFont systemFontOfSize:12];
+    self.hintLabel.textColor = [UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0];
+    self.hintLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.hintLabel];
+
+    [self.hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.actionBar.mas_top).offset(-8);
+    }];
+}
+
+- (void)setupLoadingIndicator {
+    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    self.loadingIndicator.color = PurpleGradStart;
+    self.loadingIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:self.loadingIndicator];
 
     [self.loadingIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.swipeableView);
@@ -642,12 +808,12 @@ static NSInteger const kPrefetchImageCount = 6;
 
 - (void)setupLoginRequiredView {
     self.loginRequiredView = [[UIView alloc] init];
-    self.loginRequiredView.backgroundColor = DarkBackground;
+    self.loginRequiredView.backgroundColor = [UIColor clearColor];
     self.loginRequiredView.hidden = YES;
     [self.view addSubview:self.loginRequiredView];
 
     UIView *card = [[UIView alloc] init];
-    card.backgroundColor = DarkCard;
+    card.backgroundColor = LightCard;
     card.layer.cornerRadius = 28;
     card.layer.borderColor = BorderPurple.CGColor;
     card.layer.borderWidth = 1;
@@ -661,14 +827,14 @@ static NSInteger const kPrefetchImageCount = 6;
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"需要登录";
     titleLabel.font = [UIFont systemFontOfSize:24 weight:UIFontWeightBold];
-    titleLabel.textColor = TextPrimary;
+    titleLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [card addSubview:titleLabel];
 
     UILabel *descLabel = [[UILabel alloc] init];
     descLabel.text = @"登录后查看更多精彩内容\n发现更多有趣的灵魂";
     descLabel.font = [UIFont systemFontOfSize:15];
-    descLabel.textColor = TextSecondary;
+    descLabel.textColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.6 alpha:1.0];
     descLabel.textAlignment = NSTextAlignmentCenter;
     descLabel.numberOfLines = 0;
     [card addSubview:descLabel];
@@ -683,7 +849,7 @@ static NSInteger const kPrefetchImageCount = 6;
     [card addSubview:loginButton];
 
     [self.loginRequiredView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(self.swipeableView);
     }];
 
     [card mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -726,28 +892,28 @@ static NSInteger const kPrefetchImageCount = 6;
     [self.view addSubview:self.emptyView];
 
     UIView *iconBg = [[UIView alloc] init];
-    iconBg.backgroundColor = GlassPurple;
+    iconBg.backgroundColor = [PurpleGradStart colorWithAlphaComponent:0.15];
     iconBg.layer.cornerRadius = 60;
     iconBg.layer.borderColor = BorderPurple.CGColor;
     iconBg.layer.borderWidth = 2;
     [self.emptyView addSubview:iconBg];
 
     UIImageView *refreshIcon = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"arrow.counterclockwise"]];
-    refreshIcon.tintColor = PrimaryPurple;
+    refreshIcon.tintColor = PurpleGradStart;
     refreshIcon.contentMode = UIViewContentModeScaleAspectFit;
     [iconBg addSubview:refreshIcon];
 
     UILabel *emptyTitle = [[UILabel alloc] init];
     emptyTitle.text = @"暂无更多推荐";
     emptyTitle.font = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
-    emptyTitle.textColor = TextPrimary;
+    emptyTitle.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     emptyTitle.textAlignment = NSTextAlignmentCenter;
     [self.emptyView addSubview:emptyTitle];
 
     UILabel *emptyDesc = [[UILabel alloc] init];
     emptyDesc.text = @"刷新以查看新的推荐";
     emptyDesc.font = [UIFont systemFontOfSize:14];
-    emptyDesc.textColor = TextSecondary;
+    emptyDesc.textColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.6 alpha:1.0];
     emptyDesc.textAlignment = NSTextAlignmentCenter;
     [self.emptyView addSubview:emptyDesc];
 
@@ -795,7 +961,7 @@ static NSInteger const kPrefetchImageCount = 6;
 
 - (void)setupMatchOverlay {
     self.matchOverlay = [[UIView alloc] init];
-    self.matchOverlay.backgroundColor = [DarkBackground colorWithAlphaComponent:0.9];
+    self.matchOverlay.backgroundColor = [[UIColor colorWithRed:0.1 green:0.1 blue:0.15 alpha:0.9] colorWithAlphaComponent:0.9];
     self.matchOverlay.hidden = YES;
     self.matchOverlay.alpha = 0;
     [self.view addSubview:self.matchOverlay];
@@ -921,9 +1087,8 @@ static NSInteger const kPrefetchImageCount = 6;
     [self loadData];
 }
 
-- (void)filterButtonTapped {
-    // TODO: Present filter sheet
-    [self showBriefFeedback:@"筛选功能" color:PrimaryPurple];
+- (void)vipButtonTapped {
+    [self showBriefFeedback:@"VIP" color:PurpleGradStart];
 }
 
 - (void)undoTapped {
@@ -946,8 +1111,7 @@ static NSInteger const kPrefetchImageCount = 6;
         if (error) {
             NSLog(@"Favorite failed: %@", error.localizedDescription);
         } else {
-            // Show brief success feedback
-            [self showBriefFeedback:@"已收藏" color:PrimaryViolet];
+            [self showBriefFeedback:@"已收藏" color:PurpleGradStart];
         }
     }];
 }
@@ -1003,13 +1167,6 @@ static NSInteger const kPrefetchImageCount = 6;
 - (HYUser *)currentUser {
     if (self.currentIndex >= 0 && self.currentIndex < self.matchUsers.count) {
         return self.matchUsers[self.currentIndex];
-    }
-    return nil;
-}
-
-- (HYUser *)previousUser {
-    if (self.currentIndex > 0 && self.currentIndex - 1 < self.matchUsers.count) {
-        return self.matchUsers[self.currentIndex - 1];
     }
     return nil;
 }
@@ -1083,7 +1240,6 @@ static NSInteger const kPrefetchImageCount = 6;
 - (void)prefetchImagesForUpcomingCards {
     NSInteger start = self.currentIndex;
     NSInteger end = MIN(self.currentIndex + kPrefetchImageCount, (NSInteger)self.matchUsers.count);
-
     if (start >= end) return;
 
     NSMutableArray<NSURL *> *urls = [NSMutableArray array];
@@ -1093,12 +1249,10 @@ static NSInteger const kPrefetchImageCount = 6;
             NSURL *url = [NSURL URLWithString:user.avatar];
             if (url) [urls addObject:url];
         }
-        // Also preload background image (Android parity)
         if (user.backgroundImage.length > 0) {
             NSURL *bgUrl = [NSURL URLWithString:user.backgroundImage];
             if (bgUrl) [urls addObject:bgUrl];
         }
-        // Also preload all photos (Android parity)
         for (NSString *photoUrl in user.photos) {
             if (photoUrl.length > 0) {
                 NSURL *photoNSUrl = [NSURL URLWithString:photoUrl];
@@ -1106,7 +1260,6 @@ static NSInteger const kPrefetchImageCount = 6;
             }
         }
     }
-
     if (urls.count == 0) return;
 
     [self.imagePrefetcher prefetchURLs:urls progress:nil completed:^(NSUInteger finishedCount, NSUInteger skippedCount) {
@@ -1115,7 +1268,6 @@ static NSInteger const kPrefetchImageCount = 6;
 }
 
 - (void)loadMoreIfNeeded {
-    // Load more when less than 2 cards remaining
     if (self.isLoadingMore) return;
     if (self.matchUsers.count - self.currentIndex <= 2) {
         [self loadMoreData];
@@ -1124,10 +1276,10 @@ static NSInteger const kPrefetchImageCount = 6;
 
 - (void)updateEmptyState {
     BOOL hasNoUsers = self.currentIndex >= self.matchUsers.count;
-    // Don't show empty state if we're currently loading more data
     BOOL shouldShowEmpty = hasNoUsers && !self.isLoadingMore;
     self.emptyView.hidden = !shouldShowEmpty;
     self.actionBar.hidden = hasNoUsers;
+    self.hintLabel.hidden = hasNoUsers;
 }
 
 #pragma mark - ZLSwipeableViewDataSource
@@ -1141,8 +1293,8 @@ static NSInteger const kPrefetchImageCount = 6;
     HYUser *user = self.matchUsers[self.currentIndex];
     self.currentIndex++;
 
-    // Create card with correct frame
     HYUserCardView *card = [[HYUserCardView alloc] initWithFrame:swipeableView.bounds];
+    [card setupConstraintsWithCardSize:swipeableView.bounds.size];
     [card updateWithUser:user isTopCard:YES];
 
     self.lastSwipedUser = user;
@@ -1160,22 +1312,16 @@ static NSInteger const kPrefetchImageCount = 6;
     if (direction == ZLSwipeableViewDirectionLeft) {
         [[HYAPIClient shared] dislikeUserWithId:user.userId completion:^(NSDictionary *response, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    // Check for rate limit error (Android parity)
-                    if ([self isRateLimitError:error.localizedDescription]) {
-                        [self showSwipeLimitDialog];
-                    }
+                if (error && [self isRateLimitError:error.localizedDescription]) {
+                    [self showSwipeLimitDialog];
                 }
             });
         }];
     } else if (direction == ZLSwipeableViewDirectionRight) {
         [[HYAPIClient shared] likeUserWithId:user.userId completion:^(NSDictionary *response, BOOL matched, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    // Check for rate limit error (Android parity)
-                    if ([self isRateLimitError:error.localizedDescription]) {
-                        [self showSwipeLimitDialog];
-                    }
+                if (error && [self isRateLimitError:error.localizedDescription]) {
+                    [self showSwipeLimitDialog];
                 } else if (matched) {
                     [self showMatchOverlayWithUser:user];
                 }
@@ -1200,10 +1346,6 @@ static NSInteger const kPrefetchImageCount = 6;
     [card updateSwipeOverlay:0 swipeThreshold:0];
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
-    // Could pause heartbeat here
-}
-
 #pragma mark - Match Overlay
 
 - (void)showMatchOverlayWithUser:(HYUser *)user {
@@ -1226,7 +1368,7 @@ static NSInteger const kPrefetchImageCount = 6;
     }];
 }
 
-#pragma mark - Rate Limit (Android parity)
+#pragma mark - Rate Limit
 
 - (BOOL)isRateLimitError:(NSString *)message {
     if (!message) return NO;
@@ -1245,7 +1387,6 @@ static NSInteger const kPrefetchImageCount = 6;
     UIAlertAction *upgradeAction = [UIAlertAction actionWithTitle:@"升级VIP"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
-        // TODO: Navigate to VIP upgrade screen when implemented
         [[NSNotificationCenter defaultCenter] postNotificationName:@"HYNavigateToVIPNotification" object:nil];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"稍后再说"

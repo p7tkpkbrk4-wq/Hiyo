@@ -57,7 +57,7 @@
     // Meet - Match Cards
     MeetViewController *meetVC = [[MeetViewController alloc] init];
     UINavigationController *meetNav = [[UINavigationController alloc] initWithRootViewController:meetVC];
-    meetNav.navigationBar.prefersLargeTitles = YES;
+    meetNav.navigationBar.prefersLargeTitles = NO;
     meetNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"遇见"
                                                        image:[UIImage systemImageNamed:@"heart"]
                                                selectedImage:[UIImage systemImageNamed:@"heart.fill"]];
