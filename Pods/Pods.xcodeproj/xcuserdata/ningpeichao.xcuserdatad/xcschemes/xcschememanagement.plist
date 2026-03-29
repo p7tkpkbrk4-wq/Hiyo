@@ -69,16 +69,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ZLPhotoBrowser-ZLPhotoBrowser_Privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ZLPhotoBrowser.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ZLSwipeableView.xcscheme</key>
 		<dict>
 			<key>isShown</key>

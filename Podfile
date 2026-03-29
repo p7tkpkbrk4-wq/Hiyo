@@ -21,6 +21,9 @@ target 'Hiyo' do
   pod 'MMKVCore', '1.3.5'
   pod 'FSPagerView', '~> 0.8.3'  # 卡片轮播控件
   pod 'ZLSwipeableView', :git => 'https://github.com/zhxnlai/ZLSwipeableView.git'  # OC版Tinder卡片
+
+  # SVGA 动画播放
+  # pod 'SVGAPlayer', '2.5.7' # svga暂不支持，mp4/webm/gif/webp已覆盖大部分场景
   #pod 'GoogleSignIn', '7.1.0'# Google登录
   #pod 'FBSDKCoreKit', '16.3.1'# Facebook Core SDK
   #pod 'FBSDKLoginKit', '16.3.1'# Facebook Login SDK

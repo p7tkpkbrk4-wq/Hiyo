@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="sendBtnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="selectedRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9B7FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sheetShadow">
+      <feDropShadow dx="0" dy="-4" stdDeviation="16" flood-color="#9B7FFF" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background dim -->
+  <rect width="430" height="926" fill="#000000" opacity="0.3"/>
+
+  <!-- Sheet Container -->
+  <g transform="translate(0, 506)">
+    <rect width="430" height="420" rx="20 20 0 0" fill="#FFFFFF" filter="url(#sheetShadow)"/>
+
+    <!-- Drag Indicator -->
+    <rect x="195" y="8" width="40" height="4" rx="2" fill="#DDDDDD"/>
+
+    <!-- Header -->
+    <text x="215" y="40" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#333333" font-weight="800" text-anchor="middle">送礼物</text>
+
+    <!-- Close button -->
+    <g transform="translate(380, 14)">
+      <circle cx="18" cy="18" r="18" fill="#F5F0FF"/>
+      <path d="M11 11 L25 25 M25 11 L11 25" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Balance -->
+    <g transform="translate(0, 50)">
+      <rect x="155" y="0" width="120" height="28" rx="14" fill="#F0E8FF"/>
+      <text x="215" y="19" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 余额 1,280</text>
+    </g>
+
+    <!-- Tabs -->
+    <g transform="translate(16, 88)">
+      <!-- Selected tab -->
+      <rect width="64" height="30" rx="15" fill="url(#sendBtnGrad)"/>
+      <text x="32" y="20" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">全部</text>
+
+      <!-- Unselected tab -->
+      <g transform="translate(74, 0)">
+        <rect width="64" height="30" rx="15" fill="#F5F5F5"/>
+        <text x="32" y="20" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999" text-anchor="middle">热门</text>
+      </g>
+
+      <!-- Unselected tab -->
+      <g transform="translate(148, 0)">
+        <rect width="64" height="30" rx="15" fill="#F5F5F5"/>
+        <text x="32" y="20" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999" text-anchor="middle">专属</text>
+      </g>
+
+      <!-- Unselected tab -->
+      <g transform="translate(222, 0)">
+        <rect width="64" height="30" rx="15" fill="#F5F5F5"/>
+        <text x="32" y="20" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999" text-anchor="middle">限定</text>
+      </g>
+    </g>
+
+    <!-- Gift Grid (4 columns x 3 rows) -->
+    <g transform="translate(8, 130)">
+      <!-- Row 1 -->
+
+      <!-- Gift 1 (selected) -->
+      <g transform="translate(8, 0)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="url(#selectedRing)" stroke-width="2.5" filter="url(#shadow)"/>
+        <rect width="96" height="96" rx="12" fill="#9B7FFF" opacity="0.06"/>
+        <!-- Gift icon placeholder -->
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#FFF0F5"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#FF6B9E" opacity="0.6"/>
+        <path d="M48 28 C48 28 48 22 48 22 C43 26 40 32 48 40 C56 32 53 26 48 28 Z" fill="#FF6B9E"/>
+        <!-- Name & Price -->
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">玫瑰花束</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 99</text>
+      </g>
+
+      <!-- Gift 2 -->
+      <g transform="translate(113, 0)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#FFF8E0"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#FF9800" opacity="0.5"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">蛋糕</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 199</text>
+      </g>
+
+      <!-- Gift 3 -->
+      <g transform="translate(218, 0)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#E8F0FF"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#4285F4" opacity="0.5"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">汽车</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 520</text>
+      </g>
+
+      <!-- Gift 4 -->
+      <g transform="translate(323, 0)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#F0E8FF"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#9B7FFF" opacity="0.5"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">钻戒</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 1314</text>
+      </g>
+
+      <!-- Row 2 -->
+
+      <!-- Gift 5 -->
+      <g transform="translate(8, 104)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#FFE0EE"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#FF6B9E" opacity="0.4"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">棒棒糖</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 10</text>
+      </g>
+
+      <!-- Gift 6 -->
+      <g transform="translate(113, 104)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#E0F8E8"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#4CAF50" opacity="0.5"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">奶茶</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 66</text>
+      </g>
+
+      <!-- Gift 7 (selected ring) -->
+      <g transform="translate(218, 104)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#FFF0F5"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#FF6B9E" opacity="0.5"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">跑车</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 5200</text>
+      </g>
+
+      <!-- Gift 8 -->
+      <g transform="translate(323, 104)">
+        <rect width="96" height="96" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1" filter="url(#shadow)"/>
+        <rect x="24" y="12" width="48" height="48" rx="12" fill="#FFF8E0"/>
+        <rect x="34" y="22" width="28" height="28" rx="8" fill="#FF9800" opacity="0.6"/>
+        <text x="48" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#333333" text-anchor="middle">游艇</text>
+        <text x="48" y="86" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#9B7FFF" font-weight="600" text-anchor="middle">💰 8888</text>
+      </g>
+    </g>
+
+    <!-- Bottom Bar -->
+    <g transform="translate(0, 360)">
+      <rect width="430" height="60" fill="#FFFFFF"/>
+      <line x1="0" y1="0" x2="430" y2="0" stroke="#EEEEFF" stroke-width="1"/>
+
+      <!-- Minus button -->
+      <g transform="translate(24, 10)">
+        <rect width="36" height="36" rx="10" fill="#F5F5F5" stroke="#EEEEEE" stroke-width="1.5"/>
+        <text x="18" y="25" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#AAAAAA" text-anchor="middle">−</text>
+      </g>
+
+      <!-- Quantity -->
+      <text x="86" y="38" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="#333333" font-weight="600">1</text>
+
+      <!-- Plus button -->
+      <g transform="translate(106, 10)">
+        <rect width="36" height="36" rx="10" fill="#F0E8FF" stroke="#9B7FFF" stroke-width="1.5"/>
+        <text x="18" y="26" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#9B7FFF" font-weight="600" text-anchor="middle">+</text>
+      </g>
+
+      <!-- Send button -->
+      <g transform="translate(174, 6)">
+        <rect width="238" height="44" rx="22" fill="url(#sendBtnGrad)" filter="url(#glow)"/>
+        <text x="119" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">送给 TA (99)</text>
+      </g>
+    </g>
+  </g>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">礼物弹窗 GIFT PANEL · Chat</text>
+</svg>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="sendCodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9B7FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAF8FF"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="avatarShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF6B9E" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#bgGrad)"/>
+  <circle cx="380" cy="200" r="200" fill="#FFE0EE" opacity="0.3"/>
+  <circle cx="50" cy="900" r="180" fill="#E8E0FF" opacity="0.4"/>
+
+  <!-- Back button -->
+  <g transform="translate(8, 70)">
+    <circle cx="22" cy="22" r="22" fill="#FFFFFF" opacity="0.8" filter="url(#shadow)"/>
+    <svg x="2" y="2" width="40" height="40" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="#333333"/></svg>
+  </g>
+
+  <!-- Title -->
+  <text x="32" y="165" font-family="SF Pro Display, -apple-system, sans-serif" font-size="34" fill="#333333" font-weight="800">注册新账号</text>
+
+  <!-- Avatar -->
+  <g transform="translate(165, 195)">
+    <circle cx="50" cy="50" r="50" fill="#FFFFFF" stroke="#FF6B9E" stroke-width="4" filter="url(#avatarShadow)"/>
+    <circle cx="50" cy="40" r="20" fill="#F5F0FF"/>
+    <ellipse cx="50" cy="68" rx="28" ry="28" fill="#F5F0FF"/>
+    <!-- Camera overlay -->
+    <circle cx="80" cy="80" r="16" fill="#FFFFFF" stroke="#FF6B9E" stroke-width="2"/>
+    <svg x="64" y="64" width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="#FF6B9E"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="#FF6B9E"/></svg>
+  </g>
+  <text x="215" y="310" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#AAAAAA" text-anchor="middle">点击上传头像（选填）</text>
+
+  <!-- Form fields -->
+  <g transform="translate(0, 330)">
+    <!-- Email -->
+    <g>
+      <rect x="24" y="0" width="382" height="56" rx="16" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <circle cx="54" y="28" r="16" fill="#F0E8FF"/>
+      <text x="54" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#9B7FFF" text-anchor="middle">@</text>
+      <text x="82" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">邮箱</text>
+    </g>
+
+    <!-- Code + Send -->
+    <g transform="translate(0, 72)">
+      <rect x="24" y="0" width="382" height="56" rx="16" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="50" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">验证码</text>
+      <!-- Send code button -->
+      <rect x="270" y="8" width="116" height="40" rx="12" fill="url(#sendCodeGrad)"/>
+      <text x="328" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">发送验证码</text>
+    </g>
+
+    <!-- Username -->
+    <g transform="translate(0, 144)">
+      <rect x="24" y="0" width="382" height="56" rx="16" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <circle cx="54" cy="28" r="16" fill="#FFF0F5"/>
+      <svg x="38" y="12" width="32" height="32" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#FF6B9E"/></svg>
+      <text x="82" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">用户名</text>
+    </g>
+
+    <!-- Password -->
+    <g transform="translate(0, 216)">
+      <rect x="24" y="0" width="382" height="56" rx="16" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <circle cx="54" cy="28" r="16" fill="#FFF0F0"/>
+      <svg x="38" y="12" width="32" height="32" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="#E53935"/></svg>
+      <text x="82" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">密码</text>
+      <!-- Eye toggle -->
+      <circle cx="378" cy="28" r="16" fill="#F5F0FF"/>
+      <svg x="362" y="12" width="32" height="32" viewBox="0 0 24 24" opacity="0.3"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="#333333"/></svg>
+    </g>
+
+    <!-- Terms hint -->
+    <text x="215" y="295" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#BBBBBB" text-anchor="middle">注册即表示同意</text>
+    <text x="215" y="315" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#9B7FFF" text-anchor="middle">《用户协议》 和 《隐私政策》</text>
+
+    <!-- Register Button -->
+    <g transform="translate(24, 335)">
+      <rect width="382" height="56" rx="28" fill="url(#btnGrad)" filter="url(#glow)"/>
+      <text x="191" y="35" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">注册</text>
+    </g>
+
+    <!-- Login link -->
+    <text x="215" y="425" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#999999" text-anchor="middle">已有账号？</text>
+    <text x="215" y="448" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FF6B9E" font-weight="600" text-anchor="middle">返回登录</text>
+  </g>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">注册页 REGISTER · Auth 3/4</text>
+</svg>

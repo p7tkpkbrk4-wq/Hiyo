@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAF8FF"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#9B7FFF" flood-opacity="0.2"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#bgGrad)"/>
+  <!-- Decorative blobs -->
+  <circle cx="380" cy="150" r="180" fill="#FFE0EE" opacity="0.5"/>
+  <circle cx="50" cy="700" r="220" fill="#E8E0FF" opacity="0.5"/>
+  <circle cx="350" cy="600" r="100" fill="#FFE8F0" opacity="0.3"/>
+
+  <!-- Logo container -->
+  <g transform="translate(165, 160)">
+    <rect width="100" height="100" rx="24" fill="url(#logoGrad)" filter="url(#shadow)"/>
+    <text x="50" y="66" font-family="SF Pro Display, -apple-system, sans-serif" font-size="42" fill="#FFFFFF" font-weight="800" text-anchor="middle">Hi</text>
+  </g>
+
+  <!-- App Name -->
+  <text x="215" y="295" font-family="SF Pro Display, -apple-system, sans-serif" font-size="30" fill="#333333" font-weight="800" text-anchor="middle">Hiyo</text>
+
+  <!-- Slogan -->
+  <text x="215" y="322" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#999999" text-anchor="middle">与陌生人交朋友</text>
+
+  <!-- Guest Card (selected) -->
+  <g transform="translate(24, 400)">
+    <rect width="182" height="120" rx="18" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <rect width="182" height="120" rx="18" fill="url(#accentGrad)" opacity="0.08"/>
+    <!-- Selected border -->
+    <rect x="-2" y="-2" width="186" height="124" rx="20" fill="none" stroke="#FF6B9E" stroke-width="3"/>
+    <!-- Icon -->
+    <circle cx="91" cy="50" r="26" fill="#FFF0F5"/>
+    <svg x="65" y="24" width="52" height="52" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#FF6B9E"/></svg>
+    <!-- Label -->
+    <text x="91" y="98" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="#333333" font-weight="600" text-anchor="middle">游客</text>
+    <!-- Checkmark -->
+    <circle cx="162" cy="16" r="12" fill="#FF6B9E"/>
+    <path d="M156 16 L160 20 L168 12" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Login Card (not selected) -->
+  <g transform="translate(224, 400)">
+    <rect width="182" height="120" rx="18" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <!-- Unselected border -->
+    <rect x="-2" y="-2" width="186" height="124" rx="20" fill="none" stroke="#EEEEFF" stroke-width="2"/>
+    <!-- Icon -->
+    <circle cx="91" cy="50" r="26" fill="#F5F0FF"/>
+    <svg x="65" y="24" width="52" height="52" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#AAAAAA"/></svg>
+    <!-- Label -->
+    <text x="91" y="98" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="#AAAAAA" font-weight="600" text-anchor="middle">登录</text>
+  </g>
+
+  <!-- "选择登录方式" hint -->
+  <text x="215" y="545" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#BBBBBB" text-anchor="middle">选择你的登录方式</text>
+
+  <!-- Start Button -->
+  <g transform="translate(24, 720)">
+    <rect width="382" height="56" rx="28" fill="url(#btnGrad)" filter="url(#glow)"/>
+    <text x="191" y="35" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">开始</text>
+  </g>
+
+  <!-- Bottom decoration -->
+  <circle cx="215" cy="880" r="60" fill="#E8E0FF" opacity="0.3"/>
+  <circle cx="100" cy="860" r="30" fill="#FFE0EE" opacity="0.3"/>
+
+  <!-- Screen label -->
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">欢迎页 WELCOME · Auth 1/4</text>
+</svg>

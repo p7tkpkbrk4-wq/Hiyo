@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAF8FF"/>
+    </linearGradient>
+    <linearGradient id="msgBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAFAFA"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="avatarShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF6B9E" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#bgGrad)"/>
+  <circle cx="380" cy="100" r="200" fill="#FFE0EE" opacity="0.2"/>
+  <circle cx="50" cy="800" r="180" fill="#E8E0FF" opacity="0.3"/>
+
+  <!-- Navigation Bar -->
+  <rect width="430" height="100" fill="#FFFFFF" opacity="0.95"/>
+  <line x1="0" y1="100" x2="430" y2="100" stroke="#EEEEFF" stroke-width="1"/>
+
+  <!-- Back button -->
+  <g transform="translate(8, 55)">
+    <circle cx="22" cy="22" r="22" fill="#F5F0FF" opacity="0.8"/>
+    <path d="M15 16 L10 22 L15 28 M10 22 L28 22" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Title -->
+  <text x="215" y="77" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#333333" font-weight="700" text-anchor="middle">帖子详情</text>
+
+  <!-- Like button -->
+  <g transform="translate(358, 55)">
+    <circle cx="22" cy="22" r="22" fill="#FFF0F5"/>
+    <path d="M22 30 C16 24 10 20 10 16 C10 13 12 11 15 11 C17 11 19 12 20 14 C21 12 23 11 25 11 C28 11 30 13 30 16 C30 20 24 24 22 30 Z" fill="#FF6B9E"/>
+  </g>
+
+  <!-- Scrollable TableView content -->
+  <g transform="translate(0, 100)">
+
+    <!-- Post Header Card -->
+    <g transform="translate(0, 0)">
+      <rect width="430" height="320" fill="#FFFFFF" opacity="0.95"/>
+      <line x1="0" y1="320" x2="430" y2="320" stroke="#F0F0F5" stroke-width="8"/>
+
+      <!-- User info -->
+      <g transform="translate(24, 20)">
+        <circle cx="28" cy="28" r="28" fill="#FFE0EE" filter="url(#avatarShadow)"/>
+        <circle cx="28" cy="24" r="12" fill="#F5F0FF"/>
+        <ellipse cx="28" cy="36" rx="16" ry="16" fill="#F5F0FF"/>
+        <circle cx="56" cy="56" r="8" fill="#4CAF50"/>
+      </g>
+      <text x="88" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#333333" font-weight="700">小明同学</text>
+      <text x="88" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#999999">在线 · 2小时前</text>
+      <text x="406" y="36" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" text-anchor="end">+关注</text>
+
+      <!-- Title -->
+      <text x="24" y="100" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#333333" font-weight="700">周末一起去徒步吧</text>
+
+      <!-- Content -->
+      <text x="24" y="130" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#555555">这周天气不错，有没有小伙伴想一起去郊外徒步？路线已经规划好了，全程大概10公里，沿途风景很美～</text>
+
+      <!-- Images grid -->
+      <g transform="translate(24, 160)">
+        <rect x="0" y="0" width="120" height="120" rx="10" fill="#E8F0FF"/>
+        <rect x="130" y="0" width="120" height="120" rx="10" fill="#FFF0E8"/>
+        <rect x="260" y="0" width="120" height="120" rx="10" fill="#E8FFE8"/>
+        <text x="186" y="65" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#999999" text-anchor="middle">+3</text>
+      </g>
+
+      <!-- Action bar -->
+      <g transform="translate(24, 300)">
+        <g>
+          <circle cx="10" cy="10" r="10" fill="#FFF0F5"/>
+          <path d="M10 14 C7 10 4 8 4 6.5 C4 5 5.5 4 7 4 C8 4 9 4.5 9.5 5.5 C10 4.5 11 4 12 4 C13.5 4 15 5 15 6.5 C15 8 12 10 10 14 Z" fill="#FF6B9E" transform="scale(0.8) translate(2.5, 2.5)"/>
+          <text x="26" y="14" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999">128</text>
+        </g>
+        <g transform="translate(80, 0)">
+          <circle cx="10" cy="10" r="10" fill="#F0E8FF"/>
+          <path d="M7 7 L10 4 L13 7 M10 4 L10 14" stroke="#9B7FFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <text x="26" y="14" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999">23</text>
+        </g>
+        <g transform="translate(160, 0)">
+          <circle cx="10" cy="10" r="10" fill="#E8F5FF"/>
+          <path d="M4 4 L12 12 M12 4 L4 12" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
+          <text x="26" y="14" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#999999">分享</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Comments Section -->
+    <g transform="translate(0, 330)">
+      <text x="24" y="20" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#666666" font-weight="600">评论 23</text>
+      <line x1="0" y1="45" x2="430" y2="45" stroke="#F0F0F5" stroke-width="1"/>
+
+      <!-- Comment 1 -->
+      <g transform="translate(24, 60)">
+        <circle cx="20" cy="20" r="20" fill="#E8E0FF"/>
+        <circle cx="20" cy="16" r="8" fill="#F5F0FF"/>
+        <ellipse cx="20" cy="26" rx="10" ry="10" fill="#F5F0FF"/>
+        <text x="50" y="16" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#333333" font-weight="600">户外爱好者</text>
+        <text x="50" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#555555">周末哪天去呀？我报名！</text>
+        <text x="50" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#999999">3分钟前</text>
+        <text x="382" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" text-anchor="end">回复</text>
+      </g>
+
+      <!-- Comment 2 -->
+      <g transform="translate(24, 130)">
+        <circle cx="20" cy="20" r="20" fill="#FFE0EE"/>
+        <circle cx="20" cy="16" r="8" fill="#F5F0FF"/>
+        <ellipse cx="20" cy="26" rx="10" ry="10" fill="#F5F0FF"/>
+        <text x="50" y="16" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#333333" font-weight="600">小美</text>
+        <text x="50" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#555555">周六吧，我这边有两个朋友也想参加</text>
+        <text x="50" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#999999">2分钟前</text>
+        <text x="382" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" text-anchor="end">回复</text>
+      </g>
+
+      <!-- Comment 3 -->
+      <g transform="translate(24, 200)">
+        <circle cx="20" cy="20" r="20" fill="#E0F0FF"/>
+        <circle cx="20" cy="16" r="8" fill="#F5F0FF"/>
+        <ellipse cx="20" cy="26" rx="10" ry="10" fill="#F5F0FF"/>
+        <text x="50" y="16" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#333333" font-weight="600">健身达人</text>
+        <text x="50" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#555555">好期待！需要带什么装备吗？</text>
+        <text x="50" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#999999">1分钟前</text>
+        <text x="382" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" text-anchor="end">回复</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Input Bar (fixed at bottom) -->
+  <g transform="translate(0, 816)">
+    <rect width="430" height="110" fill="#FFFFFF" opacity="0.95"/>
+    <line x1="0" y1="0" x2="430" y2="0" stroke="#EEEEFF" stroke-width="1"/>
+
+    <!-- Keyboard area simulation -->
+    <g transform="translate(16, 16)">
+      <rect width="300" height="42" rx="21" fill="#F5F5F5" stroke="#EEEEFF" stroke-width="1.5"/>
+      <text x="16" y="27" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#999999">说点什么...</text>
+
+      <!-- Send button (gradient) -->
+      <rect x="312" y="0" width="42" height="42" rx="21" fill="url(#btnGrad)" filter="url(#glow)"/>
+      <path d="M328 21 L336 29 L328 37 M332 29 L338 29" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+
+    <!-- Bottom action buttons -->
+    <g transform="translate(16, 70)">
+      <circle cx="16" cy="16" r="16" fill="#F5F0FF"/>
+      <svg x="0" y="0" width="32" height="32" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#9B7FFF"/></svg>
+
+      <g transform="translate(50, 0)">
+        <circle cx="16" cy="16" r="16" fill="#FFF0F5"/>
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF6B9E"/>
+      </g>
+
+      <g transform="translate(100, 0)">
+        <circle cx="16" cy="16" r="16" fill="#E8F5FF"/>
+        <svg x="0" y="0" width="32" height="32" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" fill="#38BDF8"/></svg>
+      </g>
+
+      <g transform="translate(150, 0)">
+        <circle cx="16" cy="16" r="16" fill="#FFF8E0"/>
+        <svg x="0" y="0" width="32" height="32" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zM8 14h8M12 10v8" stroke="#FF9800" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      </g>
+    </g>
+  </g>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">帖子详情 POST DETAIL · Social 2/3</text>
+</svg>

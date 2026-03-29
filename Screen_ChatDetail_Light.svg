@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="topBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="50%" stop-color="#C44FE3"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="msgBubbleOut" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="msgBubbleIn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAFAFA"/>
+    </linearGradient>
+    <linearGradient id="giftBubble" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9800"/>
+      <stop offset="100%" stop-color="#FF6B9E"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="avatarShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF6B9E" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#bgGrad)"/>
+
+  <!-- Top Bar (gradient) -->
+  <rect width="430" height="100" fill="url(#topBarGrad)"/>
+
+  <!-- Back button -->
+  <g transform="translate(8, 38)">
+    <circle cx="22" cy="22" r="22" fill="#FFFFFF" opacity="0.2"/>
+    <path d="M15 16 L10 22 L15 28 M10 22 L28 22" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Avatar -->
+  <g transform="translate(50, 30)">
+    <circle cx="22" cy="22" r="22" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" filter="url(#avatarShadow)"/>
+    <circle cx="22" cy="18" r="9" fill="#FFE0EE"/>
+    <ellipse cx="22" cy="30" rx="12" ry="12" fill="#FFE0EE"/>
+  </g>
+
+  <!-- Name & Status -->
+  <text x="105" y="40" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700">小明同学</text>
+  <text x="105" y="60" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FFFFFF" opacity="0.8">在线</text>
+
+  <!-- More button -->
+  <g transform="translate(378, 38)">
+    <circle cx="22" cy="22" r="22" fill="#FFFFFF" opacity="0.2"/>
+    <circle cx="22" cy="14" r="3" fill="#FFFFFF"/>
+    <circle cx="22" cy="22" r="3" fill="#FFFFFF"/>
+    <circle cx="22" cy="30" r="3" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Messages TableView -->
+  <g transform="translate(0, 100)">
+
+    <!-- Date divider -->
+    <g transform="translate(155, 20)">
+      <rect width="120" height="24" rx="12" fill="#E8E0FF" opacity="0.5"/>
+      <text x="60" y="17" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#999999" text-anchor="middle">今天 14:30</text>
+    </g>
+
+    <!-- Incoming message 1 -->
+    <g transform="translate(16, 60)">
+      <circle cx="24" cy="24" r="24" fill="#E8E0FF"/>
+      <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+      <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      <g transform="translate(56, 0)">
+        <rect width="180" height="44" rx="16" fill="url(#msgBubbleIn)" filter="url(#shadow)"/>
+        <path d="M0 16 L8 16 L4 24 Z" fill="#FFFFFF" opacity="0.5" transform="translate(0, 4)"/>
+        <text x="14" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#333333">嗨，你好！看到你的动态了</text>
+      </g>
+    </g>
+
+    <!-- Incoming message 2 -->
+    <g transform="translate(16, 120)">
+      <circle cx="24" cy="24" r="24" fill="#E8E0FF"/>
+      <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+      <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      <g transform="translate(56, 0)">
+        <rect width="200" height="44" rx="16" fill="url(#msgBubbleIn)" filter="url(#shadow)"/>
+        <text x="14" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#333333">周末有空一起出去玩吗？</text>
+      </g>
+    </g>
+
+    <!-- Outgoing message 1 -->
+    <g transform="translate(16, 190)">
+      <!-- My avatar (right side) -->
+      <g transform="translate(356, 0)">
+        <circle cx="24" cy="24" r="24" fill="#FFE0EE" filter="url(#avatarShadow)"/>
+        <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+        <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      </g>
+      <!-- Bubble -->
+      <g transform="translate(0, 0)">
+        <rect width="200" height="44" rx="16" fill="url(#msgBubbleOut)" filter="url(#glow)"/>
+        <path d="M200 16 L192 16 L196 24 Z" fill="#FF6B9E" opacity="0.5" transform="translate(0, 4)"/>
+        <text x="14" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF">好啊，你想去哪里？</text>
+      </g>
+      <text x="176" y="55" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#CCCCCC">已读 14:32</text>
+    </g>
+
+    <!-- Outgoing message 2 -->
+    <g transform="translate(0, 250)">
+      <!-- My avatar (right side) -->
+      <g transform="translate(356, 0)">
+        <circle cx="24" cy="24" r="24" fill="#FFE0EE" filter="url(#avatarShadow)"/>
+        <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+        <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      </g>
+      <!-- Bubble -->
+      <g transform="translate(0, 0)">
+        <rect width="240" height="44" rx="16" fill="url(#msgBubbleOut)" filter="url(#glow)"/>
+        <text x="14" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF">我最近想去爬山，感觉很解压</text>
+      </g>
+      <text x="216" y="55" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#CCCCCC">已读 14:33</text>
+    </g>
+
+    <!-- Gift bubble (incoming) -->
+    <g transform="translate(16, 320)">
+      <circle cx="24" cy="24" r="24" fill="#E8E0FF"/>
+      <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+      <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      <g transform="translate(56, 0)">
+        <!-- Gift bubble card -->
+        <rect width="220" height="80" rx="14" fill="#FFFFFF" stroke="#FF9800" stroke-width="1.5" filter="url(#shadow)"/>
+        <rect width="220" height="80" rx="14" fill="#FF9800" opacity="0.06"/>
+        <text x="14" y="22" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" font-weight="600">🎁 收到礼物</text>
+        <!-- Gift icon -->
+        <rect x="14" y="30" width="40" height="40" rx="8" fill="#FFF0E0"/>
+        <rect x="24" y="40" width="20" height="20" rx="4" fill="#FF9800" opacity="0.6"/>
+        <path d="M34 35 C34 35 34 32 34 32 C34 32 30 28 24 32 C18 36 24 42 24 42" stroke="#FF9800" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Gift info -->
+        <text x="68" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#333333" font-weight="600">豪华跑车</text>
+        <text x="68" y="68" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF9800">💰 520 金币</text>
+        <!-- View button -->
+        <rect x="166" y="28" width="40" height="28" rx="8" fill="url(#giftBubble)" opacity="0.9"/>
+        <text x="186" y="46" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle">查看</text>
+      </g>
+    </g>
+
+    <!-- Outgoing gift -->
+    <g transform="translate(0, 420)">
+      <!-- My avatar (right side) -->
+      <g transform="translate(356, 0)">
+        <circle cx="24" cy="24" r="24" fill="#FFE0EE" filter="url(#avatarShadow)"/>
+        <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+        <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      </g>
+      <!-- Gift bubble -->
+      <g>
+        <rect width="220" height="80" rx="14" fill="url(#giftBubble)" filter="url(#glow)"/>
+        <text x="14" y="22" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FFFFFF" font-weight="600">🎁 送出礼物</text>
+        <rect x="14" y="30" width="40" height="40" rx="8" fill="#FFFFFF" opacity="0.2"/>
+        <rect x="24" y="40" width="20" height="20" rx="4" fill="#FFFFFF" opacity="0.4"/>
+        <text x="68" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="600">玫瑰花束</text>
+        <text x="68" y="68" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FFE0CC">💰 99 金币</text>
+      </g>
+      <text x="196" y="92" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#CCCCCC">已送达 14:35</text>
+    </g>
+
+    <!-- Incoming message 3 -->
+    <g transform="translate(16, 520)">
+      <circle cx="24" cy="24" r="24" fill="#E8E0FF"/>
+      <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+      <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      <g transform="translate(56, 0)">
+        <rect width="160" height="44" rx="16" fill="url(#msgBubbleIn)" filter="url(#shadow)"/>
+        <text x="14" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#333333">哈哈，太期待了！</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Input Bar (fixed at bottom) -->
+  <g transform="translate(0, 796)">
+    <rect width="430" height="130" fill="#FFFFFF" opacity="0.98"/>
+    <line x1="0" y1="0" x2="430" y2="0" stroke="#EEEEFF" stroke-width="1"/>
+
+    <!-- Action buttons row -->
+    <g transform="translate(16, 12)">
+      <!-- Photo button -->
+      <circle cx="20" cy="20" r="20" fill="#F5F0FF"/>
+      <svg x="4" y="4" width="32" height="32" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" fill="#9B7FFF"/></svg>
+
+      <!-- Gift button (pink) -->
+      <g transform="translate(50, 0)">
+        <circle cx="20" cy="20" r="20" fill="#FFF0F5"/>
+        <rect x="6" y="10" width="28" height="24" rx="5" fill="#EC4859" opacity="0.2"/>
+        <rect x="10" y="14" width="20" height="16" rx="4" fill="#EC4859"/>
+        <path d="M20 8 C20 8 20 4 20 4 C17 6 16 10 20 14 C24 10 23 6 20 8 Z" fill="#FFFFFF" opacity="0.5" transform="scale(0.7) translate(8.5, 6)"/>
+        <rect x="18" y="14" width="4" height="8" rx="2" fill="#EC4859"/>
+      </g>
+
+      <!-- Album button -->
+      <g transform="translate(100, 0)">
+        <circle cx="20" cy="20" r="20" fill="#E8F5FF"/>
+        <svg x="4" y="4" width="32" height="32" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#38BDF8" stroke-width="1.5" fill="none"/><circle cx="8.5" cy="8.5" r="1.5" fill="#38BDF8"/><path d="M21 15l-5-5L5 21" stroke="#38BDF8" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      </g>
+    </g>
+
+    <!-- Input field + Send -->
+    <g transform="translate(16, 58)">
+      <rect width="310" height="44" rx="22" fill="#F5F5F5" stroke="#EEEEEE" stroke-width="1.5"/>
+      <text x="18" y="28" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#AAAAAA">说点什么...</text>
+
+      <!-- Send button -->
+      <g transform="translate(320, 0)">
+        <circle cx="22" cy="22" r="22" fill="url(#msgBubbleOut)" filter="url(#glow)"/>
+        <path d="M18 22 L26 22 M24 18 L28 22 L24 26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </g>
+    </g>
+  </g>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">私聊详情 CHAT DETAIL · Social 3/3</text>
+</svg>

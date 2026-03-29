@@ -26,9 +26,6 @@ PODS:
     - SDWebImage/Core (= 5.10.2)
   - SDWebImage/Core (5.10.2)
   - SSZipArchive (2.4.2)
-  - ZLPhotoBrowser (4.5.8):
-    - ZLPhotoBrowser/Core (= 4.5.8)
-  - ZLPhotoBrowser/Core (4.5.8)
   - ZLSwipeableView (0.0.8)
 
 DEPENDENCIES:
@@ -42,7 +39,6 @@ DEPENDENCIES:
   - MMKVCore (= 1.3.5)
   - SDWebImage (= 5.10.2)
   - SSZipArchive (= 2.4.2)
-  - ZLPhotoBrowser (~> 4.5.8)
   - ZLSwipeableView (from `https://github.com/zhxnlai/ZLSwipeableView.git`)
 
 SPEC REPOS:
@@ -57,7 +53,6 @@ SPEC REPOS:
     - MMKVCore
     - SDWebImage
     - SSZipArchive
-    - ZLPhotoBrowser
 
 EXTERNAL SOURCES:
   ZLSwipeableView:
@@ -79,9 +74,8 @@ SPEC CHECKSUMS:
   MMKVCore: 9e2e5fd529b64a9fe15f1a7afb3d73b2e27b4db9
   SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
   SSZipArchive: e7b4f3d9e780c2acc1764cd88fbf2de28f26e5b2
-  ZLPhotoBrowser: 52c8b386e3f9a7885676027c529a015147df502c
   ZLSwipeableView: df385760ff4838935cdbcb62878ac5acd7355949
 
-PODFILE CHECKSUM: 69bc93680b5c41b957b104caffcd9679851f2ffc
+PODFILE CHECKSUM: a566f94180a1ba21f7b7f60fb59e0223fb8d2f21
 
 COCOAPODS: 1.16.2

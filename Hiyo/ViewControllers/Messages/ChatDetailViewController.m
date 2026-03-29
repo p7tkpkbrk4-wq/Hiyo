@@ -7,6 +7,7 @@
 #import "GiftPanelSheetController.h"
 #import "UserProfileViewController.h"
 #import "WalletViewController.h"
+#import "HYGiftEffectOverlayView.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
 #import <PhotosUI/PhotosUI.h>
@@ -425,35 +426,13 @@ static CGFloat const kBubbleMaxWidth = 260.0;
 
     // Play effect
     if (effectUrl.length > 0) {
-        [self playGiftEffect:effectUrl];
+        [HYGiftEffectOverlayView showWithEffectURL:effectUrl onView:self.view senderName:self.partnerName];
     }
 }
 
 - (void)playGiftEffect:(NSString *)effectUrl {
-    // Full-screen gift effect overlay (simplified: just show a toast)
-    UIView *overlay = [[UIView alloc] initWithFrame:self.view.bounds];
-    overlay.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-    overlay.alpha = 0;
-    [self.view addSubview:overlay];
-
-    UIImageView *effectView = [[UIImageView alloc] init];
-    effectView.contentMode = UIViewContentModeScaleAspectFit;
-    [effectView sd_setImageWithURL:[NSURL URLWithString:effectUrl] placeholderImage:nil];
-    effectView.frame = CGRectMake(0, 0, 200, 200);
-    effectView.center = self.view.center;
-    [overlay addSubview:effectView];
-
-    [UIView animateWithDuration:0.3 animations:^{
-        overlay.alpha = 1;
-    } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.3 animations:^{
-                overlay.alpha = 0;
-            } completion:^(BOOL finished) {
-                [overlay removeFromSuperview];
-            }];
-        });
-    }];
+    if (!effectUrl || effectUrl.length == 0) return;
+    [HYGiftEffectOverlayView showWithEffectURL:effectUrl onView:self.view senderName:nil];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -700,7 +679,7 @@ static CGFloat const kBubbleMaxWidth = 260.0;
 
     // Play effect if available
     if (bubble.effectUrl.length > 0) {
-        [self playGiftEffect:bubble.effectUrl];
+        [HYGiftEffectOverlayView showWithEffectURL:bubble.effectUrl onView:self.view senderName:nil];
     }
 }
 

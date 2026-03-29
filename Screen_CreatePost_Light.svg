@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F6FF"/>
+      <stop offset="100%" stop-color="#F0EDFF"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#9B7FFF"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAF8FF"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="#9B7FFF" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="avatarShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#FF6B9E" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#bgGrad)"/>
+  <circle cx="380" cy="100" r="200" fill="#FFE0EE" opacity="0.3"/>
+  <circle cx="50" cy="800" r="180" fill="#E8E0FF" opacity="0.4"/>
+
+  <!-- Navigation Bar -->
+  <rect width="430" height="100" fill="#FFFFFF" opacity="0.9"/>
+  <line x1="0" y1="100" x2="430" y2="100" stroke="#EEEEFF" stroke-width="1"/>
+
+  <!-- Cancel button -->
+  <text x="24" y="62" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="#999999">取消</text>
+
+  <!-- Title -->
+  <text x="215" y="62" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#333333" font-weight="700" text-anchor="middle">发帖</text>
+
+  <!-- Publish button (gradient) -->
+  <rect x="326" y="40" width="80" height="36" rx="18" fill="url(#btnGrad)" filter="url(#glow)"/>
+  <text x="366" y="63" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600" text-anchor="middle">发布</text>
+
+  <!-- Scrollable content -->
+  <g transform="translate(0, 115)">
+
+    <!-- Current user info -->
+    <g transform="translate(24, 0)">
+      <circle cx="24" cy="24" r="24" fill="#FFE0EE" filter="url(#avatarShadow)"/>
+      <circle cx="24" cy="20" r="10" fill="#F5F0FF"/>
+      <ellipse cx="24" cy="32" rx="14" ry="14" fill="#F5F0FF"/>
+      <text x="24" y="65" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#333333" font-weight="600" text-anchor="middle">小美</text>
+    </g>
+
+    <!-- Title Field -->
+    <g transform="translate(24, 95)">
+      <rect width="382" height="48" rx="12" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="16" y="29" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">标题（选填，不超过20字）</text>
+      <text x="362" y="29" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#CCCCCC">0/20</text>
+    </g>
+
+    <!-- Content Text Area -->
+    <g transform="translate(24, 160)">
+      <rect width="382" height="200" rx="14" fill="#FFFFFF" stroke="#EEEEFF" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="16" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#CCCCCC">分享你的想法...</text>
+      <text x="362" y="180" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#CCCCCC">0/250</text>
+    </g>
+
+    <!-- Image Grid -->
+    <g transform="translate(24, 385)">
+      <text x="0" y="0" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#666666" font-weight="600">图片（选填，最多6张）</text>
+
+      <!-- Row 1 -->
+      <g transform="translate(0, 20)">
+        <!-- Image 1 -->
+        <rect width="108" height="108" rx="10" fill="#F5F0FF" stroke="#EEEEFF" stroke-width="1"/>
+        <circle cx="86" cy="22" r="10" fill="#FFFFFF" opacity="0.8"/>
+        <path d="M82 22 L86 18 L90 22 L88 22 L88 26 L84 26 L84 22 Z" fill="#FF6B9E"/>
+
+        <!-- Image 2 -->
+        <g transform="translate(118, 0)">
+          <rect width="108" height="108" rx="10" fill="#E8F0FF" stroke="#EEEEFF" stroke-width="1"/>
+          <circle cx="86" cy="22" r="10" fill="#FFFFFF" opacity="0.8"/>
+          <path d="M82 22 L86 18 L90 22 L88 22 L88 26 L84 26 L84 22 Z" fill="#FF6B9E"/>
+        </g>
+
+        <!-- Add button -->
+        <g transform="translate(236, 0)">
+          <rect width="108" height="108" rx="10" fill="#F5F5F5" stroke="#DDDDDD" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <circle cx="54" cy="42" r="24" fill="#FFFFFF" stroke="#EEEEEE" stroke-width="1.5"/>
+          <path d="M54 34 L54 50 M46 42 L62 42" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- Row 2 -->
+      <g transform="translate(0, 138)">
+        <!-- Image 4 -->
+        <g transform="translate(0, 0)">
+          <rect width="108" height="108" rx="10" fill="#FFF0E0" stroke="#EEEEFF" stroke-width="1"/>
+          <circle cx="86" cy="22" r="10" fill="#FFFFFF" opacity="0.8"/>
+          <path d="M82 22 L86 18 L90 22 L88 22 L88 26 L84 26 L84 22 Z" fill="#FF6B9E"/>
+        </g>
+
+        <!-- Image 5 -->
+        <g transform="translate(118, 0)">
+          <rect width="108" height="108" rx="10" fill="#E0F0FF" stroke="#EEEEFF" stroke-width="1"/>
+          <circle cx="86" cy="22" r="10" fill="#FFFFFF" opacity="0.8"/>
+          <path d="M82 22 L86 18 L90 22 L88 22 L88 26 L84 26 L84 22 Z" fill="#FF6B9E"/>
+        </g>
+
+        <!-- Placeholder -->
+        <g transform="translate(236, 0)">
+          <rect width="108" height="108" rx="10" fill="#F5F5F5" stroke="#DDDDDD" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <circle cx="54" cy="42" r="24" fill="#FFFFFF" stroke="#EEEEEE" stroke-width="1.5"/>
+          <path d="M54 34 L54 50 M46 42 L62 42" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- Row 3 -->
+      <g transform="translate(0, 256)">
+        <!-- Placeholder -->
+        <g>
+          <rect width="108" height="108" rx="10" fill="#F5F5F5" stroke="#DDDDDD" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <circle cx="54" cy="42" r="24" fill="#FFFFFF" stroke="#EEEEEE" stroke-width="1.5"/>
+          <path d="M54 34 L54 50 M46 42 L62 42" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- Tips -->
+    <g transform="translate(24, 790)">
+      <rect width="382" height="50" rx="12" fill="#FFF8E0" opacity="0.8"/>
+      <circle cx="30" cy="25" r="12" fill="#FF9800" opacity="0.2"/>
+      <text x="30" y="29" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF9800" text-anchor="middle">!</text>
+      <text x="50" y="22" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF9800">温馨提醒</text>
+      <text x="50" y="38" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#CC8800">请勿发布违规内容，共同维护社区环境</text>
+    </g>
+  </g>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#AAAAAA" font-weight="500" text-anchor="middle">发帖页 CREATE POST · Social 1/3</text>
+</svg>
