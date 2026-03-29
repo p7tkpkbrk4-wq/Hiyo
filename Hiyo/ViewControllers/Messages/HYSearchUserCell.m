@@ -1,5 +1,6 @@
 #import "HYSearchUserCell.h"
 #import "HYSearchUser.h"
+#import "HYColors.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
 
@@ -18,7 +19,9 @@ static CGFloat const kAvatarSize = 44.0;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleDefault;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
         [self setupUI];
     }
     return self;
@@ -29,17 +32,17 @@ static CGFloat const kAvatarSize = 44.0;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.layer.cornerRadius = kAvatarSize / 2;
-    self.avatarImageView.backgroundColor = [UIColor systemGray5Color];
+    self.avatarImageView.backgroundColor = [UIColor colorWithRed:0.91 green:0.878 blue:1.0 alpha:1.0];
     [self.contentView addSubview:self.avatarImageView];
 
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-    self.nameLabel.textColor = [UIColor labelColor];
+    self.nameLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     [self.contentView addSubview:self.nameLabel];
 
     self.signatureLabel = [[UILabel alloc] init];
     self.signatureLabel.font = [UIFont systemFontOfSize:13];
-    self.signatureLabel.textColor = [UIColor secondaryLabelColor];
+    self.signatureLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     self.signatureLabel.numberOfLines = 1;
     [self.contentView addSubview:self.signatureLabel];
 
@@ -71,7 +74,7 @@ static CGFloat const kAvatarSize = 44.0;
                                 placeholderImage:[UIImage systemImageNamed:@"person.circle.fill"]];
     } else {
         self.avatarImageView.image = [UIImage systemImageNamed:@"person.circle.fill"];
-        self.avatarImageView.tintColor = [UIColor systemGrayColor];
+        self.avatarImageView.tintColor = [UIColor colorWithRed:0.878 green:0.867 blue:1.0 alpha:1.0];
     }
 
     self.nameLabel.text = user.name.length > 0 ? user.name : @"未知用户";

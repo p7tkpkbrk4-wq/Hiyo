@@ -1,18 +1,23 @@
 #import "HYConversationCell.h"
 #import "HYModels.h"
+#import "HYColors.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
 
 NSNotificationName const HYConversationCellDidTapDeleteNotification = @"HYConversationCellDidTapDeleteNotification";
 
-static CGFloat const kAvatarSize = 56.0;
+static CGFloat const kAvatarSize = 52.0;
 
 @interface HYConversationCell ()
 
+@property (nonatomic, strong) UIView *cardView;
+@property (nonatomic, strong) UIView *cardOverlay;
 @property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UIView *onlineIndicator;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UIView *vipBadge;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic, strong) UIView *badgeView;
 @property (nonatomic, strong) UILabel *badgeLabel;
 @property (nonatomic, strong) HYConversation *conversation;
@@ -24,87 +29,173 @@ static CGFloat const kAvatarSize = 56.0;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleDefault;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = [UIColor clearColor];
+        self.contentView.backgroundColor = [UIColor clearColor];
         [self setupUI];
     }
     return self;
 }
 
 - (void)setupUI {
-    // Avatar
+    // Card background
+    self.cardView = [[UIView alloc] init];
+    self.cardView.backgroundColor = LightCard;
+    self.cardView.layer.cornerRadius = 14;
+    self.cardView.layer.shadowColor = PurpleGradStart.CGColor;
+    self.cardView.layer.shadowOffset = CGSizeMake(0, 2);
+    self.cardView.layer.shadowRadius = 8;
+    self.cardView.layer.shadowOpacity = 0.08;
+    [self.contentView addSubview:self.cardView];
+
+    // Unread overlay (light gradient)
+    self.cardOverlay = [[UIView alloc] init];
+    self.cardOverlay.backgroundColor = [UIColor colorWithRed:1.0 green:0.941 blue:0.961 alpha:0.3];
+    self.cardOverlay.layer.cornerRadius = 14;
+    self.cardOverlay.hidden = YES;
+    [self.cardView addSubview:self.cardOverlay];
+
+    // Avatar container
+    UIView *avatarContainer = [[UIView alloc] init];
+    avatarContainer.tag = 10;
+    [self.cardView addSubview:avatarContainer];
+
     self.avatarImageView = [[UIImageView alloc] init];
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.avatarImageView.clipsToBounds = YES;
-    self.avatarImageView.layer.cornerRadius = kAvatarSize / 2;
-    self.avatarImageView.backgroundColor = [UIColor systemGray5Color];
-    [self.contentView addSubview:self.avatarImageView];
+    self.avatarImageView.layer.cornerRadius = 26;
+    self.avatarImageView.backgroundColor = [UIColor colorWithRed:0.91 green:0.878 blue:1.0 alpha:1.0];
+    [avatarContainer addSubview:self.avatarImageView];
+
+    // Online indicator
+    self.onlineIndicator = [[UIView alloc] init];
+    self.onlineIndicator.backgroundColor = [UIColor whiteColor];
+    self.onlineIndicator.layer.cornerRadius = 7;
+    self.onlineIndicator.hidden = YES;
+    [avatarContainer addSubview:self.onlineIndicator];
+
+    UIView *greenDot = [[UIView alloc] init];
+    greenDot.backgroundColor = OnlineGreenLight;
+    greenDot.layer.cornerRadius = 5;
+    greenDot.tag = 20;
+    [self.onlineIndicator addSubview:greenDot];
 
     // Name
     self.nameLabel = [[UILabel alloc] init];
-    self.nameLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-    self.nameLabel.textColor = [UIColor labelColor];
-    [self.contentView addSubview:self.nameLabel];
+    self.nameLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightBold];
+    self.nameLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+    [self.cardView addSubview:self.nameLabel];
 
-    // Message preview
-    self.messageLabel = [[UILabel alloc] init];
-    self.messageLabel.font = [UIFont systemFontOfSize:14];
-    self.messageLabel.textColor = [UIColor secondaryLabelColor];
-    self.messageLabel.numberOfLines = 1;
-    [self.contentView addSubview:self.messageLabel];
+    // VIP badge
+    self.vipBadge = [[UIView alloc] init];
+    self.vipBadge.backgroundColor = VipGold;
+    self.vipBadge.layer.cornerRadius = 8;
+    self.vipBadge.hidden = YES;
+    [self.cardView addSubview:self.vipBadge];
+
+    UILabel *vipText = [[UILabel alloc] init];
+    vipText.text = @"VIP";
+    vipText.font = [UIFont systemFontOfSize:8 weight:UIFontWeightHeavy];
+    vipText.textColor = [UIColor colorWithRed:0.545 green:0.412 blue:0.078 alpha:1.0];
+    vipText.textAlignment = NSTextAlignmentCenter;
+    [self.vipBadge addSubview:vipText];
 
     // Time
     self.timeLabel = [[UILabel alloc] init];
-    self.timeLabel.font = [UIFont systemFontOfSize:12];
-    self.timeLabel.textColor = [UIColor tertiaryLabelColor];
+    self.timeLabel.font = [UIFont systemFontOfSize:11];
+    self.timeLabel.textColor = [UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
-    [self.contentView addSubview:self.timeLabel];
+    [self.cardView addSubview:self.timeLabel];
 
-    // Badge
+    // Message preview
+    self.messageLabel = [[UILabel alloc] init];
+    self.messageLabel.font = [UIFont systemFontOfSize:13];
+    self.messageLabel.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0];
+    self.messageLabel.numberOfLines = 1;
+    [self.cardView addSubview:self.messageLabel];
+
+    // Badge (unread count)
     self.badgeView = [[UIView alloc] init];
-    self.badgeView.backgroundColor = [UIColor systemPinkColor];
-    self.badgeView.layer.cornerRadius = 10;
+    self.badgeView.backgroundColor = PinkGradStart;
+    self.badgeView.layer.cornerRadius = 9;
     self.badgeView.hidden = YES;
-    [self.contentView addSubview:self.badgeView];
+    [self.cardView addSubview:self.badgeView];
 
     self.badgeLabel = [[UILabel alloc] init];
-    self.badgeLabel.font = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
+    self.badgeLabel.font = [UIFont systemFontOfSize:10 weight:UIFontWeightBold];
     self.badgeLabel.textColor = [UIColor whiteColor];
     self.badgeLabel.textAlignment = NSTextAlignmentCenter;
     [self.badgeView addSubview:self.badgeLabel];
-
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     [self setupConstraints];
 }
 
 - (void)setupConstraints {
-    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *avatarContainer = [self.cardView viewWithTag:10];
+    UIView *greenDot = [self.onlineIndicator viewWithTag:20];
+    UIView *vipText = [self.vipBadge.subviews firstObject];
+
+    [self.cardView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(4);
+        make.bottom.equalTo(self.contentView).offset(-4);
         make.leading.equalTo(self.contentView).offset(16);
-        make.centerY.equalTo(self.contentView);
+        make.trailing.equalTo(self.contentView).offset(-16);
+    }];
+
+    [self.cardOverlay mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.cardView);
+    }];
+
+    [avatarContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.cardView).offset(16);
+        make.centerY.equalTo(self.cardView);
         make.width.height.equalTo(@(kAvatarSize));
     }];
 
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.contentView).offset(-8);
-        make.top.equalTo(self.contentView).offset(14);
-        make.width.lessThanOrEqualTo(@80);
+    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(avatarContainer);
+        make.width.height.equalTo(@52);
+    }];
+
+    [self.onlineIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@14);
+        make.trailing.bottom.equalTo(avatarContainer);
+    }];
+
+    [greenDot mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.onlineIndicator);
+        make.width.height.equalTo(@10);
     }];
 
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.avatarImageView.mas_trailing).offset(12);
-        make.trailing.lessThanOrEqualTo(self.timeLabel.mas_leading).offset(-8);
-        make.top.equalTo(self.contentView).offset(14);
+        make.leading.equalTo(avatarContainer.mas_trailing).offset(12);
+        make.top.equalTo(self.cardView).offset(16);
+    }];
+
+    [self.vipBadge mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.nameLabel.mas_trailing).offset(6);
+        make.centerY.equalTo(self.nameLabel);
+        make.width.equalTo(@38);
+        make.height.equalTo(@16);
+    }];
+
+    [vipText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.vipBadge);
+    }];
+
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.cardView).offset(-16);
+        make.centerY.equalTo(self.nameLabel);
     }];
 
     [self.badgeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.contentView).offset(-8);
-        make.bottom.equalTo(self.contentView).offset(-14);
-        make.height.equalTo(@20);
-        make.width.greaterThanOrEqualTo(@20);
+        make.trailing.equalTo(self.cardView).offset(-16);
+        make.bottom.equalTo(self.cardView).offset(-16);
+        make.width.height.equalTo(@18);
     }];
 
     [self.badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.badgeView).insets(UIEdgeInsetsMake(0, 6, 0, 6));
+        make.center.equalTo(self.badgeView);
     }];
 
     [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,33 +213,41 @@ static CGFloat const kAvatarSize = 56.0;
                                 placeholderImage:[UIImage systemImageNamed:@"person.circle.fill"]];
     } else {
         self.avatarImageView.image = [UIImage systemImageNamed:@"person.circle.fill"];
-        self.avatarImageView.tintColor = [UIColor systemGrayColor];
+        self.avatarImageView.tintColor = [UIColor colorWithRed:0.878 green:0.867 blue:1.0 alpha:1.0];
     }
 
     self.nameLabel.text = conversation.partnerName.length > 0 ? conversation.partnerName : @"未知用户";
+    self.timeLabel.text = [self formatTime:conversation.lastTime];
 
+    // Last message preview
     NSString *msgPreview = conversation.lastMessage;
     if ([conversation.lastMessageType isEqualToString:@"image"]) {
-        msgPreview = @"📷 图片";
+        msgPreview = @"[图片]";
     }
     self.messageLabel.text = msgPreview ?: @"";
 
-    self.timeLabel.text = [self formatTime:conversation.lastTime];
-
-    if (conversation.unreadCount > 0) {
-        self.badgeView.hidden = NO;
+    // Unread
+    BOOL hasUnread = conversation.unreadCount > 0;
+    self.cardOverlay.hidden = !hasUnread;
+    self.badgeView.hidden = !hasUnread;
+    if (hasUnread) {
         if (conversation.unreadCount > 99) {
             self.badgeLabel.text = @"99+";
         } else {
             self.badgeLabel.text = [NSString stringWithFormat:@"%ld", (long)conversation.unreadCount];
         }
-        self.messageLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-        self.messageLabel.textColor = [UIColor labelColor];
+        self.messageLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightMedium];
+        self.messageLabel.textColor = PinkGradStart;
     } else {
-        self.badgeView.hidden = YES;
-        self.messageLabel.font = [UIFont systemFontOfSize:14];
-        self.messageLabel.textColor = [UIColor secondaryLabelColor];
+        self.messageLabel.font = [UIFont systemFontOfSize:13];
+        self.messageLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     }
+
+    // Online indicator - always show for demo
+    self.onlineIndicator.hidden = NO;
+
+    // VIP badge - always hidden (no isVip on HYConversation)
+    self.vipBadge.hidden = YES;
 }
 
 - (NSString *)formatTime:(NSString *)timeString {
@@ -172,16 +271,8 @@ static CGFloat const kAvatarSize = 56.0;
         NSTimeInterval delta = [[NSDate date] timeIntervalSinceDate:date];
         if (delta < 60) return @"刚刚";
         if (delta < 3600) return [NSString stringWithFormat:@"%.0f分钟前", delta/60];
-        if (delta < 86400) {
-            NSDateFormatter *tf = [[NSDateFormatter alloc] init];
-            tf.dateFormat = @"HH:mm";
-            return [tf stringFromDate:date];
-        }
-        if (delta < 604800) {
-            NSDateFormatter *tf = [[NSDateFormatter alloc] init];
-            tf.dateFormat = @"MM/dd";
-            return [tf stringFromDate:date];
-        }
+        if (delta < 86400) return [NSString stringWithFormat:@"%.0f小时前", delta/3600];
+        if (delta < 604800) return [NSString stringWithFormat:@"%.0f天前", delta/86400];
         return timeString;
     }
     return timeString;

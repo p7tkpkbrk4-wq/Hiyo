@@ -1,6 +1,7 @@
 #import "MessagesViewController.h"
 #import "HYAPIClient.h"
 #import "HYModels.h"
+#import "HYColors.h"
 #import "HYConversationCell.h"
 #import "HYSearchUserCell.h"
 #import "HYSearchUser.h"
@@ -45,12 +46,13 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
-    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    self.view.backgroundColor = LightBg1;
     self.conversations = [NSMutableArray array];
     self.searchResults = [NSMutableArray array];
     self.currentPage = 1;
     self.hasMore = YES;
     self.currentSegment = 0;
+    [self setupNavigationBar];
     [self setupUI];
     [self setupNotifications];
 }
@@ -71,6 +73,39 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 
 #pragma mark - Setup
 
+- (void)setupNavigationBar {
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [UIColor whiteColor];
+        appearance.shadowColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
+        appearance.titleTextAttributes = @{
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+            NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBold]
+        };
+        self.navigationController.navigationBar.standardAppearance = appearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    }
+
+    // Right: add button (purple circle)
+    UIView *addWrapper = [[UIView alloc] init];
+    addWrapper.backgroundColor = [UIColor colorWithRed:0.961 green:0.941 blue:1.0 alpha:1.0];
+    addWrapper.layer.cornerRadius = 18;
+
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
+    addButton.tintColor = PurpleGradStart;
+    addButton.frame = CGRectMake(0, 0, 36, 36);
+    [addWrapper addSubview:addButton];
+
+    [addWrapper mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@36);
+    }];
+
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithCustomView:addWrapper];
+    self.navigationItem.rightBarButtonItem = addItem;
+}
+
 - (void)setupUI {
     [self setupSegmentControl];
     [self setupSearchBar];
@@ -81,34 +116,40 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 
 - (void)setupSegmentControl {
     self.segmentControl = [[UIView alloc] init];
-    self.segmentControl.backgroundColor = [UIColor secondarySystemBackgroundColor];
+    self.segmentControl.backgroundColor = LightCard;
+    self.segmentControl.layer.cornerRadius = 12;
+    self.segmentControl.layer.borderWidth = 1;
+    self.segmentControl.layer.borderColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0].CGColor;
     [self.view addSubview:self.segmentControl];
+
+    self.segmentIndicator = [[UIView alloc] init];
+    self.segmentIndicator.backgroundColor = PurpleGradStart;
+    self.segmentIndicator.layer.cornerRadius = 8;
+    [self.segmentControl addSubview:self.segmentIndicator];
 
     self.recentButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.recentButton setTitle:@"最近聊天" forState:UIControlStateNormal];
-    self.recentButton.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
-    [self.recentButton setTitleColor:[UIColor systemPinkColor] forState:UIControlStateNormal];
+    self.recentButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
+    [self.recentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.recentButton addTarget:self action:@selector(segmentTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.recentButton.tag = 0;
     [self.segmentControl addSubview:self.recentButton];
 
     self.nearbyButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.nearbyButton setTitle:@"附近" forState:UIControlStateNormal];
-    self.nearbyButton.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
-    [self.nearbyButton setTitleColor:[UIColor secondaryLabelColor] forState:UIControlStateNormal];
+    self.nearbyButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightMedium];
+    [self.nearbyButton setTitleColor:[UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0] forState:UIControlStateNormal];
     [self.nearbyButton addTarget:self action:@selector(segmentTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.nearbyButton.tag = 1;
     [self.segmentControl addSubview:self.nearbyButton];
-
-    self.segmentIndicator = [[UIView alloc] init];
-    self.segmentIndicator.backgroundColor = [UIColor systemPinkColor];
-    self.segmentIndicator.layer.cornerRadius = 1.5;
-    [self.segmentControl addSubview:self.segmentIndicator];
 }
 
 - (void)setupSearchBar {
     self.searchContainer = [[UIView alloc] init];
-    self.searchContainer.backgroundColor = [UIColor secondarySystemBackgroundColor];
+    self.searchContainer.backgroundColor = LightCard;
+    self.searchContainer.layer.cornerRadius = 12;
+    self.searchContainer.layer.borderWidth = 1;
+    self.searchContainer.layer.borderColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0].CGColor;
     [self.view addSubview:self.searchContainer];
 
     self.searchBar = [[UISearchBar alloc] init];
@@ -116,14 +157,19 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.searchBar.delegate = self;
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.backgroundColor = [UIColor clearColor];
+    UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
+    if (searchField) {
+        searchField.backgroundColor = [UIColor clearColor];
+    }
     [self.searchContainer addSubview:self.searchBar];
 
     self.searchResultsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.searchResultsTableView.delegate = self;
     self.searchResultsTableView.dataSource = self;
     self.searchResultsTableView.hidden = YES;
-    self.searchResultsTableView.backgroundColor = [UIColor systemBackgroundColor];
+    self.searchResultsTableView.backgroundColor = [UIColor clearColor];
     self.searchResultsTableView.rowHeight = 60;
+    self.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.searchResultsTableView registerClass:[HYSearchUserCell class] forCellReuseIdentifier:kSearchUserCellId];
     [self.view addSubview:self.searchResultsTableView];
 }
@@ -132,9 +178,9 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 80;
-    self.tableView.backgroundColor = [UIColor systemBackgroundColor];
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 84, 0, 0);
+    self.tableView.rowHeight = 76;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[HYConversationCell class] forCellReuseIdentifier:kConversationCellId];
     [self.view addSubview:self.tableView];
 
@@ -142,14 +188,14 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 
     self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.loadingIndicator.color = [UIColor systemPinkColor];
+    self.loadingIndicator.color = PinkGradStart;
     self.loadingIndicator.hidesWhenStopped = YES;
     [self.view addSubview:self.loadingIndicator];
 
     self.emptyLabel = [[UILabel alloc] init];
     self.emptyLabel.text = @"暂无消息";
     self.emptyLabel.font = [UIFont systemFontOfSize:15];
-    self.emptyLabel.textColor = [UIColor secondaryLabelColor];
+    self.emptyLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     self.emptyLabel.textAlignment = NSTextAlignmentCenter;
     self.emptyLabel.hidden = YES;
     [self.tableView addSubview:self.emptyLabel];
@@ -157,7 +203,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.nearbyPlaceholder = [[UILabel alloc] init];
     self.nearbyPlaceholder.text = @"功能开发中";
     self.nearbyPlaceholder.font = [UIFont systemFontOfSize:15];
-    self.nearbyPlaceholder.textColor = [UIColor secondaryLabelColor];
+    self.nearbyPlaceholder.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     self.nearbyPlaceholder.textAlignment = NSTextAlignmentCenter;
     self.nearbyPlaceholder.hidden = YES;
     [self.tableView addSubview:self.nearbyPlaceholder];
@@ -166,6 +212,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 - (void)setupLoginRequired {
     self.loginRequiredView = [[HYLoginRequiredView alloc] init];
     self.loginRequiredView.tipText = @"登录后可以看到消息";
+    self.loginRequiredView.backgroundColor = LightBg1;
     [self.loginRequiredView setLoginButtonTitle:@"去登录"];
     __weak typeof(self) weakSelf = self;
     self.loginRequiredView.onLoginTapped = ^{
@@ -180,46 +227,50 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 }
 
 - (void)setupConstraints {
-    [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
-        make.leading.trailing.equalTo(self.view);
-        make.height.equalTo(@44);
-    }];
-
-    [self.recentButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.segmentControl).offset(60);
-        make.centerY.equalTo(self.segmentControl);
-    }];
-
-    [self.nearbyButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.recentButton.mas_trailing).offset(40);
-        make.centerY.equalTo(self.segmentControl);
-    }];
-
-    [self.segmentIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.recentButton);
-        make.bottom.equalTo(self.segmentControl).offset(-4);
-        make.width.equalTo(@40);
-        make.height.equalTo(@3);
-    }];
-
     [self.searchContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.segmentControl.mas_bottom);
-        make.leading.trailing.equalTo(self.view);
-        make.height.equalTo(@50);
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(8);
+        make.leading.equalTo(self.view).offset(16);
+        make.trailing.equalTo(self.view).offset(-16);
+        make.height.equalTo(@42);
     }];
 
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.searchContainer).insets(UIEdgeInsetsMake(4, 8, 4, 8));
     }];
 
+    [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.searchContainer.mas_bottom).offset(8);
+        make.leading.equalTo(self.view).offset(16);
+        make.trailing.equalTo(self.view).offset(-16);
+        make.height.equalTo(@38);
+    }];
+
+    [self.recentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.segmentControl).offset(4);
+        make.centerY.equalTo(self.segmentControl);
+        make.width.equalTo(@190);
+    }];
+
+    [self.nearbyButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.recentButton.mas_trailing);
+        make.centerY.equalTo(self.segmentControl);
+        make.width.equalTo(@190);
+    }];
+
+    [self.segmentIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.segmentControl).offset(4);
+        make.top.equalTo(self.segmentControl).offset(4);
+        make.bottom.equalTo(self.segmentControl).offset(-4);
+        make.width.equalTo(@190);
+    }];
+
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.searchContainer.mas_bottom);
+        make.top.equalTo(self.segmentControl.mas_bottom).offset(8);
         make.leading.trailing.bottom.equalTo(self.view);
     }];
 
     [self.searchResultsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.searchContainer.mas_bottom);
+        make.top.equalTo(self.segmentControl.mas_bottom).offset(8);
         make.leading.trailing.bottom.equalTo(self.view);
     }];
 
@@ -273,30 +324,31 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 
     [UIView animateWithDuration:0.25 animations:^{
         if (sender.tag == 0) {
-            [self.recentButton setTitleColor:[UIColor systemPinkColor] forState:UIControlStateNormal];
-            [self.nearbyButton setTitleColor:[UIColor secondaryLabelColor] forState:UIControlStateNormal];
+            [self.recentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.nearbyButton setTitleColor:[UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0] forState:UIControlStateNormal];
             [self.segmentIndicator mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.recentButton);
+                make.leading.equalTo(self.segmentControl).offset(4);
+                make.top.equalTo(self.segmentControl).offset(4);
                 make.bottom.equalTo(self.segmentControl).offset(-4);
-                make.width.equalTo(@40);
-                make.height.equalTo(@3);
+                make.width.equalTo(@190);
             }];
             self.tableView.hidden = NO;
             self.nearbyPlaceholder.hidden = YES;
             self.searchContainer.hidden = NO;
             self.searchResultsTableView.hidden = YES;
         } else {
-            [self.nearbyButton setTitleColor:[UIColor systemPinkColor] forState:UIControlStateNormal];
-            [self.recentButton setTitleColor:[UIColor secondaryLabelColor] forState:UIControlStateNormal];
+            [self.nearbyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.recentButton setTitleColor:[UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0] forState:UIControlStateNormal];
             [self.segmentIndicator mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.nearbyButton);
+                make.leading.equalTo(self.recentButton.mas_trailing);
+                make.top.equalTo(self.segmentControl).offset(4);
                 make.bottom.equalTo(self.segmentControl).offset(-4);
-                make.width.equalTo(@40);
-                make.height.equalTo(@3);
+                make.width.equalTo(@190);
             }];
             self.tableView.hidden = YES;
             self.nearbyPlaceholder.hidden = NO;
             self.searchContainer.hidden = YES;
+            self.searchResultsTableView.hidden = YES;
         }
         [self.view layoutIfNeeded];
     }];
