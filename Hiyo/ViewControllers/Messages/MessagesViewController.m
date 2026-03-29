@@ -165,7 +165,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.searchField.font = [UIFont systemFontOfSize:15];
     self.searchField.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     self.searchField.backgroundColor = LightCard;
-    self.searchField.layer.cornerRadius = 26;
+    self.searchField.layer.cornerRadius = 28;
     self.searchField.layer.borderWidth = 1;
     self.searchField.layer.borderColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0].CGColor;
     self.searchField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 1)];
@@ -264,7 +264,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     [self.searchOverlay mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(8);
         make.leading.trailing.equalTo(self.view);
-        make.height.equalTo(@56);
+        make.height.equalTo(@72);
     }];
 
     [self.cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -276,6 +276,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
         make.leading.equalTo(self.searchOverlay).offset(16);
         make.trailing.equalTo(self.cancelButton.mas_leading).offset(-8);
         make.centerY.equalTo(self.searchOverlay);
+        make.height.equalTo(@52);
     }];
 
     [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
