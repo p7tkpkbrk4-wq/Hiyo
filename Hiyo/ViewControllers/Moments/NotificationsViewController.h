@@ -1,8 +1,8 @@
-#import <UIKit/UIKit.h>
+#import "HYBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NotificationsViewController : UIViewController
+@interface NotificationsViewController : HYBaseViewController
 
 @end
 

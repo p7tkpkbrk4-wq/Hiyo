@@ -73,7 +73,7 @@
     // Messages - Chat List
     MessagesViewController *messagesVC = [[MessagesViewController alloc] init];
     UINavigationController *messagesNav = [[UINavigationController alloc] initWithRootViewController:messagesVC];
-    messagesNav.navigationBar.prefersLargeTitles = YES;
+    messagesNav.navigationBar.prefersLargeTitles = NO;
     messagesNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息"
                                                             image:[UIImage systemImageNamed:@"bubble.left.and.bubble.right"]
                                                     selectedImage:[UIImage systemImageNamed:@"bubble.left.and.bubble.right.fill"]];

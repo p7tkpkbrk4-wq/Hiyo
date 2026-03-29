@@ -3,8 +3,6 @@
 #import "HYModels.h"
 #import "HYColors.h"
 #import "HYConversationCell.h"
-#import "HYSearchUserCell.h"
-#import "HYSearchUser.h"
 #import "HYWebSocketManager.h"
 #import "HYLoginRequiredView.h"
 #import "ChatDetailViewController.h"
@@ -13,28 +11,22 @@
 #import <MJRefresh/MJRefresh.h>
 
 static NSString * const kConversationCellId = @"HYConversationCell";
-static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 
-@interface MessagesViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface MessagesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIView *segmentControl;
 @property (nonatomic, strong) UIButton *recentButton;
 @property (nonatomic, strong) UIButton *nearbyButton;
 @property (nonatomic, strong) UIView *segmentIndicator;
-@property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UIView *searchContainer;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UITableView *searchResultsTableView;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingIndicator;
 @property (nonatomic, strong) UILabel *emptyLabel;
 @property (nonatomic, strong) UILabel *nearbyPlaceholder;
 
 @property (nonatomic, strong) NSMutableArray<HYConversation *> *conversations;
-@property (nonatomic, strong) NSMutableArray<HYSearchUser *> *searchResults;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, assign) BOOL hasMore;
 @property (nonatomic, assign) BOOL isLoading;
-@property (nonatomic, assign) BOOL isSearching;
 @property (nonatomic, assign) NSInteger currentSegment; // 0 = recent, 1 = nearby
 
 @property (nonatomic, strong) HYLoginRequiredView *loginRequiredView;
@@ -48,7 +40,6 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.title = @"消息";
     self.view.backgroundColor = LightBg1;
     self.conversations = [NSMutableArray array];
-    self.searchResults = [NSMutableArray array];
     self.currentPage = 1;
     self.hasMore = YES;
     self.currentSegment = 0;
@@ -74,6 +65,8 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 #pragma mark - Setup
 
 - (void)setupNavigationBar {
+    self.navigationController.navigationBar.tintColor = PinkGradStart;
+
     if (@available(iOS 15.0, *)) {
         UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
         [appearance configureWithOpaqueBackground];
@@ -86,29 +79,10 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
         self.navigationController.navigationBar.standardAppearance = appearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
     }
-
-    // Right: add button (purple circle)
-    UIView *addWrapper = [[UIView alloc] init];
-    addWrapper.backgroundColor = [UIColor colorWithRed:0.961 green:0.941 blue:1.0 alpha:1.0];
-    addWrapper.layer.cornerRadius = 18;
-
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [addButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
-    addButton.tintColor = PurpleGradStart;
-    addButton.frame = CGRectMake(0, 0, 36, 36);
-    [addWrapper addSubview:addButton];
-
-    [addWrapper mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.equalTo(@36);
-    }];
-
-    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithCustomView:addWrapper];
-    self.navigationItem.rightBarButtonItem = addItem;
 }
 
 - (void)setupUI {
     [self setupSegmentControl];
-    [self setupSearchBar];
     [self setupTableView];
     [self setupLoginRequired];
     [self setupConstraints];
@@ -144,36 +118,6 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     [self.segmentControl addSubview:self.nearbyButton];
 }
 
-- (void)setupSearchBar {
-    self.searchContainer = [[UIView alloc] init];
-    self.searchContainer.backgroundColor = LightCard;
-    self.searchContainer.layer.cornerRadius = 12;
-    self.searchContainer.layer.borderWidth = 1;
-    self.searchContainer.layer.borderColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0].CGColor;
-    [self.view addSubview:self.searchContainer];
-
-    self.searchBar = [[UISearchBar alloc] init];
-    self.searchBar.placeholder = @"搜索用户ID或昵称";
-    self.searchBar.delegate = self;
-    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    self.searchBar.backgroundColor = [UIColor clearColor];
-    UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
-    if (searchField) {
-        searchField.backgroundColor = [UIColor clearColor];
-    }
-    [self.searchContainer addSubview:self.searchBar];
-
-    self.searchResultsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.searchResultsTableView.delegate = self;
-    self.searchResultsTableView.dataSource = self;
-    self.searchResultsTableView.hidden = YES;
-    self.searchResultsTableView.backgroundColor = [UIColor clearColor];
-    self.searchResultsTableView.rowHeight = 60;
-    self.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.searchResultsTableView registerClass:[HYSearchUserCell class] forCellReuseIdentifier:kSearchUserCellId];
-    [self.view addSubview:self.searchResultsTableView];
-}
-
 - (void)setupTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -181,6 +125,7 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     self.tableView.rowHeight = 76;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.tableView registerClass:[HYConversationCell class] forCellReuseIdentifier:kConversationCellId];
     [self.view addSubview:self.tableView];
 
@@ -227,19 +172,8 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 }
 
 - (void)setupConstraints {
-    [self.searchContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(8);
-        make.leading.equalTo(self.view).offset(16);
-        make.trailing.equalTo(self.view).offset(-16);
-        make.height.equalTo(@42);
-    }];
-
-    [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.searchContainer).insets(UIEdgeInsetsMake(4, 8, 4, 8));
-    }];
-
     [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.searchContainer.mas_bottom).offset(8);
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(8);
         make.leading.equalTo(self.view).offset(16);
         make.trailing.equalTo(self.view).offset(-16);
         make.height.equalTo(@38);
@@ -265,11 +199,6 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     }];
 
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.segmentControl.mas_bottom).offset(8);
-        make.leading.trailing.bottom.equalTo(self.view);
-    }];
-
-    [self.searchResultsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.segmentControl.mas_bottom).offset(8);
         make.leading.trailing.bottom.equalTo(self.view);
     }];
@@ -334,8 +263,6 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
             }];
             self.tableView.hidden = NO;
             self.nearbyPlaceholder.hidden = YES;
-            self.searchContainer.hidden = NO;
-            self.searchResultsTableView.hidden = YES;
         } else {
             [self.nearbyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.recentButton setTitleColor:[UIColor colorWithRed:0.667 green:0.667 blue:0.667 alpha:1.0] forState:UIControlStateNormal];
@@ -347,8 +274,6 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
             }];
             self.tableView.hidden = YES;
             self.nearbyPlaceholder.hidden = NO;
-            self.searchContainer.hidden = YES;
-            self.searchResultsTableView.hidden = YES;
         }
         [self.view layoutIfNeeded];
     }];
@@ -418,96 +343,25 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
     [self loadConversations:NO];
 }
 
-- (void)searchUsers:(NSString *)keyword {
-    if (keyword.length == 0) {
-        [self.searchResults removeAllObjects];
-        self.searchResultsTableView.hidden = YES;
-        self.tableView.hidden = NO;
-        return;
-    }
-
-    [[HYAPIClient shared] searchUsersWithKeyword:keyword completion:^(NSDictionary *response, NSError *error) {
-        if (error) return;
-
-        id data = response[@"data"];
-        NSArray *usersData = nil;
-        if ([data isKindOfClass:[NSDictionary class]]) {
-            usersData = data[@"users"];
-        } else if ([data isKindOfClass:[NSArray class]]) {
-            usersData = data;
-        }
-        if (![usersData isKindOfClass:[NSArray class]]) {
-            usersData = @[];
-        }
-
-        [self.searchResults removeAllObjects];
-        for (NSDictionary *dict in usersData) {
-            HYSearchUser *user = [[HYSearchUser alloc] initWithDictionary:dict];
-            [self.searchResults addObject:user];
-        }
-
-        self.searchResultsTableView.hidden = NO;
-        self.tableView.hidden = YES;
-        [self.searchResultsTableView reloadData];
-    }];
-}
-
-#pragma mark - UISearchBarDelegate
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if (self.currentSegment != 0) return;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(doSearch) object:nil];
-    [self performSelector:@selector(doSearch) withObject:nil afterDelay:0.5];
-}
-
-- (void)doSearch {
-    [self searchUsers:self.searchBar.text];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-    [self searchUsers:searchBar.text];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    searchBar.text = @"";
-    [searchBar resignFirstResponder];
-    self.searchResultsTableView.hidden = YES;
-    self.tableView.hidden = NO;
-    [self.searchResults removeAllObjects];
-    [self.searchResultsTableView reloadData];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchResultsTableView) {
-        return self.searchResults.count;
-    }
     return self.conversations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.searchResultsTableView) {
-        HYSearchUserCell *cell = [tableView dequeueReusableCellWithIdentifier:kSearchUserCellId forIndexPath:indexPath];
-        HYSearchUser *user = self.searchResults[indexPath.row];
-        [cell configWithSearchUser:user];
-        return cell;
-    }
-
     HYConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:kConversationCellId forIndexPath:indexPath];
     HYConversation *conv = self.conversations[indexPath.row];
-    cell.conversationIndex = indexPath.row;
     [cell configWithConversation:conv];
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return (tableView != self.searchResultsTableView);
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete && tableView == self.tableView) {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.conversations removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -518,16 +372,9 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    if (tableView == self.searchResultsTableView) {
-        HYSearchUser *user = self.searchResults[indexPath.row];
-        NSString *uid = user.userId.length > 0 ? user.userId : user.uid;
-        ChatDetailViewController *vc = [[ChatDetailViewController alloc] initWithPartnerId:uid partnerName:user.name partnerAvatar:user.avatarUrl];
-        [self.navigationController pushViewController:vc animated:YES];
-    } else {
-        HYConversation *conv = self.conversations[indexPath.row];
-        ChatDetailViewController *vc = [[ChatDetailViewController alloc] initWithPartnerId:conv.partnerId partnerName:conv.partnerName partnerAvatar:conv.partnerAvatar];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    HYConversation *conv = self.conversations[indexPath.row];
+    ChatDetailViewController *vc = [[ChatDetailViewController alloc] initWithPartnerId:conv.partnerId partnerName:conv.partnerName partnerAvatar:conv.partnerAvatar];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Login
@@ -535,14 +382,12 @@ static NSString * const kSearchUserCellId = @"HYSearchUserCell";
 - (void)showLoginRequired {
     self.loginRequiredView.hidden = NO;
     self.segmentControl.hidden = YES;
-    self.searchContainer.hidden = YES;
     self.tableView.hidden = YES;
 }
 
 - (void)hideLoginRequired {
     self.loginRequiredView.hidden = YES;
     self.segmentControl.hidden = NO;
-    self.searchContainer.hidden = NO;
     self.tableView.hidden = NO;
 }
 
