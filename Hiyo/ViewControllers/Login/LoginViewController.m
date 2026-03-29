@@ -270,6 +270,20 @@
                 [[HYAPIClient shared] setToken:token];
             }
 
+            // Save userId (Android parity)
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                NSString *userId = data[@"id"];
+                if (!userId || ![userId isKindOfClass:[NSString class]]) {
+                    id userIdVal = data[@"id"];
+                    if ([userIdVal isKindOfClass:[NSNumber class]]) {
+                        userId = [NSString stringWithFormat:@"%@", userIdVal];
+                    }
+                }
+                if (userId) {
+                    [[NSUserDefaults standardUserDefaults] setObject:userId forKey:@"hiyo_user_id"];
+                }
+            }
+
             if (self.onLoginSuccess) {
                 self.onLoginSuccess();
             }

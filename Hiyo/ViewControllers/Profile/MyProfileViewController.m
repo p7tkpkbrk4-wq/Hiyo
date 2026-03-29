@@ -96,6 +96,13 @@
     [self setupNavigationBar];
     [self setupUI];
     [self setupNotifications];
+
+    if ([HYAPIClient shared].isLoggedIn) {
+        [self hideLoginRequired];
+        [self loadData];
+    } else {
+        [self showLoginRequired];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -817,7 +824,9 @@
     if (self.isLoading) return;
     self.isLoading = YES;
 
-    [[HYAPIClient shared] getUserInfoWithId:@"me" completion:^(NSDictionary *response, NSError *error) {
+    NSString *userId = [[NSUserDefaults standardUserDefaults] stringForKey:@"hiyo_user_id"];
+    if (!userId) userId = @"me";
+    [[HYAPIClient shared] getUserInfoWithId:userId completion:^(NSDictionary *response, NSError *error) {
         self.isLoading = NO;
         if (error) {
             NSLog(@"Failed to load profile: %@", error.localizedDescription);
