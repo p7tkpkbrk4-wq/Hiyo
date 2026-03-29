@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="appBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A14"/>
+      <stop offset="100%" stop-color="#12122A"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1C1C2E"/>
+      <stop offset="100%" stop-color="#16162A"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B5FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="hotPinkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#FF4081"/>
+    </linearGradient>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C44FE3" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#appBg)"/>
+
+  <!-- Status Bar -->
+  <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+  <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+  <rect x="320" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+  <rect x="325" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="330" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+  <rect x="335" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+  <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+  <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+
+  <!-- Navigation Bar -->
+  <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+  <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">消息</text>
+  <circle cx="385" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+  <path d="M385 74 L385 90 M377 82 L393 82" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Search Bar -->
+  <g transform="translate(16, 120)">
+    <rect width="398" height="42" rx="12" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1"/>
+    <circle cx="36" cy="21" r="8" fill="none" stroke="#808099" stroke-width="1.5"/>
+    <path d="M42 26 L46 30" stroke="#808099" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="55" y="26" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#808099">搜索用户ID或昵称</text>
+  </g>
+
+  <!-- Segmented Control -->
+  <g transform="translate(16, 175)">
+    <rect width="398" height="38" rx="10" fill="#1C1C2E"/>
+    <rect x="4" y="4" width="190" height="30" rx="8" fill="url(#purpleGrad)" opacity="0.9"/>
+    <text x="99" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">最近聊天</text>
+    <text x="299" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099" text-anchor="middle">附近</text>
+  </g>
+
+  <!-- Conversation List -->
+
+  <!-- Conv 1 - Gift message (unread) -->
+  <g transform="translate(16, 228)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <rect width="398" height="76" rx="12" fill="url(#tabGrad)"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <circle cx="63" cy="52" r="8" fill="#0A0A14"/>
+    <circle cx="63" cy="52" r="6" fill="#4CAF50"/>
+    <circle cx="65" cy="22" r="10" fill="#FF6B9E"/>
+    <text x="65" y="26" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">2</text>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">Emily</text>
+    <rect x="128" y="18" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+    <text x="147" y="29" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">刚刚</text>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" font-weight="600">🎁 送了 99 朵玫瑰</text>
+  </g>
+
+  <!-- Conv 2 - Text message (unread) -->
+  <g transform="translate(16, 312)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">Lucas</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">5分钟前</text>
+    <circle cx="65" cy="22" r="5" fill="#FF6B9E"/>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">嗨，你好呀！很高兴认识你</text>
+  </g>
+
+  <!-- Conv 3 - Online user -->
+  <g transform="translate(16, 396)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <circle cx="63" cy="52" r="8" fill="#0A0A14"/>
+    <circle cx="63" cy="52" r="6" fill="#4CAF50"/>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">Sofia</text>
+    <rect x="128" y="20" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+    <text x="147" y="31" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">昨天</text>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">周末有空吗？一起喝咖啡吧 ☕</text>
+  </g>
+
+  <!-- Conv 4 - Image message -->
+  <g transform="translate(16, 480)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">Anna</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">3天前</text>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">[图片]</text>
+    <rect x="120" y="42" width="30" height="20" rx="4" fill="#242438"/>
+  </g>
+
+  <!-- Conv 5 -->
+  <g transform="translate(16, 564)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">James</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">1周前</text>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">好的，那我们改天再约</text>
+  </g>
+
+  <!-- Conv 6 - VIP locked -->
+  <g transform="translate(16, 648)">
+    <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+    <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+    <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+    <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+    <!-- Blur/lock icon -->
+    <rect x="28" y="28" width="28" height="22" rx="6" fill="#0A0A14" opacity="0.7"/>
+    <path d="M33 28 L33 25 C33 22 51 22 51 25 L51 28" stroke="#FF6B9E" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">VIP用户</text>
+    <rect x="128" y="20" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+    <text x="147" y="31" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+    <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">2周前</text>
+    <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">升级VIP解锁更多附近的人</text>
+  </g>
+
+  <!-- Tab Bar -->
+  <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+  <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+  <circle cx="50" cy="840" r="24" fill="#1C1C2E"/>
+  <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="none" stroke="#808099" stroke-width="1.8"/>
+  <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">遇见</text>
+  <circle cx="145" cy="840" r="24" fill="#1C1C2E"/>
+  <rect x="132" y="830" width="26" height="18" rx="3" stroke="#808099" stroke-width="1.5" fill="none"/>
+  <path d="M137 830 L149 830 M137 830 L137 840 L149 840 L149 830" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <circle cx="137" cy="835" r="1.5" fill="#808099"/>
+  <circle cx="142" cy="835" r="1.5" fill="#808099"/>
+  <circle cx="147" cy="835" r="1.5" fill="#808099"/>
+  <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">动态</text>
+  <!-- Messages (active) -->
+  <circle cx="285" cy="840" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+  <rect x="271" y="830" width="28" height="20" rx="6" stroke="#FFFFFF" stroke-width="1.8" fill="none"/>
+  <path d="M273 830 L285 842 L297 830" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+  <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+  <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">消息</text>
+  <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+  <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+  <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">消息 MESSAGES · Screen 3/4</text>
+</svg>

@@ -63,7 +63,7 @@ static NSInteger const kPrefetchImageCount = 6;
 
 - (void)setupViews {
     self.backgroundColor = [UIColor whiteColor];
-    self.layer.cornerRadius = 20;
+    self.layer.cornerRadius = 8;
     self.clipsToBounds = YES;
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 4);

