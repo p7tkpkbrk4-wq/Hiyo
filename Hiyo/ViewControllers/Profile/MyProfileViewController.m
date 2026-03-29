@@ -312,14 +312,20 @@
     // Followers
     self.followersCount = [self makeStatLabel:@"0" fontSize:18 color:[UIColor whiteColor]];
     self.followersTitle = [self makeStatLabel:@"粉丝" fontSize:11 color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7]];
+    [self.headerCard addSubview:self.followersCount];
+    [self.headerCard addSubview:self.followersTitle];
 
     // Following
     self.followingCount = [self makeStatLabel:@"0" fontSize:18 color:[UIColor whiteColor]];
     self.followingTitle = [self makeStatLabel:@"关注" fontSize:11 color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7]];
+    [self.headerCard addSubview:self.followingCount];
+    [self.headerCard addSubview:self.followingTitle];
 
     // Visitors
     self.visitorsCount = [self makeStatLabel:@"0" fontSize:18 color:[UIColor whiteColor]];
     self.visitorsTitle = [self makeStatLabel:@"访客" fontSize:11 color:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7]];
+    [self.headerCard addSubview:self.visitorsCount];
+    [self.headerCard addSubview:self.visitorsTitle];
 }
 
 - (UILabel *)makeStatLabel:(NSString *)text fontSize:(CGFloat)fontSize color:(UIColor *)color {
