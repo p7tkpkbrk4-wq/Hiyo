@@ -176,14 +176,14 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
     self.loadingIndicator.hidesWhenStopped = YES;
     [self.view addSubview:self.loadingIndicator];
 
-    // Create Post FAB - pink gradient
+    // Create Post FAB - pink gradient (horizontal)
     self.createPostButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.createPostButton.frame = CGRectMake(0, 0, 60, 60);
 
     CAGradientLayer *fabGrad = [CAGradientLayer layer];
     fabGrad.colors = @[(id)PinkGradStart.CGColor, (id)PinkGradEnd.CGColor];
-    fabGrad.startPoint = CGPointMake(0, 0);
-    fabGrad.endPoint = CGPointMake(1, 1);
+    fabGrad.startPoint = CGPointMake(0, 0.5);
+    fabGrad.endPoint = CGPointMake(1, 0.5);
     fabGrad.cornerRadius = 30;
     fabGrad.frame = self.createPostButton.bounds;
     [self.createPostButton.layer insertSublayer:fabGrad atIndex:0];
@@ -193,11 +193,9 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
     self.createPostButton.layer.shadowRadius = 10;
     self.createPostButton.layer.shadowOpacity = 0.4;
 
-    [self.createPostButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
-    self.createPostButton.tintColor = [UIColor whiteColor];
-    self.createPostButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.createPostButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    self.createPostButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.createPostButton setTitle:@"+" forState:UIControlStateNormal];
+    [self.createPostButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.createPostButton.titleLabel.font = [UIFont systemFontOfSize:28 weight:UIFontWeightMedium];
     [self.createPostButton addTarget:self action:@selector(createPostTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createPostButton];
 
