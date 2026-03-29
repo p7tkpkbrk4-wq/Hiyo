@@ -1,0 +1,11 @@
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface CompleteProfileViewController : UIViewController
+
+@property (nonatomic, copy) void (^onComplete)(void);
+
+@end
+
+NS_ASSUME_NONNULL_END

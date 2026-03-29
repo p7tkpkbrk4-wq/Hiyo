@@ -1,0 +1,35 @@
+# Xcode
+build/
+*.xcuserstate
+*.xcworkspace/
+xcshareddata/
+!Hiyo.xcworkspace
+!Hiyo.xcworkspace/contents.xcworkspacedata
+!Hiyo.xcodeproj/xcshareddata/
+*.moved-aside
+DerivedData
+
+# CocoaPods
+Pods/
+!Podfile
+!Podfile.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Build logs
+*.log
+
+# Misc
+*.cer

