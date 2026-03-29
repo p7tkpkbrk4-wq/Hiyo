@@ -580,6 +580,7 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(self.scrollView);
+        make.bottom.equalTo(self.scrollView).offset(-40);
     }];
 
     // Header card
