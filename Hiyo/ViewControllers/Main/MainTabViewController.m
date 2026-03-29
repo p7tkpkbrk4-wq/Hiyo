@@ -65,7 +65,7 @@
     // Moments - Social Feed
     MomentsViewController *momentsVC = [[MomentsViewController alloc] init];
     UINavigationController *momentsNav = [[UINavigationController alloc] initWithRootViewController:momentsVC];
-    momentsNav.navigationBar.prefersLargeTitles = YES;
+    momentsNav.navigationBar.prefersLargeTitles = NO;
     momentsNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"动态广场"
                                                           image:[UIImage systemImageNamed:@"message"]
                                                   selectedImage:[UIImage systemImageNamed:@"message.fill"]];

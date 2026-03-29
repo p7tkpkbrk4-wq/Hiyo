@@ -563,7 +563,7 @@ static NSInteger const kPrefetchImageCount = 6;
 
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.608 green:0.498 blue:1.0 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{
         NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
         NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]

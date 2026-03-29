@@ -7,6 +7,7 @@
 #import "PostDetailViewController.h"
 #import "NotificationsViewController.h"
 #import "UserProfileViewController.h"
+#import "HYColors.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
 #import <MJRefresh/MJRefresh.h>
@@ -36,12 +37,12 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"动态广场";
-    self.view.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.view.backgroundColor = LightBg1;
     self.posts = [NSMutableArray array];
     self.currentPage = 1;
     self.hasMore = YES;
-    [self setupUI];
     [self setupNavigationBar];
+    [self setupUI];
     [self setupNotifications];
 }
 
@@ -67,30 +68,59 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
 #pragma mark - Setup
 
 - (void)setupNavigationBar {
-    // Right: notification bell
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.tintColor = PinkGradStart;
+    self.navigationController.navigationBar.titleTextAttributes = @{
+        NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+        NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
+    };
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
+        appearance.titleTextAttributes = @{
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+            NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
+        };
+        appearance.shadowColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
+        self.navigationController.navigationBar.standardAppearance = appearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    }
+
+    // Right: notification bell with pink circle background
+    UIView *bellWrapper = [[UIView alloc] init];
+    bellWrapper.backgroundColor = [UIColor colorWithRed:1.0 green:0.94 blue:0.96 alpha:1.0];
+    bellWrapper.layer.cornerRadius = 18;
+
     self.notificationButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.notificationButton setImage:[UIImage systemImageNamed:@"bell"] forState:UIControlStateNormal];
-    self.notificationButton.tintColor = [UIColor labelColor];
+    self.notificationButton.tintColor = PinkGradStart;
+    self.notificationButton.frame = CGRectMake(0, 0, 36, 36);
     [self.notificationButton addTarget:self action:@selector(notificationButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *notificationItem = [[UIBarButtonItem alloc] initWithCustomView:self.notificationButton];
+    [bellWrapper addSubview:self.notificationButton];
 
     // Badge
     self.badgeLabel = [[UILabel alloc] init];
-    self.badgeLabel.backgroundColor = [UIColor systemPinkColor];
+    self.badgeLabel.backgroundColor = PinkGradStart;
     self.badgeLabel.textColor = [UIColor whiteColor];
-    self.badgeLabel.font = [UIFont systemFontOfSize:10 weight:UIFontWeightBold];
+    self.badgeLabel.font = [UIFont systemFontOfSize:9 weight:UIFontWeightBold];
     self.badgeLabel.textAlignment = NSTextAlignmentCenter;
-    self.badgeLabel.layer.cornerRadius = 9;
+    self.badgeLabel.layer.cornerRadius = 8;
     self.badgeLabel.clipsToBounds = YES;
     self.badgeLabel.hidden = YES;
-    [self.notificationButton addSubview:self.badgeLabel];
+    [bellWrapper addSubview:self.badgeLabel];
 
     [self.badgeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.notificationButton).offset(-4);
-        make.trailing.equalTo(self.notificationButton).offset(4);
-        make.width.height.equalTo(@18);
+        make.top.equalTo(bellWrapper).offset(-2);
+        make.trailing.equalTo(bellWrapper).offset(2);
+        make.width.height.equalTo(@16);
     }];
 
+    [bellWrapper mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@36);
+    }];
+
+    UIBarButtonItem *notificationItem = [[UIBarButtonItem alloc] initWithCustomView:bellWrapper];
     self.navigationItem.rightBarButtonItem = notificationItem;
 }
 
@@ -98,7 +128,7 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
     // Login required view
     self.loginRequiredView = [[HYLoginRequiredView alloc] init];
     self.loginRequiredView.tipText = @"登录后可以看到动态";
-    self.loginRequiredView.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.loginRequiredView.backgroundColor = LightBg1;
     [self.loginRequiredView setLoginButtonTitle:@"去登录"];
     __weak typeof(self) weakSelf = self;
     self.loginRequiredView.onLoginTapped = ^{
@@ -113,19 +143,28 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.contentInset = UIEdgeInsetsMake(8, 0, 100, 0);
     [self.tableView registerClass:[HYPostCell class] forCellReuseIdentifier:kPostCellIdentifier];
     [self.view addSubview:self.tableView];
 
-    // MJRefresh
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullToRefresh)];
+    // MJRefresh header
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullToRefresh)];
+    header.stateLabel.hidden = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    [header setTitle:@"" forState:MJRefreshStateIdle];
+    [header setTitle:@"" forState:MJRefreshStatePulling];
+    [header setTitle:@"" forState:MJRefreshStateRefreshing];
+    header.arrowView.hidden = YES;
+    self.tableView.mj_header = header;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.tableView.mj_footer.hidden = YES;
 
     // Empty label
     self.emptyLabel = [[UILabel alloc] init];
     self.emptyLabel.text = @"暂无动态\n快来发布第一条动态吧";
     self.emptyLabel.font = [UIFont systemFontOfSize:15];
-    self.emptyLabel.textColor = [UIColor secondaryLabelColor];
+    self.emptyLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     self.emptyLabel.textAlignment = NSTextAlignmentCenter;
     self.emptyLabel.numberOfLines = 0;
     self.emptyLabel.hidden = YES;
@@ -133,20 +172,32 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
 
     // Loading indicator
     self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.loadingIndicator.color = [UIColor systemPinkColor];
+    self.loadingIndicator.color = PinkGradStart;
     self.loadingIndicator.hidesWhenStopped = YES;
     [self.view addSubview:self.loadingIndicator];
 
-    // Create Post FAB
-    self.createPostButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    // Create Post FAB - pink gradient
+    self.createPostButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.createPostButton.frame = CGRectMake(0, 0, 60, 60);
+
+    CAGradientLayer *fabGrad = [CAGradientLayer layer];
+    fabGrad.colors = @[(id)PinkGradStart.CGColor, (id)PinkGradEnd.CGColor];
+    fabGrad.startPoint = CGPointMake(0, 0);
+    fabGrad.endPoint = CGPointMake(1, 1);
+    fabGrad.cornerRadius = 30;
+    fabGrad.frame = self.createPostButton.bounds;
+    [self.createPostButton.layer insertSublayer:fabGrad atIndex:0];
+
+    self.createPostButton.layer.shadowColor = PinkGradStart.CGColor;
+    self.createPostButton.layer.shadowOffset = CGSizeMake(0, 4);
+    self.createPostButton.layer.shadowRadius = 10;
+    self.createPostButton.layer.shadowOpacity = 0.4;
+
     [self.createPostButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
     self.createPostButton.tintColor = [UIColor whiteColor];
-    self.createPostButton.backgroundColor = [UIColor systemPinkColor];
-    self.createPostButton.layer.cornerRadius = 28;
-    self.createPostButton.layer.shadowColor = [UIColor systemPinkColor].CGColor;
-    self.createPostButton.layer.shadowOffset = CGSizeMake(0, 4);
-    self.createPostButton.layer.shadowRadius = 8;
-    self.createPostButton.layer.shadowOpacity = 0.4;
+    self.createPostButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.createPostButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.createPostButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.createPostButton addTarget:self action:@selector(createPostTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createPostButton];
 
@@ -165,7 +216,7 @@ static NSString * const kPostCellIdentifier = @"HYPostCell";
     [self.createPostButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.equalTo(self.view).offset(-20);
         make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-20);
-        make.width.height.equalTo(@56);
+        make.width.height.equalTo(@60);
     }];
 
     [self.loginRequiredView mas_makeConstraints:^(MASConstraintMaker *make) {
