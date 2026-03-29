@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 926" width="430" height="926">
+  <defs>
+    <linearGradient id="appBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A14"/>
+      <stop offset="100%" stop-color="#12122A"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1C1C2E"/>
+      <stop offset="100%" stop-color="#16162A"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B5FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="hotPinkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#FF4081"/>
+    </linearGradient>
+    <linearGradient id="cardOverlay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00000000"/>
+      <stop offset="100%" stop-color="#CC000000"/>
+    </linearGradient>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C44FE3" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="430" height="926" fill="url(#appBg)"/>
+
+  <!-- Status Bar -->
+  <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+  <rect x="20" y="18" width="60" height="16" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+  <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+  <rect x="320" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+  <rect x="325" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+  <rect x="330" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="335" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+  <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+  <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+  <rect x="376" y="21" width="2" height="4" rx="1" fill="#FFFFFF" opacity="0.4"/>
+
+  <!-- Navigation Bar -->
+  <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+  <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">遇见</text>
+  <circle cx="380" cy="82" r="14" fill="url(#purpleGrad)" opacity="0.2"/>
+  <path d="M373 82 L377 86 L387 76" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+
+  <!-- Swipe Card Stack -->
+  <!-- Card 3 (background, tilted) -->
+  <g transform="translate(20, 130) rotate(-4)">
+    <rect width="390" height="540" rx="20" fill="#2E2E47" opacity="0.5"/>
+  </g>
+  <!-- Card 2 (background) -->
+  <g transform="translate(12, 125) rotate(-2)">
+    <rect width="390" height="540" rx="20" fill="#2E2E47" opacity="0.7"/>
+  </g>
+  <!-- Card 1 (main) -->
+  <g transform="translate(8, 120)">
+    <rect width="390" height="540" rx="20" fill="url(#cardBg)" filter="url(#shadow)"/>
+    <!-- Avatar -->
+    <rect x="0" y="0" width="390" height="380" rx="20" fill="#1E1E35"/>
+    <circle cx="195" cy="180" r="100" fill="#2E2E47" opacity="0.6"/>
+    <circle cx="195" cy="155" r="45" fill="#3D3D5C"/>
+    <ellipse cx="195" cy="230" rx="65" ry="70" fill="#3D3D5C"/>
+    <!-- Online indicator -->
+    <circle cx="265" cy="155" r="12" fill="#0A0A14"/>
+    <circle cx="265" cy="155" r="9" fill="#4CAF50"/>
+    <circle cx="261" cy="151" r="2.5" fill="#FFFFFF" opacity="0.4"/>
+    <!-- Gradient overlay -->
+    <rect x="0" y="220" width="390" height="320" fill="url(#cardOverlay)"/>
+    <!-- User Info -->
+    <text x="24" y="400" font-family="SF Pro Display, -apple-system, sans-serif" font-size="26" fill="#FFFFFF" font-weight="800">Emily</text>
+    <rect x="110" y="383" width="34" height="22" rx="6" fill="url(#purpleGrad)" opacity="0.9"/>
+    <text x="127" y="399" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle">24</text>
+    <circle cx="155" cy="392" r="8" fill="#FF6B9E" opacity="0.3"/>
+    <text x="155" y="396" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">♀</text>
+    <text x="170" y="396" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#B3B3CC">2.5km</text>
+    <rect x="24" y="410" width="46" height="18" rx="9" fill="#C44FE3" opacity="0.9"/>
+    <text x="47" y="423" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+    <text x="24" y="448" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">Love traveling and photography ✈️</text>
+    <text x="24" y="470" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">Looking for someone genuine 💕</text>
+    <rect x="24" y="484" width="56" height="22" rx="11" fill="#FF6B9E" opacity="0.15"/>
+    <text x="52" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">旅行</text>
+    <rect x="88" y="484" width="56" height="22" rx="11" fill="#7B5FFF" opacity="0.15"/>
+    <text x="116" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">摄影</text>
+    <rect x="152" y="484" width="56" height="22" rx="11" fill="#FF6B9E" opacity="0.15"/>
+    <text x="180" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">音乐</text>
+    <rect x="216" y="484" width="56" height="22" rx="11" fill="#7B5FFF" opacity="0.15"/>
+    <text x="244" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">美食</text>
+  </g>
+
+  <!-- Action Buttons -->
+  <circle cx="120" cy="700" r="32" fill="#1C1C2E" stroke="#E53935" stroke-width="2" filter="url(#cardShadow)"/>
+  <path d="M110 690 L130 710 M130 690 L110 710" stroke="#E53935" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="215" cy="700" r="28" fill="#1C1C2E" stroke="#7B5FFF" stroke-width="2" filter="url(#cardShadow)"/>
+  <path d="M215 680 L218 692 L231 692 L221 700 L225 712 L215 705 L205 712 L209 700 L199 692 L212 692 Z" fill="#7B5FFF" opacity="0.9"/>
+  <circle cx="310" cy="700" r="32" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+  <path d="M310 685 C300 678 288 686 288 696 C288 710 310 722 310 722 C310 722 332 710 332 696 C332 686 320 678 310 685" fill="#FFFFFF"/>
+
+  <!-- Hint text -->
+  <text x="215" y="760" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099" text-anchor="middle">— 遇见 · 遇见心动 —</text>
+
+  <!-- Tab Bar -->
+  <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+  <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+  <!-- Tab 1: Meet (active) -->
+  <circle cx="50" cy="840" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+  <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="#FFFFFF"/>
+  <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">遇见</text>
+  <!-- Tab 2: Moments -->
+  <circle cx="145" cy="840" r="24" fill="#1C1C2E"/>
+  <rect x="132" y="833" width="26" height="18" rx="3" stroke="#808099" stroke-width="1.5" fill="none"/>
+  <circle cx="137" cy="837" r="1.5" fill="#808099"/>
+  <circle cx="142" cy="837" r="1.5" fill="#808099"/>
+  <circle cx="147" cy="837" r="1.5" fill="#808099"/>
+  <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">动态</text>
+  <!-- Tab 3: Messages -->
+  <circle cx="285" cy="840" r="24" fill="#1C1C2E"/>
+  <rect x="271" y="830" width="28" height="20" rx="6" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <path d="M273 830 L285 842 L297 830" stroke="#808099" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+  <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+  <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">消息</text>
+  <!-- Tab 4: My -->
+  <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+  <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+  <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+  <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+  <!-- Screen label -->
+  <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">遇见 MEET · Screen 1/4</text>
+</svg>

@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" width="900" height="1600">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="appBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A14"/>
+      <stop offset="100%" stop-color="#12122A"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1C1C2E"/>
+      <stop offset="100%" stop-color="#16162A"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B5FFF"/>
+      <stop offset="100%" stop-color="#C44FE3"/>
+    </linearGradient>
+    <linearGradient id="hotPinkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E"/>
+      <stop offset="100%" stop-color="#FF4081"/>
+    </linearGradient>
+    <linearGradient id="cardOverlay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00000000"/>
+      <stop offset="100%" stop-color="#CC000000"/>
+    </linearGradient>
+    <linearGradient id="tabGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B9E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C44FE3" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="likeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9E" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF6B9E" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 1: MEET (遇见) - Tab 0                         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="screen-meet">
+    <!-- Background -->
+    <rect x="0" y="0" width="430" height="926" fill="url(#appBg)"/>
+
+    <!-- Status Bar -->
+    <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+    <rect x="20" y="18" width="60" height="16" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+    <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+    <!-- Signal bars -->
+    <rect x="320" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="325" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+    <rect x="330" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="335" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+    <!-- Battery -->
+    <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+    <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+    <rect x="376" y="21" width="2" height="4" rx="1" fill="#FFFFFF" opacity="0.4"/>
+
+    <!-- Navigation Bar -->
+    <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+    <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">遇见</text>
+    <!-- Filter icon -->
+    <circle cx="380" cy="82" r="14" fill="url(#purpleGrad)" opacity="0.2"/>
+    <path d="M373 82 L377 86 L387 76" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+
+    <!-- Swipe Card Stack -->
+    <!-- Card 3 (background, tilted) -->
+    <g transform="translate(20, 130) rotate(-4)">
+      <rect width="390" height="540" rx="20" fill="#2E2E47" opacity="0.5"/>
+    </g>
+    <!-- Card 2 (background) -->
+    <g transform="translate(12, 125) rotate(-2)">
+      <rect width="390" height="540" rx="20" fill="#2E2E47" opacity="0.7"/>
+    </g>
+    <!-- Card 1 (main) -->
+    <g transform="translate(8, 120)">
+      <rect width="390" height="540" rx="20" fill="url(#cardBg)" filter="url(#shadow)"/>
+      <!-- Avatar image placeholder -->
+      <rect x="0" y="0" width="390" height="380" rx="20" fill="url(#cardBg)"/>
+      <circle cx="195" cy="180" r="100" fill="#2E2E47" opacity="0.8"/>
+      <circle cx="195" cy="180" r="80" fill="#3D3D5C"/>
+      <!-- Avatar silhouette -->
+      <circle cx="195" cy="155" r="45" fill="#4D4D6A"/>
+      <ellipse cx="195" cy="240" rx="65" ry="70" fill="#4D4D6A"/>
+
+      <!-- Online indicator -->
+      <circle cx="265" cy="155" r="12" fill="#0A0A14"/>
+      <circle cx="265" cy="155" r="9" fill="#4CAF50"/>
+      <circle cx="261" cy="151" r="2.5" fill="#FFFFFF" opacity="0.4"/>
+
+      <!-- Gradient overlay on bottom -->
+      <rect x="0" y="220" width="390" height="320" fill="url(#cardOverlay)"/>
+      <rect x="0" y="0" width="390" height="380" rx="20" fill="url(#cardOverlay)" clip-path="url(#clipCard)"/>
+
+      <!-- User Info -->
+      <text x="24" y="400" font-family="SF Pro Display, -apple-system, sans-serif" font-size="26" fill="#FFFFFF" font-weight="800">Emily</text>
+      <!-- Age badge -->
+      <rect x="110" y="383" width="34" height="22" rx="6" fill="url(#purpleGrad)" opacity="0.9"/>
+      <text x="127" y="399" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FFFFFF" font-weight="700" text-anchor="middle">24</text>
+      <!-- Female icon -->
+      <circle cx="155" y="392" r="8" fill="#FF6B9E" opacity="0.3"/>
+      <text x="155" y="396" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">♀</text>
+      <!-- Distance -->
+      <text x="170" y="396" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#B3B3CC">2.5km</text>
+      <!-- VIP badge -->
+      <rect x="24" y="410" width="46" height="18" rx="9" fill="#C44FE3" opacity="0.9"/>
+      <text x="47" y="423" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+
+      <!-- Bio -->
+      <text x="24" y="448" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">Love traveling and photography ✈️</text>
+      <text x="24" y="470" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">Looking for someone genuine 💕</text>
+
+      <!-- Interests tags -->
+      <rect x="24" y="484" width="56" height="22" rx="11" fill="#FF6B9E" opacity="0.15"/>
+      <text x="52" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">旅行</text>
+      <rect x="88" y="484" width="56" height="22" rx="11" fill="#7B5FFF" opacity="0.15"/>
+      <text x="116" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">摄影</text>
+      <rect x="152" y="484" width="56" height="22" rx="11" fill="#FF6B9E" opacity="0.15"/>
+      <text x="180" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">音乐</text>
+      <rect x="216" y="484" width="56" height="22" rx="11" fill="#7B5FFF" opacity="0.15"/>
+      <text x="244" y="499" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">美食</text>
+    </g>
+
+    <!-- Action Buttons -->
+    <!-- Dislike (X) -->
+    <circle cx="120" cy="700" r="32" fill="#1C1C2E" stroke="#E53935" stroke-width="2" filter="url(#cardShadow)"/>
+    <path d="M110 690 L130 710 M130 690 L110 710" stroke="#E53935" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Super Like (Star) -->
+    <circle cx="215" cy="700" r="28" fill="#1C1C2E" stroke="#7B5FFF" stroke-width="2" filter="url(#cardShadow)"/>
+    <path d="M215 680 L218 692 L231 692 L221 700 L225 712 L215 705 L205 712 L209 700 L199 692 L212 692 Z" fill="#7B5FFF" opacity="0.9"/>
+
+    <!-- Like (Heart) -->
+    <circle cx="310" cy="700" r="32" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+    <path d="M310 685 C300 678 288 686 288 696 C288 710 310 722 310 722 C310 722 332 710 332 696 C332 686 320 678 310 685" fill="#FFFFFF"/>
+
+    <!-- Screen label -->
+    <text x="215" y="760" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099" text-anchor="middle">— 遇见 · 遇见心动 —</text>
+
+    <!-- Tab Bar -->
+    <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+    <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+    <!-- Tab 1: Meet (active) -->
+    <circle cx="50" cy="840" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+    <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="#FFFFFF"/>
+    <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">遇见</text>
+    <!-- Tab 2: Moments -->
+    <circle cx="145" cy="840" r="24" fill="#1C1C2E"/>
+    <path d="M137 833 L153 833 M141 833 L141 840 L149 840 L149 833" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <rect x="132" y="833" width="26" height="18" rx="3" stroke="#808099" stroke-width="1.5" fill="none"/>
+    <circle cx="137" cy="837" r="1.5" fill="#808099"/>
+    <circle cx="142" cy="837" r="1.5" fill="#808099"/>
+    <circle cx="147" cy="837" r="1.5" fill="#808099"/>
+    <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">动态</text>
+    <!-- Tab 3: Messages -->
+    <circle cx="285" cy="840" r="24" fill="#1C1C2E"/>
+    <rect x="271" y="830" width="28" height="20" rx="6" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <path d="M273 830 L285 842 L297 830" stroke="#808099" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- Unread badge -->
+    <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+    <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+    <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">消息</text>
+    <!-- Tab 4: My -->
+    <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+    <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+    <!-- Screen title -->
+    <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">SCREEN 1 / 4 — 遇见 MEET</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 2: MOMENTS (动态广场) - Tab 1                  -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="screen-moments" transform="translate(450, 0)">
+    <!-- Background -->
+    <rect x="0" y="0" width="430" height="926" fill="url(#appBg)"/>
+
+    <!-- Status Bar -->
+    <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+    <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+    <rect x="320" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+    <rect x="325" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="330" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+    <rect x="335" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+    <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+    <rect x="376" y="21" width="2" height="4" rx="1" fill="#FFFFFF" opacity="0.4"/>
+
+    <!-- Navigation Bar -->
+    <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+    <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">动态广场</text>
+    <!-- Bell notification icon -->
+    <circle cx="370" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+    <path d="M362 80 C362 75 378 75 378 80 L380 86 L360 86 Z" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linejoin="round" opacity="0.7"/>
+    <circle cx="380" cy="80" r="3" fill="#FF6B9E"/>
+    <!-- Red notification badge -->
+    <circle cx="385" cy="75" r="8" fill="#FF6B9E"/>
+    <text x="385" y="79" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">5</text>
+
+    <!-- Post Feed -->
+    <!-- Post 1 -->
+    <g transform="translate(16, 120)">
+      <rect width="398" height="280" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <!-- Left accent bar -->
+      <rect x="0" y="0" width="3" height="280" rx="1.5" fill="url(#headerGrad)"/>
+
+      <!-- Header row -->
+      <circle cx="36" cy="36" r="22" fill="#3D3D5C"/>
+      <circle cx="36" cy="30" r="12" fill="#4D4D6A"/>
+      <ellipse cx="36" cy="44" rx="14" ry="15" fill="#4D4D6A"/>
+      <!-- Online dot -->
+      <circle cx="54" cy="46" r="6" fill="#0A0A14"/>
+      <circle cx="54" cy="46" r="4.5" fill="#4CAF50"/>
+
+      <text x="68" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Sofia</text>
+      <text x="68" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">3分钟前</text>
+      <!-- VIP badge -->
+      <rect x="125" y="22" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+      <text x="144" y="33" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+      <!-- More button -->
+      <circle cx="382" cy="36" r="3" fill="#808099"/>
+      <circle cx="382" cy="30" r="3" fill="#808099"/>
+      <circle cx="382" cy="24" r="3" fill="#808099"/>
+
+      <!-- Title -->
+      <text x="20" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">今日份的快乐 🌞</text>
+      <!-- Content -->
+      <text x="20" y="96" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">周末和朋友一起去了海边，阳光正好，海风</text>
+      <text x="20" y="114" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">温柔，一切都刚刚好～</text>
+
+      <!-- Post image -->
+      <rect x="20" y="128" width="358" height="100" rx="10" fill="#2E2E47"/>
+      <rect x="20" y="128" width="358" height="100" rx="10" fill="#383858" opacity="0.6"/>
+      <!-- Mountain/sea silhouette -->
+      <path d="M20 228 L80 178 L140 198 L200 168 L260 190 L320 165 L378 185 L378 228 Z" fill="#2E2E47" opacity="0.5"/>
+      <circle cx="300" cy="155" r="18" fill="#FF6B9E" opacity="0.3"/>
+
+      <!-- Action bar -->
+      <text x="30" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E">♥ 128</text>
+      <text x="110" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">💬 23</text>
+      <text x="180" y="250" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">↗ 分享</text>
+      <!-- VIP-only lock -->
+      <circle cx="370" cy="245" r="14" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1"/>
+      <rect x="365" y="243" width="10" height="8" rx="2" fill="#808099"/>
+      <path d="M367 243 L367 238 C367 235 373 235 373 238 L373 243" stroke="#808099" stroke-width="1.2" fill="none"/>
+    </g>
+
+    <!-- Post 2 -->
+    <g transform="translate(16, 415)">
+      <rect width="398" height="220" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="3" height="220" rx="1.5" fill="url(#purpleGrad)"/>
+
+      <circle cx="36" cy="36" r="22" fill="#3D3D5C"/>
+      <circle cx="36" cy="30" r="12" fill="#4D4D6A"/>
+      <ellipse cx="36" cy="44" rx="14" ry="15" fill="#4D4D6A"/>
+      <text x="68" y="32" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Lucas</text>
+      <text x="68" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">2小时前</text>
+
+      <text x="20" y="72" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">新入手的相机终于到了 📷</text>
+      <text x="20" y="96" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">等了好久终于到了，开箱测评！感觉</text>
+      <text x="20" y="114" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">非常满意，接下来要好好学摄影了～</text>
+
+      <text x="30" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">♥ 56</text>
+      <text x="100" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">💬 8</text>
+    </g>
+
+    <!-- FAB Button -->
+    <circle cx="390" cy="750" r="30" fill="url(#hotPinkGrad)" filter="url(#shadow)"/>
+    <path d="M390 732 L390 768 M366 750 L414 750" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+    <!-- FAB shadow circle -->
+    <circle cx="390" cy="780" r="20" fill="#000000" opacity="0.15"/>
+
+    <!-- Tab Bar (same as screen 1) -->
+    <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+    <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+    <!-- Tab 1: Meet -->
+    <circle cx="50" cy="840" r="24" fill="#1C1C2E"/>
+    <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">遇见</text>
+    <!-- Tab 2: Moments (active) -->
+    <circle cx="145" cy="840" r="24" fill="url(#tabGrad)"/>
+    <rect x="132" y="830" width="26" height="18" rx="3" stroke="#FF6B9E" stroke-width="1.5" fill="none"/>
+    <path d="M137 830 L149 830" stroke="#FF6B9E" stroke-width="1.8" fill="none"/>
+    <path d="M137 830 L137 840 L149 840 L149 830" stroke="#FF6B9E" stroke-width="1.8" fill="none"/>
+    <circle cx="137" cy="835" r="1.5" fill="#FF6B9E"/>
+    <circle cx="142" cy="835" r="1.5" fill="#FF6B9E"/>
+    <circle cx="147" cy="835" r="1.5" fill="#FF6B9E"/>
+    <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">动态</text>
+    <!-- Tab 3: Messages -->
+    <circle cx="285" cy="840" r="24" fill="#1C1C2E"/>
+    <rect x="271" y="830" width="28" height="20" rx="6" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <path d="M273 830 L285 842 L297 830" stroke="#808099" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+    <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+    <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">消息</text>
+    <!-- Tab 4: My -->
+    <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+    <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+    <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">SCREEN 2 / 4 — 动态广场 MOMENTS</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 3: MESSAGES (消息) - Tab 2                     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="screen-messages" transform="translate(0, 950)">
+    <!-- Background -->
+    <rect x="0" y="0" width="430" height="926" fill="url(#appBg)"/>
+
+    <!-- Status Bar -->
+    <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+    <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+    <rect x="320" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+    <rect x="325" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="330" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+    <rect x="335" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+    <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+
+    <!-- Navigation Bar -->
+    <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+    <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">消息</text>
+    <!-- Add icon -->
+    <circle cx="385" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+    <path d="M385 74 L385 90 M377 82 L393 82" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Search Bar -->
+    <g transform="translate(16, 120)">
+      <rect width="398" height="42" rx="12" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1"/>
+      <circle cx="36" cy="21" r="8" fill="none" stroke="#808099" stroke-width="1.5"/>
+      <path d="M42 26 L46 30" stroke="#808099" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="55" y="26" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#808099">搜索用户ID或昵称</text>
+    </g>
+
+    <!-- Segmented Control -->
+    <g transform="translate(16, 175)">
+      <rect width="398" height="38" rx="10" fill="#1C1C2E"/>
+      <!-- Active segment -->
+      <rect x="4" y="4" width="190" height="30" rx="8" fill="url(#purpleGrad)" opacity="0.9"/>
+      <text x="99" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">最近聊天</text>
+      <text x="299" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099" text-anchor="middle">附近</text>
+    </g>
+
+    <!-- Conversation List -->
+    <!-- Conv 1 (unread) -->
+    <g transform="translate(16, 228)">
+      <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+      <rect x="0" y="0" width="398" height="76" rx="12" fill="url(#tabGrad)"/>
+      <!-- Avatar -->
+      <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+      <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+      <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+      <!-- Online -->
+      <circle cx="63" cy="52" r="8" fill="#0A0A14"/>
+      <circle cx="63" cy="52" r="6" fill="#4CAF50"/>
+      <!-- Unread badge -->
+      <circle cx="65" cy="22" r="10" fill="#FF6B9E"/>
+      <text x="65" y="26" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">2</text>
+
+      <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">Emily</text>
+      <!-- VIP -->
+      <rect x="128" y="18" width="38" height="16" rx="8" fill="#C44FE3" opacity="0.9"/>
+      <text x="147" y="29" font-family="SF Pro Display, -apple-system, sans-serif" font-size="8" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+      <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">刚刚</text>
+
+      <!-- Gift icon -->
+      <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#FF6B9E" font-weight="600">🎁 送了 99 朵玫瑰</text>
+    </g>
+
+    <!-- Conv 2 (unread text) -->
+    <g transform="translate(16, 312)">
+      <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+      <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+      <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+      <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+
+      <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="700">Lucas</text>
+      <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">5分钟前</text>
+      <!-- Unread dot -->
+      <circle cx="65" cy="22" r="5" fill="#FF6B9E"/>
+
+      <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">嗨，你好呀！很高兴认识你</text>
+    </g>
+
+    <!-- Conv 3 -->
+    <g transform="translate(16, 396)">
+      <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+      <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+      <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+      <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+      <circle cx="63" cy="52" r="8" fill="#0A0A14"/>
+      <circle cx="63" cy="52" r="6" fill="#4CAF50"/>
+
+      <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">Sofia</text>
+      <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">昨天</text>
+
+      <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">周末有空吗？一起喝咖啡吧 ☕</text>
+    </g>
+
+    <!-- Conv 4 -->
+    <g transform="translate(16, 480)">
+      <rect width="398" height="76" rx="12" fill="#1C1C2E"/>
+      <circle cx="42" cy="38" r="26" fill="#3D3D5C"/>
+      <circle cx="42" cy="32" r="14" fill="#4D4D6A"/>
+      <ellipse cx="42" cy="48" rx="16" ry="17" fill="#4D4D6A"/>
+
+      <text x="80" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">Anna</text>
+      <text x="370" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="end">3天前</text>
+
+      <text x="80" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">[图片]</text>
+    </g>
+
+    <!-- Tab Bar -->
+    <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+    <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+    <circle cx="50" cy="840" r="24" fill="#1C1C2E"/>
+    <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">遇见</text>
+
+    <circle cx="145" cy="840" r="24" fill="#1C1C2E"/>
+    <rect x="132" y="830" width="26" height="18" rx="3" stroke="#808099" stroke-width="1.5" fill="none"/>
+    <path d="M137 830 L149 830 M137 830 L137 840 L149 840 L149 830" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">动态</text>
+
+    <!-- Messages (active) -->
+    <circle cx="285" cy="840" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+    <rect x="271" y="830" width="28" height="20" rx="6" stroke="#FFFFFF" stroke-width="1.8" fill="none"/>
+    <path d="M273 830 L285 842 L297 830" stroke="#FFFFFF" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+    <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+    <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">消息</text>
+
+    <circle cx="380" cy="840" r="24" fill="#1C1C2E"/>
+    <circle cx="380" cy="833" r="7" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <path d="M370 847 C370 840 390 840 390 847" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">我的</text>
+
+    <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">SCREEN 3 / 4 — 消息 MESSAGES</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 4: MY PROFILE (我的) - Tab 3                    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="screen-profile" transform="translate(450, 950)">
+    <!-- Background -->
+    <rect x="0" y="0" width="430" height="926" fill="url(#appBg)"/>
+
+    <!-- Status Bar -->
+    <rect x="0" y="0" width="430" height="54" fill="#0A0A14"/>
+    <text x="35" y="30" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FFFFFF" font-weight="600">9:41</text>
+    <rect x="320" y="14" width="3" height="10" rx="1" fill="#FFFFFF" opacity="1"/>
+    <rect x="325" y="16" width="3" height="8" rx="1" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="330" y="18" width="3" height="6" rx="1" fill="#FFFFFF" opacity="0.5"/>
+    <rect x="335" y="20" width="3" height="4" rx="1" fill="#FFFFFF" opacity="0.3"/>
+    <rect x="354" y="17" width="22" height="11" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+    <rect x="356" y="19" width="18" height="7" rx="1" fill="#FFFFFF" opacity="0.9"/>
+
+    <!-- Navigation Bar -->
+    <rect x="0" y="54" width="430" height="56" fill="#0A0A14" opacity="0.9"/>
+    <text x="215" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">我的</text>
+    <!-- Settings gear -->
+    <circle cx="385" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+    <circle cx="385" cy="82" r="6" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+    <path d="M385 74 L385 76 M391 76 L390 78 M393 83 L391 83 M391 90 L390 88 M385 92 L385 90 M379 90 L380 88 M377 83 L379 83 M379 76 L380 78" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+    <!-- Edit profile -->
+    <circle cx="340" cy="82" r="18" fill="#1C1C2E" opacity="0.8"/>
+    <path d="M332 84 C332 80 348 80 348 84 M332 84 C332 80 348 80 348 84 M340 80 L340 88 M336 84 L344 84" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Scrollable Content -->
+    <!-- Profile Header Card -->
+    <g transform="translate(16, 115)">
+      <rect width="398" height="240" rx="20" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <!-- Background image -->
+      <rect width="398" height="140" rx="20" fill="#1E1E35"/>
+      <rect width="398" height="140" fill="#242440" opacity="0.7"/>
+      <!-- Gradient overlay -->
+      <rect width="398" height="140" rx="20" fill="url(#cardOverlay)"/>
+
+      <!-- Avatar with glow -->
+      <circle cx="199" cy="100" r="52" fill="#C44FE3" opacity="0.2" filter="url(#glow)"/>
+      <circle cx="199" cy="100" r="46" fill="#3D3D5C"/>
+      <circle cx="199" cy="86" r="22" fill="#4D4D6A"/>
+      <ellipse cx="199" cy="118" rx="30" ry="32" fill="#4D4D6A"/>
+      <!-- VIP crown on avatar -->
+      <path d="M170 66 L180 76 L199 60 L218 76 L228 66" stroke="#FFD700" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Online -->
+      <circle cx="237" cy="124" r="10" fill="#0A0A14"/>
+      <circle cx="237" cy="124" r="7.5" fill="#4CAF50"/>
+      <circle cx="234" cy="121" r="2" fill="#FFFFFF" opacity="0.4"/>
+
+      <!-- Name -->
+      <text x="199" y="165" font-family="SF Pro Display, -apple-system, sans-serif" font-size="22" fill="#FFFFFF" font-weight="800" text-anchor="middle">Alex</text>
+      <!-- Gender/age badge -->
+      <rect x="168" y="174" width="28" height="18" rx="5" fill="#FF6B9E" opacity="0.8"/>
+      <text x="182" y="187" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FFFFFF" font-weight="600" text-anchor="middle">♂ 25</text>
+      <!-- VIP badge -->
+      <rect x="205" y="174" width="40" height="18" rx="9" fill="#C44FE3" opacity="0.9"/>
+      <text x="225" y="187" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+      <!-- Copy ID -->
+      <rect x="252" y="174" width="20" height="18" rx="5" fill="#2E2E47" opacity="0.8"/>
+      <path d="M256 180 L262 180 M256 183 L262 183" stroke="#808099" stroke-width="1.2" stroke-linecap="round"/>
+
+      <!-- Stats row -->
+      <line x1="60" y1="208" x2="338" y2="208" stroke="#2E2E47" stroke-width="1"/>
+      <!-- 粉丝 -->
+      <text x="90" y="225" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">1.2K</text>
+      <text x="90" y="238" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="middle">粉丝</text>
+      <!-- 关注 -->
+      <text x="199" y="225" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">328</text>
+      <text x="199" y="238" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="middle">关注</text>
+      <!-- 访客 -->
+      <text x="308" y="225" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700" text-anchor="middle">56</text>
+      <text x="308" y="238" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099" text-anchor="middle">访客</text>
+    </g>
+
+    <!-- Photo Wall -->
+    <g transform="translate(16, 370)">
+      <rect width="398" height="90" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <text x="20" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">相册</text>
+      <!-- Photos -->
+      <rect x="20" y="34" width="64" height="44" rx="8" fill="#2E2E47"/>
+      <rect x="92" y="34" width="64" height="44" rx="8" fill="#2E2E47"/>
+      <rect x="164" y="34" width="64" height="44" rx="8" fill="#2E2E47"/>
+      <rect x="236" y="34" width="64" height="44" rx="8" fill="#2E2E47"/>
+      <!-- Add photo button -->
+      <rect x="308" y="34" width="64" height="44" rx="8" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1" stroke-dasharray="4 2"/>
+      <path d="M326 56 L346 56 M336 46 L336 66" stroke="#808099" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- Bio Card -->
+    <g transform="translate(16, 474)">
+      <rect width="398" height="70" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="3" height="70" rx="1.5" fill="url(#headerGrad)"/>
+      <text x="20" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">个人简介</text>
+      <text x="20" y="50" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">热爱生活，喜欢旅行和摄影，寻找真诚的朋友</text>
+    </g>
+
+    <!-- About Me Card -->
+    <g transform="translate(16, 558)">
+      <rect width="398" height="130" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="3" height="130" rx="1.5" fill="url(#purpleGrad)"/>
+      <text x="20" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">关于我</text>
+      <!-- Info rows -->
+      <circle cx="30" cy="50" r="8" fill="#FF6B9E" opacity="0.2"/>
+      <text x="30" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FF6B9E" text-anchor="middle">♂</text>
+      <text x="50" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">25岁</text>
+
+      <circle cx="110" cy="50" r="8" fill="#7B5FFF" opacity="0.2"/>
+      <text x="110" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#7B5FFF" text-anchor="middle">♈</text>
+      <text x="130" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">白羊座</text>
+
+      <circle cx="195" cy="50" r="8" fill="#FF6B9E" opacity="0.2"/>
+      <text x="195" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">📏</text>
+      <text x="215" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">178cm</text>
+
+      <circle cx="280" cy="50" r="8" fill="#7B5FFF" opacity="0.2"/>
+      <text x="280" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">⚖️</text>
+      <text x="300" y="54" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">68kg</text>
+
+      <circle cx="30" cy="80" r="8" fill="#FF6B9E" opacity="0.2"/>
+      <text x="30" y="84" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle">📍</text>
+      <text x="50" y="84" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">北京市</text>
+
+      <circle cx="110" cy="80" r="8" fill="#7B5FFF" opacity="0.2"/>
+      <text x="110" y="84" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#7B5FFF" text-anchor="middle">💼</text>
+      <text x="130" y="84" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">产品经理</text>
+    </g>
+
+    <!-- Interests -->
+    <g transform="translate(16, 702)">
+      <rect width="398" height="62" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="3" height="62" rx="1.5" fill="url(#headerGrad)"/>
+      <text x="20" y="22" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">兴趣爱好</text>
+      <rect x="20" y="34" width="50" height="20" rx="10" fill="#FF6B9E" opacity="0.15"/>
+      <text x="45" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FF6B9E" text-anchor="middle">旅行</text>
+      <rect x="78" y="34" width="50" height="20" rx="10" fill="#7B5FFF" opacity="0.15"/>
+      <text x="103" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#7B5FFF" text-anchor="middle">摄影</text>
+      <rect x="136" y="34" width="50" height="20" rx="10" fill="#FF6B9E" opacity="0.15"/>
+      <text x="161" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FF6B9E" text-anchor="middle">音乐</text>
+      <rect x="194" y="34" width="50" height="20" rx="10" fill="#7B5FFF" opacity="0.15"/>
+      <text x="219" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#7B5FFF" text-anchor="middle">健身</text>
+      <rect x="252" y="34" width="50" height="20" rx="10" fill="#FF6B9E" opacity="0.15"/>
+      <text x="277" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FF6B9E" text-anchor="middle">美食</text>
+      <rect x="310" y="34" width="50" height="20" rx="10" fill="#7B5FFF" opacity="0.15"/>
+      <text x="335" y="48" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#7B5FFF" text-anchor="middle">电影</text>
+    </g>
+
+    <!-- My Posts -->
+    <g transform="translate(16, 778)">
+      <rect width="398" height="60" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="3" height="60" rx="1.5" fill="url(#purpleGrad)"/>
+      <text x="20" y="22" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">我的动态</text>
+      <text x="20" y="44" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">查看全部 12 条动态 →</text>
+    </g>
+
+    <!-- Tab Bar -->
+    <rect x="0" y="800" width="430" height="90" fill="#0A0A14" opacity="0.95"/>
+    <rect x="0" y="800" width="430" height="1" fill="#2E2E47"/>
+    <circle cx="50" cy="840" r="24" fill="#1C1C2E"/>
+    <path d="M50 826 C40 820 28 827 28 837 C28 850 50 860 50 860 C50 860 72 850 72 837 C72 827 60 820 50 826" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <text x="50" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">遇见</text>
+
+    <circle cx="145" cy="840" r="24" fill="#1C1C2E"/>
+    <rect x="132" y="830" width="26" height="18" rx="3" stroke="#808099" stroke-width="1.5" fill="none"/>
+    <path d="M137 830 L149 830 M137 830 L137 840 L149 840 L149 830" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <text x="145" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">动态</text>
+
+    <circle cx="285" cy="840" r="24" fill="#1C1C2E"/>
+    <rect x="271" y="830" width="28" height="20" rx="6" stroke="#808099" stroke-width="1.8" fill="none"/>
+    <path d="M273 830 L285 842 L297 830" stroke="#808099" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="302" cy="830" r="8" fill="#FF6B9E"/>
+    <text x="302" y="834" font-family="SF Pro Display, -apple-system, sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+    <text x="285" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">消息</text>
+
+    <!-- My (active) -->
+    <circle cx="380" cy="840" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+    <circle cx="380" cy="833" r="7" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+    <path d="M370 847 C370 840 390 840 390 847" stroke="#FFFFFF" stroke-width="1.8" fill="none"/>
+    <text x="380" y="878" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">我的</text>
+
+    <text x="215" y="24" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle" opacity="0.6">SCREEN 4 / 4 — 我的 PROFILE</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- DESIGN SYSTEM LEGEND                                    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="design-legend" transform="translate(900, 0)">
+    <!-- Title -->
+    <text x="20" y="40" font-family="SF Pro Display, -apple-system, sans-serif" font-size="22" fill="#FFFFFF" font-weight="800">Hiyo</text>
+    <text x="20" y="62" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#808099">Design System · 界面设计规范</text>
+    <line x1="20" y1="80" x2="380" y2="80" stroke="#2E2E47" stroke-width="1"/>
+
+    <!-- Color Palette -->
+    <text x="20" y="110" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Color Palette</text>
+
+    <!-- Primary -->
+    <text x="20" y="135" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">Primary</text>
+    <rect x="20" y="140" width="36" height="28" rx="6" fill="#FF6B9E"/>
+    <text x="64" y="157" font-family="SF Mono, monospace" font-size="10" fill="#808099">#FF6B9E</text>
+
+    <rect x="130" y="140" width="36" height="28" rx="6" fill="#C44FE3"/>
+    <text x="174" y="157" font-family="SF Mono, monospace" font-size="10" fill="#808099">#C44FE3</text>
+
+    <rect x="240" y="140" width="36" height="28" rx="6" fill="#7B5FFF"/>
+    <text x="284" y="157" font-family="SF Mono, monospace" font-size="10" fill="#808099">#7B5FFF</text>
+
+    <!-- Dark -->
+    <rect x="20" y="180" width="36" height="28" rx="6" fill="#0A0A14"/>
+    <text x="64" y="197" font-family="SF Mono, monospace" font-size="10" fill="#808099">#0A0A14 BG</text>
+
+    <rect x="130" y="180" width="36" height="28" rx="6" fill="#1C1C2E"/>
+    <text x="174" y="197" font-family="SF Mono, monospace" font-size="10" fill="#808099">#1C1C2E Card</text>
+
+    <rect x="240" y="180" width="36" height="28" rx="6" fill="#2E2E47"/>
+    <text x="284" y="197" font-family="SF Mono, monospace" font-size="10" fill="#808099">#2E2E47 Sep</text>
+
+    <!-- Text -->
+    <rect x="20" y="220" width="36" height="28" rx="6" fill="#FFFFFF"/>
+    <text x="64" y="237" font-family="SF Mono, monospace" font-size="10" fill="#808099">#FFFFFF Text</text>
+
+    <rect x="130" y="220" width="36" height="28" rx="6" fill="#B3B3CC"/>
+    <text x="174" y="237" font-family="SF Mono, monospace" font-size="10" fill="#808099">#B3B3CC Sec</text>
+
+    <rect x="240" y="220" width="36" height="28" rx="6" fill="#808099"/>
+    <text x="284" y="237" font-family="SF Mono, monospace" font-size="10" fill="#808099">#808099 Muted</text>
+
+    <line x1="20" y1="260" x2="380" y2="260" stroke="#2E2E47" stroke-width="1"/>
+
+    <!-- Typography -->
+    <text x="20" y="290" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Typography</text>
+    <text x="20" y="318" font-family="SF Pro Display, -apple-system, sans-serif" font-size="22" fill="#FFFFFF" font-weight="800">Title 22 Bold</text>
+    <text x="20" y="345" font-family="SF Pro Display, -apple-system, sans-serif" font-size="18" fill="#FFFFFF" font-weight="700">Heading 18</text>
+    <text x="20" y="368" font-family="SF Pro Display, -apple-system, sans-serif" font-size="15" fill="#FFFFFF" font-weight="600">Subtitle 15 Sem</text>
+    <text x="20" y="392" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="500">Body 14</text>
+    <text x="20" y="415" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#B3B3CC">Caption 13</text>
+    <text x="20" y="438" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#808099">Muted 11</text>
+
+    <line x1="20" y1="460" x2="380" y2="460" stroke="#2E2E47" stroke-width="1"/>
+
+    <!-- Components -->
+    <text x="20" y="490" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700">Components</text>
+
+    <!-- Button Primary -->
+    <rect x="20" y="505" width="120" height="40" rx="10" fill="url(#hotPinkGrad)"/>
+    <text x="80" y="530" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#FFFFFF" font-weight="600" text-anchor="middle">Primary</text>
+
+    <!-- Button Secondary -->
+    <rect x="160" y="505" width="120" height="40" rx="10" fill="#1C1C2E" stroke="#2E2E47" stroke-width="1"/>
+    <text x="220" y="530" font-family="SF Pro Display, -apple-system, sans-serif" font-size="14" fill="#B3B3CC" text-anchor="middle">Secondary</text>
+
+    <!-- VIP Badge -->
+    <rect x="300" y="508" width="46" height="22" rx="11" fill="#C44FE3"/>
+    <text x="323" y="523" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FFFFFF" font-weight="700" text-anchor="middle">VIP</text>
+
+    <!-- Tag -->
+    <rect x="20" y="558" width="56" height="22" rx="11" fill="#FF6B9E" opacity="0.15"/>
+    <text x="48" y="572" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#FF6B9E" text-anchor="middle">旅行</text>
+
+    <rect x="84" y="558" width="56" height="22" rx="11" fill="#7B5FFF" opacity="0.15"/>
+    <text x="112" y="572" font-family="SF Pro Display, -apple-system, sans-serif" font-size="11" fill="#7B5FFF" text-anchor="middle">摄影</text>
+
+    <!-- Avatar -->
+    <circle cx="38" cy="620" r="30" fill="#3D3D5C"/>
+    <circle cx="38" cy="606" r="16" fill="#4D4D6A"/>
+    <ellipse cx="38" cy="630" rx="20" ry="21" fill="#4D4D6A"/>
+    <circle cx="60" cy="634" r="10" fill="#0A0A14"/>
+    <circle cx="60" cy="634" r="7.5" fill="#4CAF50"/>
+    <text x="100" y="618" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">Avatar · Online</text>
+
+    <!-- Card -->
+    <rect x="20" y="660" width="180" height="80" rx="16" fill="url(#cardBg)" filter="url(#cardShadow)"/>
+    <rect x="20" y="660" width="3" height="80" rx="1.5" fill="url(#headerGrad)"/>
+    <text x="36" y="688" font-family="SF Pro Display, -apple-system, sans-serif" font-size="13" fill="#FFFFFF" font-weight="600">Card Title</text>
+    <text x="36" y="710" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#B3B3CC">Card description text</text>
+
+    <!-- Tab Bar Item -->
+    <circle cx="50" cy="780" r="24" fill="url(#hotPinkGrad)" filter="url(#glow)"/>
+    <path d="M50 766 C40 760 28 767 28 777 C28 790 50 800 50 800 C50 800 72 790 72 777 C72 767 60 760 50 766" fill="#FFFFFF"/>
+    <text x="50" y="818" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#FF6B9E" text-anchor="middle" font-weight="600">Active</text>
+
+    <circle cx="120" cy="780" r="24" fill="#1C1C2E"/>
+    <path d="M120 766 C110 760 98 767 98 777 C98 790 120 800 120 800 C120 800 142 790 142 777 C142 767 130 760 120 766" fill="none" stroke="#808099" stroke-width="1.8"/>
+    <text x="120" y="818" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" fill="#808099" text-anchor="middle">Inactive</text>
+
+    <line x1="20" y1="850" x2="380" y2="850" stroke="#2E2E47" stroke-width="1"/>
+
+    <!-- App Name -->
+    <text x="20" y="880" font-family="SF Pro Display, -apple-system, sans-serif" font-size="28" fill="#FFFFFF" font-weight="800">Hiyo</text>
+    <text x="78" y="880" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" fill="url(#headerGrad)" font-weight="600">App Interface Design</text>
+
+    <text x="20" y="910" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">4 Main Screens · Dark Theme</text>
+    <text x="20" y="930" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">Tab Bar Navigation · Masonry Layout</text>
+    <text x="20" y="950" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">Purple/Pink Gradient Accents</text>
+    <text x="20" y="970" font-family="SF Pro Display, -apple-system, sans-serif" font-size="12" fill="#808099">Objective-C + Masonry</text>
+  </g>
+</svg>
