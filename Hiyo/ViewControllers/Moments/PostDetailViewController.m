@@ -1,11 +1,12 @@
 #import "PostDetailViewController.h"
 #import "HYAPIClient.h"
 #import "HYModels.h"
+#import "HYColors.h"
 #import <Masonry/Masonry.h>
 #import <SDWebImage/SDWebImage.h>
 #import <MJRefresh/MJRefresh.h>
 
-static CGFloat const kInputBarHeight = 56.0;
+static CGFloat const kInputBarHeight = 100.0;
 
 @interface PostDetailViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
 
@@ -42,7 +43,8 @@ static CGFloat const kInputBarHeight = 56.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"帖子详情";
-    self.view.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.view.backgroundColor = LightBg1;
+    [self setupNavigationBar];
     [self setupUI];
     [self setupKeyboardNotifications];
     [self loadPostDetail];
@@ -54,15 +56,36 @@ static CGFloat const kInputBarHeight = 56.0;
 
 #pragma mark - Setup
 
+- (void)setupNavigationBar {
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [UIColor whiteColor];
+        appearance.shadowColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0]; // #EEEEFF
+        appearance.titleTextAttributes = @{
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]
+        };
+        self.navigationController.navigationBar.standardAppearance = appearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    } else {
+        self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.shadowImage = [UIImage new];
+        self.navigationController.navigationBar.titleTextAttributes = @{
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0]
+        };
+    }
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+}
+
 - (void)setupUI {
     // Table View
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 80;
-    self.tableView.backgroundColor = [UIColor systemGroupedBackgroundColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
 
     // Header view (post content)
@@ -87,17 +110,19 @@ static CGFloat const kInputBarHeight = 56.0;
 
     // Input bar
     self.inputContainerView = [[UIView alloc] init];
-    self.inputContainerView.backgroundColor = [UIColor systemBackgroundColor];
+    self.inputContainerView.backgroundColor = LightCard;
     [self.view addSubview:self.inputContainerView];
 
     UIView *inputBg = [[UIView alloc] init];
-    inputBg.backgroundColor = [UIColor secondarySystemGroupedBackgroundColor];
-    inputBg.layer.cornerRadius = 20;
+    inputBg.backgroundColor = [UIColor colorWithRed:0.961 green:0.961 blue:0.973 alpha:1.0];
+    inputBg.layer.cornerRadius = 21;
+    inputBg.layer.borderWidth = 1.5;
+    inputBg.layer.borderColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0].CGColor;
     [self.inputContainerView addSubview:inputBg];
 
     self.inputTextView = [[UITextView alloc] init];
     self.inputTextView.font = [UIFont systemFontOfSize:15];
-    self.inputTextView.textColor = [UIColor labelColor];
+    self.inputTextView.textColor = [UIColor colorWithRed:0.333 green:0.333 blue:0.333 alpha:1.0];
     self.inputTextView.backgroundColor = [UIColor clearColor];
     self.inputTextView.delegate = self;
     self.inputTextView.showsVerticalScrollIndicator = NO;
@@ -105,67 +130,175 @@ static CGFloat const kInputBarHeight = 56.0;
     [inputBg addSubview:self.inputTextView];
 
     UILabel *placeholder = [[UILabel alloc] init];
-    placeholder.text = @"写评论...";
+    placeholder.text = @"说点什么...";
     placeholder.font = [UIFont systemFontOfSize:15];
-    placeholder.textColor = [UIColor placeholderTextColor];
+    placeholder.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     placeholder.tag = 100;
     [inputBg addSubview:placeholder];
 
     self.sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
-    [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    self.sendButton.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-    self.sendButton.backgroundColor = [UIColor systemPinkColor];
-    self.sendButton.layer.cornerRadius = 16;
+    self.sendButton.layer.cornerRadius = 21;
+    self.sendButton.clipsToBounds = YES;
+    CAGradientLayer *sendGrad = [CAGradientLayer layer];
+    sendGrad.colors = @[(id)PinkGradStart.CGColor, (id)PurpleGradEnd.CGColor];
+    sendGrad.startPoint = CGPointMake(0, 0);
+    sendGrad.endPoint = CGPointMake(1, 1);
+    sendGrad.frame = CGRectMake(0, 0, 42, 42);
+    [self.sendButton.layer insertSublayer:sendGrad atIndex:0];
+    [self.sendButton setImage:[UIImage systemImageNamed:@"arrow.up"] forState:UIControlStateNormal];
+    self.sendButton.tintColor = [UIColor whiteColor];
     self.sendButton.enabled = NO;
     [self.sendButton addTarget:self action:@selector(sendCommentTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.inputContainerView addSubview:self.sendButton];
 
     // Separator
     UIView *separator = [[UIView alloc] init];
-    separator.backgroundColor = [UIColor separatorColor];
+    separator.backgroundColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
     [self.inputContainerView addSubview:separator];
 
     [self setupConstraints:inputBg separator:separator placeholder:placeholder];
+
+    // Bottom action buttons
+    UIView *bottomActions = [[UIView alloc] init];
+    bottomActions.tag = 70;
+    [self.inputContainerView addSubview:bottomActions];
+
+    // Photo button (purple)
+    UIButton *photoBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    photoBtn.backgroundColor = [UIColor colorWithRed:0.961 green:0.941 blue:1.0 alpha:1.0];
+    photoBtn.layer.cornerRadius = 16;
+    [photoBtn setImage:[UIImage systemImageNamed:@"photo"] forState:UIControlStateNormal];
+    photoBtn.tintColor = PurpleGradStart;
+    [bottomActions addSubview:photoBtn];
+
+    // Heart button (pink)
+    UIButton *heartBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    heartBtn.backgroundColor = [UIColor colorWithRed:1.0 green:0.941 blue:0.961 alpha:1.0];
+    heartBtn.layer.cornerRadius = 16;
+    [heartBtn setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+    heartBtn.tintColor = PinkGradStart;
+    [bottomActions addSubview:heartBtn];
+
+    // Clock button (sky blue)
+    UIButton *clockBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    clockBtn.backgroundColor = [UIColor colorWithRed:0.91 green:0.961 blue:1.0 alpha:1.0];
+    clockBtn.layer.cornerRadius = 16;
+    [clockBtn setImage:[UIImage systemImageNamed:@"clock"] forState:UIControlStateNormal];
+    clockBtn.tintColor = [UIColor colorWithRed:0.22 green:0.741 blue:0.973 alpha:1.0];
+    [bottomActions addSubview:clockBtn];
+
+    // Alert button (warning yellow)
+    UIButton *alertBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    alertBtn.backgroundColor = [UIColor colorWithRed:1.0 green:0.973 blue:0.878 alpha:1.0];
+    alertBtn.layer.cornerRadius = 16;
+    [alertBtn setImage:[UIImage systemImageNamed:@"exclamationmark.circle"] forState:UIControlStateNormal];
+    alertBtn.tintColor = [UIColor colorWithRed:1.0 green:0.596 blue:0.0 alpha:1.0];
+    [bottomActions addSubview:alertBtn];
+
+    [bottomActions mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.inputContainerView).offset(16);
+        make.bottom.equalTo(self.inputContainerView).offset(-12);
+        make.height.equalTo(@32);
+    }];
+
+    [photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.centerY.equalTo(bottomActions);
+        make.width.height.equalTo(@32);
+    }];
+
+    [heartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(photoBtn.mas_trailing).offset(8);
+        make.centerY.equalTo(bottomActions);
+        make.width.height.equalTo(@32);
+    }];
+
+    [clockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(heartBtn.mas_trailing).offset(8);
+        make.centerY.equalTo(bottomActions);
+        make.width.height.equalTo(@32);
+    }];
+
+    [alertBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(clockBtn.mas_trailing).offset(8);
+        make.centerY.equalTo(bottomActions);
+        make.width.height.equalTo(@32);
+        make.trailing.lessThanOrEqualTo(bottomActions);
+    }];
 }
 
 - (void)setupHeaderView {
-    // Avatar
+    // Card background
+    self.headerView.backgroundColor = LightCard;
+
+    // Avatar container
+    UIView *avatarContainer = [[UIView alloc] init];
+    avatarContainer.tag = 50;
+    [self.headerView addSubview:avatarContainer];
+
+    // Avatar shadow container
+    UIView *avatarShadow = [[UIView alloc] init];
+    avatarShadow.backgroundColor = [UIColor clearColor];
+    avatarShadow.layer.shadowColor = PinkGradStart.CGColor;
+    avatarShadow.layer.shadowOffset = CGSizeMake(0, 4);
+    avatarShadow.layer.shadowRadius = 8;
+    avatarShadow.layer.shadowOpacity = 0.3;
+    [avatarContainer addSubview:avatarShadow];
+
     UIImageView *avatar = [[UIImageView alloc] init];
     avatar.contentMode = UIViewContentModeScaleAspectFill;
     avatar.clipsToBounds = YES;
-    avatar.layer.cornerRadius = 22;
-    avatar.backgroundColor = [UIColor systemGray5Color];
+    avatar.layer.cornerRadius = 28;
+    avatar.backgroundColor = [UIColor colorWithRed:0.941 green:0.929 blue:1.0 alpha:1.0];
     avatar.tag = 10;
-    [self.headerView addSubview:avatar];
+    [avatarShadow addSubview:avatar];
+
+    // Online indicator
+    UIView *onlineIndicator = [[UIView alloc] init];
+    onlineIndicator.backgroundColor = [UIColor whiteColor];
+    onlineIndicator.layer.cornerRadius = 9;
+    onlineIndicator.tag = 51;
+    [avatarContainer addSubview:onlineIndicator];
+
+    UIView *greenDot = [[UIView alloc] init];
+    greenDot.backgroundColor = OnlineGreenLight;
+    greenDot.layer.cornerRadius = 6;
+    greenDot.tag = 52;
+    [onlineIndicator addSubview:greenDot];
 
     // User name
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-    nameLabel.textColor = [UIColor labelColor];
+    nameLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightBold];
+    nameLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     nameLabel.tag = 11;
     [self.headerView addSubview:nameLabel];
+
+    // Follow button
+    UIButton *followBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [followBtn setTitle:@"+关注" forState:UIControlStateNormal];
+    followBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [followBtn setTitleColor:PinkGradStart forState:UIControlStateNormal];
+    followBtn.tag = 53;
+    [self.headerView addSubview:followBtn];
 
     // Time
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.font = [UIFont systemFontOfSize:12];
-    timeLabel.textColor = [UIColor secondaryLabelColor];
+    timeLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     timeLabel.tag = 12;
     [self.headerView addSubview:timeLabel];
 
     // Title
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
-    titleLabel.textColor = [UIColor labelColor];
+    titleLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
     titleLabel.numberOfLines = 0;
     titleLabel.tag = 13;
     [self.headerView addSubview:titleLabel];
 
     // Content
     UILabel *contentLabel = [[UILabel alloc] init];
-    contentLabel.font = [UIFont systemFontOfSize:15];
-    contentLabel.textColor = [UIColor labelColor];
+    contentLabel.font = [UIFont systemFontOfSize:14];
+    contentLabel.textColor = [UIColor colorWithRed:0.333 green:0.333 blue:0.333 alpha:1.0];
     contentLabel.numberOfLines = 0;
     contentLabel.tag = 14;
     [self.headerView addSubview:contentLabel];
@@ -175,20 +308,53 @@ static CGFloat const kInputBarHeight = 56.0;
     imagesContainer.tag = 15;
     [self.headerView addSubview:imagesContainer];
 
-    // Like bar
-    UIView *likeBar = [[UIView alloc] init];
-    likeBar.tag = 16;
-    [self.headerView addSubview:likeBar];
+    // Action bar
+    UIView *actionBar = [[UIView alloc] init];
+    actionBar.tag = 16;
+    [self.headerView addSubview:actionBar];
+
+    // Like button with pink circle bg
+    UIView *likeCircle = [[UIView alloc] init];
+    likeCircle.backgroundColor = [UIColor colorWithRed:1.0 green:0.941 blue:0.961 alpha:1.0];
+    likeCircle.layer.cornerRadius = 18;
+    likeCircle.tag = 60;
+    [actionBar addSubview:likeCircle];
 
     UIButton *likeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     likeBtn.tag = 20;
-    [likeBar addSubview:likeBtn];
+    [likeCircle addSubview:likeBtn];
 
     UILabel *likeCountLabel = [[UILabel alloc] init];
     likeCountLabel.font = [UIFont systemFontOfSize:13];
-    likeCountLabel.textColor = [UIColor secondaryLabelColor];
+    likeCountLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     likeCountLabel.tag = 21;
-    [likeBar addSubview:likeCountLabel];
+    [actionBar addSubview:likeCountLabel];
+
+    // Comment button with purple circle bg
+    UIView *commentCircle = [[UIView alloc] init];
+    commentCircle.backgroundColor = [UIColor colorWithRed:0.941 green:0.91 blue:1.0 alpha:1.0];
+    commentCircle.layer.cornerRadius = 18;
+    commentCircle.tag = 61;
+    [actionBar addSubview:commentCircle];
+
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [commentBtn setImage:[UIImage systemImageNamed:@"bubble.right"] forState:UIControlStateNormal];
+    commentBtn.tintColor = PurpleGradStart;
+    commentBtn.tag = 62;
+    [commentCircle addSubview:commentBtn];
+
+    // Share button with blue circle bg
+    UIView *shareCircle = [[UIView alloc] init];
+    shareCircle.backgroundColor = [UIColor colorWithRed:0.91 green:0.961 blue:1.0 alpha:1.0];
+    shareCircle.layer.cornerRadius = 18;
+    shareCircle.tag = 63;
+    [actionBar addSubview:shareCircle];
+
+    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [shareBtn setImage:[UIImage systemImageNamed:@"square.and.arrow.up"] forState:UIControlStateNormal];
+    shareBtn.tintColor = [UIColor colorWithRed:0.22 green:0.741 blue:0.973 alpha:1.0];
+    shareBtn.tag = 64;
+    [shareCircle addSubview:shareBtn];
 
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
@@ -197,22 +363,45 @@ static CGFloat const kInputBarHeight = 56.0;
     deleteBtn.tag = 22;
     deleteBtn.hidden = YES;
     [deleteBtn addTarget:self action:@selector(deletePostTapped) forControlEvents:UIControlEventTouchUpInside];
-    [likeBar addSubview:deleteBtn];
+    [actionBar addSubview:deleteBtn];
 
     UIView *separator = [[UIView alloc] init];
-    separator.backgroundColor = [UIColor separatorColor];
+    separator.backgroundColor = [UIColor colorWithRed:0.941 green:0.941 blue:0.961 alpha:1.0];
     separator.tag = 30;
     [self.headerView addSubview:separator];
 
     // Layout header
+    [avatarContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.top.equalTo(self.headerView).offset(24);
+        make.width.height.equalTo(@56);
+    }];
+
+    [avatarShadow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(avatarContainer);
+    }];
+
     [avatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.top.equalTo(self.headerView).offset(16);
-        make.width.height.equalTo(@44);
+        make.edges.equalTo(avatarContainer);
+    }];
+
+    [onlineIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@18);
+        make.trailing.bottom.equalTo(avatarContainer);
+    }];
+
+    [greenDot mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(onlineIndicator);
+        make.width.height.equalTo(@12);
     }];
 
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(avatar.mas_trailing).offset(10);
-        make.top.equalTo(avatar).offset(2);
+        make.leading.equalTo(avatarContainer.mas_trailing).offset(12);
+        make.top.equalTo(avatarContainer).offset(4);
+    }];
+
+    [followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.equalTo(self.headerView).offset(-24);
+        make.centerY.equalTo(nameLabel);
     }];
 
     [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -221,13 +410,13 @@ static CGFloat const kInputBarHeight = 56.0;
     }];
 
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.equalTo(self.headerView).inset(16);
-        make.top.equalTo(avatar.mas_bottom).offset(14);
+        make.leading.trailing.equalTo(self.headerView).inset(24);
+        make.top.equalTo(avatarContainer.mas_bottom).offset(14);
     }];
 
     [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(titleLabel);
-        make.top.equalTo(titleLabel.mas_bottom).offset(8);
+        make.top.equalTo(titleLabel.mas_bottom).offset(6);
     }];
 
     [imagesContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,29 +425,56 @@ static CGFloat const kInputBarHeight = 56.0;
         make.height.equalTo(@0);
     }];
 
-    [likeBar mas_makeConstraints:^(MASConstraintMaker *make) {
+    [actionBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(titleLabel);
-        make.top.equalTo(imagesContainer.mas_bottom).offset(12);
+        make.top.equalTo(imagesContainer.mas_bottom).offset(14);
         make.height.equalTo(@36);
+    }];
+
+    [likeCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.centerY.equalTo(actionBar);
+        make.width.height.equalTo(@36);
     }];
 
     [likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.centerY.equalTo(likeBar);
-        make.height.equalTo(@36);
+        make.center.equalTo(likeCircle);
+        make.width.height.equalTo(@20);
     }];
 
     [likeCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(likeBtn.mas_trailing).offset(4);
-        make.centerY.equalTo(likeBar);
+        make.leading.equalTo(likeCircle.mas_trailing).offset(4);
+        make.centerY.equalTo(actionBar);
+    }];
+
+    [commentCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(likeCountLabel.mas_trailing).offset(20);
+        make.centerY.equalTo(actionBar);
+        make.width.height.equalTo(@36);
+    }];
+
+    [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(commentCircle);
+        make.width.height.equalTo(@20);
+    }];
+
+    [shareCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(commentCircle.mas_trailing).offset(20);
+        make.centerY.equalTo(actionBar);
+        make.width.height.equalTo(@36);
+    }];
+
+    [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(shareCircle);
+        make.width.height.equalTo(@20);
     }];
 
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.centerY.equalTo(likeBar);
+        make.trailing.centerY.equalTo(actionBar);
     }];
 
     [separator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self.headerView);
-        make.top.equalTo(likeBar.mas_bottom).offset(4);
+        make.top.equalTo(actionBar.mas_bottom).offset(4);
         make.height.equalTo(@1);
         make.bottom.equalTo(self.headerView);
     }];
@@ -307,10 +523,9 @@ static CGFloat const kInputBarHeight = 56.0;
     }];
 
     [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.inputContainerView).offset(-12);
+        make.trailing.equalTo(self.inputContainerView).offset(-16);
         make.centerY.equalTo(inputBg);
-        make.width.equalTo(@60);
-        make.height.equalTo(@32);
+        make.width.height.equalTo(@42);
     }];
 }
 
@@ -386,24 +601,35 @@ static CGFloat const kInputBarHeight = 56.0;
     UIButton *likeBtn = [self.headerView viewWithTag:20];
     UILabel *likeCountLabel = [self.headerView viewWithTag:21];
     UIButton *deleteBtn = [self.headerView viewWithTag:22];
+    UIButton *commentBtn = [self.headerView viewWithTag:62];
+    UIButton *shareBtn = [self.headerView viewWithTag:64];
 
     HYPostAuthor *author = self.postDetail.author;
     [avatar sd_setImageWithURL:[NSURL URLWithString:author.avatar] placeholderImage:[UIImage systemImageNamed:@"person.circle.fill"]];
-    nameLabel.text = author.userName;
-    timeLabel.text = [self formatTime:self.postDetail.createdAt];
+    nameLabel.text = author.userName ?: @"匿名用户";
+    timeLabel.text = [NSString stringWithFormat:@"在线 · %@", [self formatTime:self.postDetail.createdAt]];
     titleLabel.text = self.postDetail.title;
     contentLabel.text = self.postDetail.content;
 
     // Like button
     NSString *likeIcon = self.postDetail.isLiked ? @"heart.fill" : @"heart";
-    UIColor *likeColor = self.postDetail.isLiked ? [UIColor systemPinkColor] : [UIColor systemGrayColor];
+    UIColor *likeColor = self.postDetail.isLiked ? PinkGradStart : [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     [likeBtn setImage:[UIImage systemImageNamed:likeIcon] forState:UIControlStateNormal];
     likeBtn.tintColor = likeColor;
     [likeBtn setTitle:[NSString stringWithFormat:@" %ld", (long)self.postDetail.likesCount] forState:UIControlStateNormal];
     [likeBtn setTitleColor:likeColor forState:UIControlStateNormal];
-    likeCountLabel.text = [NSString stringWithFormat:@"%ld 人点赞", (long)self.postDetail.likesCount];
+    likeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    likeCountLabel.text = [NSString stringWithFormat:@"%ld", (long)self.postDetail.likesCount];
     [likeBtn removeTarget:self action:NULL forControlEvents:UIControlEventAllEvents];
     [likeBtn addTarget:self action:@selector(likeTapped) forControlEvents:UIControlEventTouchUpInside];
+
+    // Comment count
+    [commentBtn removeTarget:self action:NULL forControlEvents:UIControlEventAllEvents];
+    [commentBtn addTarget:self action:@selector(commentButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+
+    // Share
+    [shareBtn removeTarget:self action:NULL forControlEvents:UIControlEventAllEvents];
+    [shareBtn addTarget:self action:@selector(shareTapped) forControlEvents:UIControlEventTouchUpInside];
 
     // Check if current user is the author
     NSString *userIdStr = [[NSUserDefaults standardUserDefaults] stringForKey:@"hiyo_user_id"];
@@ -493,6 +719,16 @@ static CGFloat const kInputBarHeight = 56.0;
 
 #pragma mark - Actions
 
+- (void)commentButtonTapped {
+    [self.inputTextView becomeFirstResponder];
+}
+
+- (void)shareTapped {
+    NSString *textToShare = [NSString stringWithFormat:@"%@ - 来自Hiyo", self.postDetail.title ?: @""];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
 - (void)likeTapped {
     BOOL currentLike = self.postDetail.isLiked;
     self.postDetail.isLiked = !currentLike;
@@ -514,6 +750,18 @@ static CGFloat const kInputBarHeight = 56.0;
             [self updateHeaderUI];
         }
     }];
+}
+
+- (void)replyToComment:(UIButton *)sender {
+    NSInteger index = sender.tag - 200;
+    if (index >= 0 && index < (NSInteger)self.postDetail.comments.count) {
+        HYPostComment *comment = self.postDetail.comments[index];
+        self.inputTextView.text = [NSString stringWithFormat:@"回复 %@: ", comment.userName ?: @""];
+        UILabel *placeholder = [self.inputTextView.superview viewWithTag:100];
+        placeholder.hidden = YES;
+        self.sendButton.enabled = YES;
+        [self.inputTextView becomeFirstResponder];
+    }
 }
 
 - (void)deletePostTapped {
@@ -583,9 +831,42 @@ static CGFloat const kInputBarHeight = 56.0;
     return self.postDetail ? self.postDetail.comments.count : 0;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (!self.postDetail || self.postDetail.comments.count == 0) return nil;
-    return [NSString stringWithFormat:@"评论 (%ld)", (long)self.postDetail.comments.count];
+
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [UIColor clearColor];
+
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithRed:0.941 green:0.941 blue:0.961 alpha:1.0];
+    [header addSubview:line];
+
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = [NSString stringWithFormat:@"评论 %ld", (long)self.postDetail.comments.count];
+    titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
+    titleLabel.textColor = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0];
+    [header addSubview:titleLabel];
+
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.bottom.equalTo(header);
+        make.height.equalTo(@1);
+    }];
+
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(header).offset(24);
+        make.bottom.equalTo(line.mas_top).offset(-8);
+    }];
+
+    [header mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@45);
+    }];
+
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (!self.postDetail || self.postDetail.comments.count == 0) return 0;
+    return 45;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -594,23 +875,97 @@ static CGFloat const kInputBarHeight = 56.0;
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor clearColor];
+
+        UIView *container = [[UIView alloc] init];
+        container.tag = 100;
+        [cell.contentView addSubview:container];
+
+        UIImageView *avatar = [[UIImageView alloc] init];
+        avatar.contentMode = UIViewContentModeScaleAspectFill;
+        avatar.clipsToBounds = YES;
+        avatar.layer.cornerRadius = 20;
+        avatar.backgroundColor = [UIColor colorWithRed:0.91 green:0.878 blue:1.0 alpha:1.0];
+        avatar.tag = 101;
+        [container addSubview:avatar];
+
+        UILabel *nameLabel = [[UILabel alloc] init];
+        nameLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightBold];
+        nameLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+        nameLabel.tag = 102;
+        [container addSubview:nameLabel];
+
+        UILabel *contentLabel = [[UILabel alloc] init];
+        contentLabel.font = [UIFont systemFontOfSize:13];
+        contentLabel.textColor = [UIColor colorWithRed:0.333 green:0.333 blue:0.333 alpha:1.0];
+        contentLabel.numberOfLines = 0;
+        contentLabel.tag = 103;
+        [container addSubview:contentLabel];
+
+        UILabel *timeLabel = [[UILabel alloc] init];
+        timeLabel.font = [UIFont systemFontOfSize:11];
+        timeLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
+        timeLabel.tag = 104;
+        [container addSubview:timeLabel];
+
+        UIButton *replyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [replyBtn setTitle:@"回复" forState:UIControlStateNormal];
+        replyBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [replyBtn setTitleColor:PinkGradStart forState:UIControlStateNormal];
+        replyBtn.tag = 105;
+        [container addSubview:replyBtn];
+
+        [container mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(cell.contentView).insets(UIEdgeInsetsMake(8, 24, 8, 24));
+        }];
+
+        [avatar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.top.equalTo(container);
+            make.width.height.equalTo(@40);
+        }];
+
+        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(avatar.mas_trailing).offset(10);
+            make.top.equalTo(avatar).offset(2);
+            make.trailing.lessThanOrEqualTo(replyBtn.mas_leading).offset(-4);
+        }];
+
+        [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(nameLabel);
+            make.top.equalTo(nameLabel.mas_bottom).offset(3);
+            make.trailing.equalTo(container);
+        }];
+
+        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.leading.equalTo(nameLabel);
+            make.top.equalTo(contentLabel.mas_bottom).offset(3);
+            make.bottom.equalTo(container);
+        }];
+
+        [replyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(container);
+            make.centerY.equalTo(timeLabel);
+        }];
     }
 
     HYPostComment *comment = self.postDetail.comments[indexPath.row];
 
-    // Build cell content
-    NSMutableString *text = [NSMutableString string];
-    [text appendFormat:@"%@ ", comment.userName];
-    [text appendString:comment.content];
+    UIView *container = [cell.contentView viewWithTag:100];
+    UIImageView *avatar = [container viewWithTag:101];
+    UILabel *nameLabel = [container viewWithTag:102];
+    UILabel *contentLabel = [container viewWithTag:103];
+    UILabel *timeLabel = [container viewWithTag:104];
+    UIButton *replyBtn = [container viewWithTag:105];
 
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:text];
-    [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14 weight:UIFontWeightSemibold] range:NSMakeRange(0, comment.userName.length)];
-    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor labelColor] range:NSMakeRange(0, comment.userName.length)];
-    [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(comment.userName.length, text.length - comment.userName.length)];
-    [attr addAttribute:NSForegroundColorAttributeName value:[UIColor secondaryLabelColor] range:NSMakeRange(comment.userName.length, text.length - comment.userName.length)];
+    [avatar sd_setImageWithURL:[NSURL URLWithString:comment.userAvatar] placeholderImage:[UIImage systemImageNamed:@"person.circle.fill"]];
+    nameLabel.text = comment.userName ?: @"匿名用户";
+    contentLabel.text = comment.content;
+    timeLabel.text = [self formatTime:comment.createdAt];
+    replyBtn.tag = 200 + indexPath.row;
 
-    cell.textLabel.attributedText = attr;
-    cell.detailTextLabel.text = [self formatTime:comment.createdAt];
+    [replyBtn removeTarget:self action:NULL forControlEvents:UIControlEventAllEvents];
+    [replyBtn addTarget:self action:@selector(replyToComment:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
