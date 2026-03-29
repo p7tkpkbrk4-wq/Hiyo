@@ -1,0 +1,6 @@
+framework module Pods_Hiyo {
+  umbrella header "Pods-Hiyo-umbrella.h"
+
+  export *
+  module * { export * }
+}

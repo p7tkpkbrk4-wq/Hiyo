@@ -10,9 +10,9 @@ xcshareddata/
 DerivedData
 
 # CocoaPods
-Pods/
-!Podfile
-!Podfile.lock
+# Pods/
+# !Podfile
+# !Podfile.lock
 
 # IDE
 .idea/
