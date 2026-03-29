@@ -139,16 +139,21 @@
 #pragma mark - Setup
 
 - (void)setupNavigationBar {
-    self.navigationController.navigationBar.tintColor = PinkGradStart;
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = @{
+        NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
+        NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
+    };
 
     if (@available(iOS 15.0, *)) {
         UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
         [appearance configureWithOpaqueBackground];
-        appearance.backgroundColor = [UIColor whiteColor];
+        appearance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
         appearance.shadowColor = [UIColor colorWithRed:0.933 green:0.933 blue:1.0 alpha:1.0];
         appearance.titleTextAttributes = @{
             NSForegroundColorAttributeName: [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0],
-            NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBold]
+            NSFontAttributeName: [UIFont systemFontOfSize:18 weight:UIFontWeightBlack]
         };
         self.navigationController.navigationBar.standardAppearance = appearance;
         self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
