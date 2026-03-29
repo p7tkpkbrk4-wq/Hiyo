@@ -1,13 +1,7 @@
 #import "HYBaseViewController.h"
 #import "HYColors.h"
 #import "HYNotificationConstants.h"
-
-@interface HYBaseViewController ()
-
-@property (nonatomic, strong, readwrite) UIActivityIndicatorView *loadingIndicator;
-@property (nonatomic, strong, readwrite) UIView *loadingOverlay;
-
-@end
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @implementation HYBaseViewController
 
@@ -22,9 +16,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = DarkBackground;
-    [self setupLoadingOverlay];
     [self setupKeyboardDismissal];
     [self setupNotificationObservers];
+    [self setupSVProgressHUD];
 }
 
 - (void)setupNavigationBarDark {
@@ -43,27 +37,14 @@
     }
 }
 
-- (void)setupLoadingOverlay {
-    self.loadingOverlay = [[UIView alloc] init];
-    self.loadingOverlay.backgroundColor = [DarkBackground colorWithAlphaComponent:0.7];
-    self.loadingOverlay.hidden = YES;
-    [self.view addSubview:self.loadingOverlay];
-    self.loadingOverlay.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.loadingOverlay.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [self.loadingOverlay.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [self.loadingOverlay.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [self.loadingOverlay.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
-    ]];
-
-    self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-    self.loadingIndicator.color = [UIColor whiteColor];
-    [self.loadingOverlay addSubview:self.loadingIndicator];
-    self.loadingIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [self.loadingIndicator.centerXAnchor constraintEqualToAnchor:self.loadingOverlay.centerXAnchor],
-        [self.loadingIndicator.centerYAnchor constraintEqualToAnchor:self.loadingOverlay.centerYAnchor]
-    ]];
+- (void)setupSVProgressHUD {
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setCornerRadius:12];
+    [SVProgressHUD setFont:[UIFont systemFontOfSize:14]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [SVProgressHUD setBackgroundColor:[DarkCard colorWithAlphaComponent:0.9]];
+    [SVProgressHUD setMinimumDismissTimeInterval:2.0];
+    [SVProgressHUD setRingThickness:2.5];
 }
 
 - (void)setupKeyboardDismissal {
@@ -90,13 +71,11 @@
 #pragma mark - Public Methods
 
 - (void)showLoading {
-    self.loadingOverlay.hidden = NO;
-    [self.loadingIndicator startAnimating];
+    [SVProgressHUD show];
 }
 
 - (void)hideLoading {
-    self.loadingOverlay.hidden = YES;
-    [self.loadingIndicator stopAnimating];
+    [SVProgressHUD dismiss];
 }
 
 - (void)showAlert:(NSString *)message {
@@ -108,44 +87,7 @@
 }
 
 - (void)showToast:(NSString *)message {
-    [self showToast:message duration:2.0 color:DarkCard];
-}
-
-- (void)showToast:(NSString *)message duration:(NSTimeInterval)duration color:(UIColor *)backgroundColor {
-    UILabel *toast = [[UILabel alloc] init];
-    toast.text = message;
-    toast.font = [UIFont systemFontOfSize:14];
-    toast.textColor = [UIColor whiteColor];
-    toast.backgroundColor = backgroundColor;
-    toast.textAlignment = NSTextAlignmentCenter;
-    toast.layer.cornerRadius = 20;
-    toast.clipsToBounds = YES;
-    toast.alpha = 0;
-    [self.view addSubview:toast];
-
-    CGSize maxSize = CGSizeMake(self.view.bounds.size.width - 80, 100);
-    CGSize size = [message sizeWithAttributes:@{NSFontAttributeName: toast.font}];
-    CGFloat width = MIN(size.width + 40, maxSize.width);
-
-    toast.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [toast.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [toast.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-40],
-        [toast.widthAnchor constraintGreaterThanOrEqualToConstant:width],
-        [toast.heightAnchor constraintEqualToConstant:40]
-    ]];
-
-    [UIView animateWithDuration:0.3 animations:^{
-        toast.alpha = 1;
-    } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.3 animations:^{
-                toast.alpha = 0;
-            } completion:^(BOOL finished) {
-                [toast removeFromSuperview];
-            }];
-        });
-    }];
+    [SVProgressHUD showInfoWithStatus:message];
 }
 
 - (void)dismissKeyboard {

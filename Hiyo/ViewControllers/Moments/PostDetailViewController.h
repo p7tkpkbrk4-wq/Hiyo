@@ -1,8 +1,8 @@
-#import <UIKit/UIKit.h>
+#import "HYBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PostDetailViewController : UIViewController
+@interface PostDetailViewController : HYBaseViewController
 
 @property (nonatomic, copy, nullable) void (^onPostDeleted)(void);
 @property (nonatomic, copy, nullable) void (^onPostUpdated)(id post);

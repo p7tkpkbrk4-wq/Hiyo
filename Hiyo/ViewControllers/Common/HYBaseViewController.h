@@ -13,9 +13,6 @@
 - (void)setupNavigationBarDark;
 - (void)dismissKeyboard;
 
-@property (nonatomic, strong, readonly) UIActivityIndicatorView *loadingIndicator;
-@property (nonatomic, strong, readonly) UIView *loadingOverlay;
-
 @end
 
 #endif

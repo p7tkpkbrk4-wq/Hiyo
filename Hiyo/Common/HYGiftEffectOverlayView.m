@@ -3,10 +3,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import <SDWebImage/SDWebImage.h>
 #import <Masonry/Masonry.h>
+#import <SVGAPlayer/SVGAPlayer.h>
+#import <SVGAPlayer/SVGAImageView.h>
+#import <SVGAPlayer/SVGAParser.h>
 
 static const NSTimeInterval kFallbackTimeout = 60.0;
 
-@interface HYGiftEffectOverlayView ()
+@interface HYGiftEffectOverlayView () <SVGAPlayerDelegate>
 @property (nonatomic, copy) NSString *effectURL;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIView *contentView;
@@ -14,6 +17,8 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
 @property (nonatomic, strong) AVPlayer *avPlayer;
 @property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
 @property (nonatomic, strong) id playbackEndObserver;
+@property (nonatomic, strong) SDAnimatedImageView *animatedImageView;
+@property (nonatomic, strong) SVGAImageView *svgaPlayerView;
 @end
 
 @implementation HYGiftEffectOverlayView
@@ -100,7 +105,9 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
 
 - (void)playEffectFromFile:(NSString *)path {
     NSString *ext = [[path pathExtension] lowercaseString];
-    if ([@[@"mp4", @"webm", @"mov"] containsObject:ext]) {
+    if ([@[@"svga"] containsObject:ext]) {
+        [self playSVGAFromFile:path];
+    } else if ([@[@"mp4", @"webm", @"mov"] containsObject:ext]) {
         [self playVideoFromFile:path];
     } else {
         // GIF / WebP / APNG — SDAnimatedImageView
@@ -110,7 +117,9 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
 
 - (void)playEffectFromURL:(NSString *)url {
     NSString *ext = [[url pathExtension] lowercaseString];
-    if ([@[@"mp4", @"webm", @"mov"] containsObject:ext]) {
+    if ([@[@"svga"] containsObject:ext]) {
+        [self playSVGAFromURL:[NSURL URLWithString:url]];
+    } else if ([@[@"mp4", @"webm", @"mov"] containsObject:ext]) {
         [self playVideoFromURL:[NSURL URLWithString:url]];
     } else {
         [self playAnimatedImageFromURL:[NSURL URLWithString:url]];
@@ -151,24 +160,68 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
 #pragma mark - Animated Image (GIF/WebP/APNG)
 
 - (void)playAnimatedImageFromURL:(NSURL *)url {
-    SDAnimatedImageView *imgView = [[SDAnimatedImageView alloc] init];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.clipsToBounds = YES;
-    imgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.contentView addSubview:imgView];
-    imgView.frame = self.contentView.bounds;
+    self.animatedImageView = [[SDAnimatedImageView alloc] init];
+    self.animatedImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.animatedImageView.clipsToBounds = YES;
+    self.animatedImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.animatedImageView.frame = self.contentView.bounds;
+    [self.contentView addSubview:self.animatedImageView];
 
-    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-        if (finished && image) {
-            imgView.image = image;
-            // GIF/WebP auto-plays in SDAnimatedImageView
-            // Estimate playback duration or wait for animation cycle
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismiss];
-            });
-        } else {
-            [self dismiss];
+    // sd_setImageWithURL handles download + cache + playback automatically
+    __weak typeof(self) wself = self;
+    [self.animatedImageView sd_setImageWithURL:url placeholderImage:nil options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!image || error) {
+            [wself dismiss];
+            return;
         }
+        if (!wself) return;
+
+        // If static image (not animated), dismiss immediately
+        if (![wself.animatedImageView isAnimating]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [wself dismiss];
+            });
+            return;
+        }
+
+        // KVO: watch isAnimating → when animation stops, dismiss
+        [wself.animatedImageView addObserver:wself
+                                 forKeyPath:@"isAnimating"
+                                    options:NSKeyValueObservingOptionNew
+                                    context:NULL];
+    }];
+}
+
+#pragma mark - SVGA Animation
+
+- (void)playSVGAFromFile:(NSString *)path {
+    [self playSVGAPlayerWithURL:[NSURL fileURLWithPath:path]];
+}
+
+- (void)playSVGAFromURL:(NSURL *)url {
+    [self playSVGAPlayerWithURL:url];
+}
+
+- (void)playSVGAPlayerWithURL:(NSURL *)url {
+    SVGAImageView *playerView = [[SVGAImageView alloc] init];
+    playerView.contentMode = UIViewContentModeScaleAspectFit;
+    playerView.clipsToBounds = YES;
+    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    playerView.frame = self.contentView.bounds;
+    [self.contentView addSubview:playerView];
+    self.svgaPlayerView = playerView;
+    playerView.delegate = self;
+
+    SVGAParser *parser = [[SVGAParser alloc] init];
+    [parser parseWithURL:url completionBlock:^(SVGAVideoEntity *videoItem) {
+        if (!videoItem) {
+            [self dismiss];
+            return;
+        }
+        self.svgaPlayerView.videoItem = videoItem;
+        [self.svgaPlayerView startAnimation];
+    } failureBlock:^(NSError *error) {
+        [self dismiss];
     }];
 }
 
@@ -183,8 +236,17 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
         self.playbackEndObserver = nil;
     }
 
+    @try {
+        [self.animatedImageView removeObserver:self forKeyPath:@"isAnimating"];
+    } @catch (NSException *exception) {
+        // Observer not registered
+    }
+
     [self.avPlayer pause];
     self.avPlayer = nil;
+
+    [self.svgaPlayerView stopAnimation];
+    self.svgaPlayerView = nil;
 
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 0;
@@ -198,7 +260,29 @@ static const NSTimeInterval kFallbackTimeout = 60.0;
     if (self.playbackEndObserver) {
         [[NSNotificationCenter defaultCenter] removeObserver:self.playbackEndObserver];
     }
+    @try {
+        [self.animatedImageView removeObserver:self forKeyPath:@"isAnimating"];
+    } @catch (NSException *exception) {
+        // Observer not registered
+    }
     [self.avPlayer pause];
+}
+
+#pragma mark - NSKeyValueObserving
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"isAnimating"] && object == self.animatedImageView) {
+        BOOL animating = [change[NSKeyValueChangeNewKey] boolValue];
+        if (!animating) {
+            [self dismiss];
+        }
+    }
+}
+
+#pragma mark - SVGAPlayerDelegate
+
+- (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player {
+    [self dismiss];
 }
 
 @end
